@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = A556411C2B9C3FCC000A1F27 /* Tabman */; };
+		A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */; };
+		A55641222B9C6B5B000A1F27 /* TotalResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */; };
+		A55641252B9C6E89000A1F27 /* TotalResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641242B9C6E89000A1F27 /* TotalResultTableViewCell.swift */; };
+		A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641262B9C6EAF000A1F27 /* BaseTableViewCell.swift */; };
+		A556412A2B9C7794000A1F27 /* TopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641292B9C7794000A1F27 /* TopCollectionViewCell.swift */; };
 		A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */; };
 		A5ED2E8F2B99837800BB0E9C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */; };
 		A5ED2E912B99837800BB0E9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E902B99837800BB0E9C /* ViewController.swift */; };
@@ -14,9 +20,27 @@
 		A5ED2E962B99837900BB0E9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5ED2E952B99837900BB0E9C /* Assets.xcassets */; };
 		A5ED2E992B99837900BB0E9C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5ED2E972B99837900BB0E9C /* LaunchScreen.storyboard */; };
 		A5ED2EA12B9985FD00BB0E9C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = A5ED2EA02B9985FD00BB0E9C /* .gitignore */; };
+		A5ED2EA32B998B3300BB0E9C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EA22B998B3300BB0E9C /* APIKey.swift */; };
+		A5ED2EBD2B9991F500BB0E9C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A5ED2EBC2B9991F500BB0E9C /* Localizable.xcstrings */; };
+		A5ED2EBF2B99927600BB0E9C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5ED2EBE2B99927600BB0E9C /* InfoPlist.strings */; };
+		A5ED2EC22B9993E400BB0E9C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EC12B9993E400BB0E9C /* OnboardingViewController.swift */; };
+		A5ED2EC52B99945F00BB0E9C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EC42B99945F00BB0E9C /* BaseViewController.swift */; };
+		A5ED2ECD2B9994F900BB0E9C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A5ED2ECC2B9994F900BB0E9C /* SnapKit */; };
+		A5ED2ED02B99981B00BB0E9C /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2ECF2B99981B00BB0E9C /* Country.swift */; };
+		A5ED2ED22B999A3B00BB0E9C /* LocalString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2ED12B999A3B00BB0E9C /* LocalString.swift */; };
+		A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2ED42B999FCB00BB0E9C /* CountryCollectionViewCell.swift */; };
+		A5ED2ED82B99A8C100BB0E9C /* TotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2ED72B99A8C100BB0E9C /* TotalViewController.swift */; };
+		A5ED2EDE2B9AFF3700BB0E9C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EDD2B9AFF3700BB0E9C /* SearchViewController.swift */; };
+		A5ED2EE12B9B2A3200BB0E9C /* LocalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EE02B9B2A3200BB0E9C /* LocalCollectionViewCell.swift */; };
+		A5ED2EE32B9B2A4000BB0E9C /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EE22B9B2A4000BB0E9C /* BaseCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabmanViewController.swift; sourceTree = "<group>"; };
+		A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultViewController.swift; sourceTree = "<group>"; };
+		A55641242B9C6E89000A1F27 /* TotalResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultTableViewCell.swift; sourceTree = "<group>"; };
+		A55641262B9C6EAF000A1F27 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		A55641292B9C7794000A1F27 /* TopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCollectionViewCell.swift; sourceTree = "<group>"; };
 		A5ED2E892B99837800BB0E9C /* NuriRock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuriRock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +50,28 @@
 		A5ED2E982B99837900BB0E9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5ED2E9A2B99837900BB0E9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5ED2EA02B9985FD00BB0E9C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		A5ED2EA22B998B3300BB0E9C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		A5ED2EB22B9990E400BB0E9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		A5ED2EB32B9990E400BB0E9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A5ED2EB42B9990F200BB0E9C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		A5ED2EB52B9990F200BB0E9C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		A5ED2EB62B9990F600BB0E9C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		A5ED2EB72B9990F600BB0E9C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		A5ED2EB82B9990FC00BB0E9C /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		A5ED2EB92B9990FC00BB0E9C /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A5ED2EBA2B99910A00BB0E9C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		A5ED2EBB2B99910A00BB0E9C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A5ED2EBC2B9991F500BB0E9C /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		A5ED2EBE2B99927600BB0E9C /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		A5ED2EC12B9993E400BB0E9C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		A5ED2EC42B99945F00BB0E9C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		A5ED2ECF2B99981B00BB0E9C /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		A5ED2ED12B999A3B00BB0E9C /* LocalString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalString.swift; sourceTree = "<group>"; };
+		A5ED2ED42B999FCB00BB0E9C /* CountryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollectionViewCell.swift; sourceTree = "<group>"; };
+		A5ED2ED72B99A8C100BB0E9C /* TotalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalViewController.swift; sourceTree = "<group>"; };
+		A5ED2EDD2B9AFF3700BB0E9C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		A5ED2EE02B9B2A3200BB0E9C /* LocalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCollectionViewCell.swift; sourceTree = "<group>"; };
+		A5ED2EE22B9B2A4000BB0E9C /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,12 +79,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5ED2ECD2B9994F900BB0E9C /* SnapKit in Frameworks */,
+				A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A556411E2B9C4019000A1F27 /* Tabman */ = {
+			isa = PBXGroup;
+			children = (
+				A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */,
+				A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */,
+				A55641232B9C6CD3000A1F27 /* TotalResultTableViewCells */,
+			);
+			path = Tabman;
+			sourceTree = "<group>";
+		};
+		A55641232B9C6CD3000A1F27 /* TotalResultTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				A55641242B9C6E89000A1F27 /* TotalResultTableViewCell.swift */,
+				A55641282B9C775C000A1F27 /* collectionViewCells */,
+			);
+			path = TotalResultTableViewCells;
+			sourceTree = "<group>";
+		};
+		A55641282B9C775C000A1F27 /* collectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				A55641292B9C7794000A1F27 /* TopCollectionViewCell.swift */,
+			);
+			path = collectionViewCells;
+			sourceTree = "<group>";
+		};
 		A5ED2E802B99837800BB0E9C = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +134,12 @@
 		A5ED2E8B2B99837800BB0E9C /* NuriRock */ = {
 			isa = PBXGroup;
 			children = (
+				A5ED2EC32B99945500BB0E9C /* Base */,
+				A5ED2ECE2B99980800BB0E9C /* Enum */,
+				A5ED2EC02B9993CF00BB0E9C /* Onboarding */,
+				A5ED2ED62B99A87400BB0E9C /* Total */,
+				A5ED2EDC2B9AFEFC00BB0E9C /* Search */,
+				A556411E2B9C4019000A1F27 /* Tabman */,
 				A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */,
 				A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */,
 				A5ED2E902B99837800BB0E9C /* ViewController.swift */,
@@ -66,8 +147,72 @@
 				A5ED2E952B99837900BB0E9C /* Assets.xcassets */,
 				A5ED2E972B99837900BB0E9C /* LaunchScreen.storyboard */,
 				A5ED2E9A2B99837900BB0E9C /* Info.plist */,
+				A5ED2EA22B998B3300BB0E9C /* APIKey.swift */,
+				A5ED2EBC2B9991F500BB0E9C /* Localizable.xcstrings */,
+				A5ED2EBE2B99927600BB0E9C /* InfoPlist.strings */,
 			);
 			path = NuriRock;
+			sourceTree = "<group>";
+		};
+		A5ED2EC02B9993CF00BB0E9C /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				A5ED2EC12B9993E400BB0E9C /* OnboardingViewController.swift */,
+				A5ED2ED32B999FA900BB0E9C /* CountryCollectionViewCell */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		A5ED2EC32B99945500BB0E9C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A5ED2EC42B99945F00BB0E9C /* BaseViewController.swift */,
+				A5ED2EE22B9B2A4000BB0E9C /* BaseCollectionViewCell.swift */,
+				A55641262B9C6EAF000A1F27 /* BaseTableViewCell.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		A5ED2ECE2B99980800BB0E9C /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				A5ED2ECF2B99981B00BB0E9C /* Country.swift */,
+				A5ED2ED12B999A3B00BB0E9C /* LocalString.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		A5ED2ED32B999FA900BB0E9C /* CountryCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A5ED2ED42B999FCB00BB0E9C /* CountryCollectionViewCell.swift */,
+			);
+			path = CountryCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		A5ED2ED62B99A87400BB0E9C /* Total */ = {
+			isa = PBXGroup;
+			children = (
+				A5ED2ED72B99A8C100BB0E9C /* TotalViewController.swift */,
+				A5ED2EDF2B9B2A1100BB0E9C /* LocalCollectionView */,
+			);
+			path = Total;
+			sourceTree = "<group>";
+		};
+		A5ED2EDC2B9AFEFC00BB0E9C /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A5ED2EDD2B9AFF3700BB0E9C /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		A5ED2EDF2B9B2A1100BB0E9C /* LocalCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				A5ED2EE02B9B2A3200BB0E9C /* LocalCollectionViewCell.swift */,
+			);
+			path = LocalCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +231,10 @@
 			dependencies = (
 			);
 			name = NuriRock;
+			packageProductDependencies = (
+				A5ED2ECC2B9994F900BB0E9C /* SnapKit */,
+				A556411C2B9C3FCC000A1F27 /* Tabman */,
+			);
 			productName = NuriRock;
 			productReference = A5ED2E892B99837800BB0E9C /* NuriRock.app */;
 			productType = "com.apple.product-type.application";
@@ -110,10 +259,18 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ko,
+				"zh-Hans",
+				"zh-Hant",
+				ja,
+				en,
 			);
 			mainGroup = A5ED2E802B99837800BB0E9C;
+			packageReferences = (
+				A5ED2ECB2B9994F900BB0E9C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				A556411B2B9C3FCC000A1F27 /* XCRemoteSwiftPackageReference "Tabman" */,
+			);
 			productRefGroup = A5ED2E8A2B99837800BB0E9C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -129,6 +286,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5ED2EA12B9985FD00BB0E9C /* .gitignore in Resources */,
+				A5ED2EBF2B99927600BB0E9C /* InfoPlist.strings in Resources */,
+				A5ED2EBD2B9991F500BB0E9C /* Localizable.xcstrings in Resources */,
 				A5ED2E992B99837900BB0E9C /* LaunchScreen.storyboard in Resources */,
 				A5ED2E962B99837900BB0E9C /* Assets.xcassets in Resources */,
 				A5ED2E942B99837800BB0E9C /* Main.storyboard in Resources */,
@@ -142,9 +301,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A556412A2B9C7794000A1F27 /* TopCollectionViewCell.swift in Sources */,
+				A55641222B9C6B5B000A1F27 /* TotalResultViewController.swift in Sources */,
+				A5ED2ED02B99981B00BB0E9C /* Country.swift in Sources */,
+				A5ED2EDE2B9AFF3700BB0E9C /* SearchViewController.swift in Sources */,
+				A5ED2ED22B999A3B00BB0E9C /* LocalString.swift in Sources */,
 				A5ED2E912B99837800BB0E9C /* ViewController.swift in Sources */,
+				A5ED2ED82B99A8C100BB0E9C /* TotalViewController.swift in Sources */,
 				A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */,
+				A5ED2EE12B9B2A3200BB0E9C /* LocalCollectionViewCell.swift in Sources */,
+				A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */,
+				A5ED2EC22B9993E400BB0E9C /* OnboardingViewController.swift in Sources */,
+				A5ED2EA32B998B3300BB0E9C /* APIKey.swift in Sources */,
 				A5ED2E8F2B99837800BB0E9C /* SceneDelegate.swift in Sources */,
+				A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */,
+				A5ED2EE32B9B2A4000BB0E9C /* BaseCollectionViewCell.swift in Sources */,
+				A5ED2EC52B99945F00BB0E9C /* BaseViewController.swift in Sources */,
+				A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */,
+				A55641252B9C6E89000A1F27 /* TotalResultTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +329,11 @@
 			isa = PBXVariantGroup;
 			children = (
 				A5ED2E932B99837800BB0E9C /* Base */,
+				A5ED2EB22B9990E400BB0E9C /* ko */,
+				A5ED2EB42B9990F200BB0E9C /* zh-Hans */,
+				A5ED2EB62B9990F600BB0E9C /* zh-Hant */,
+				A5ED2EB82B9990FC00BB0E9C /* ja */,
+				A5ED2EBA2B99910A00BB0E9C /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -163,6 +342,11 @@
 			isa = PBXVariantGroup;
 			children = (
 				A5ED2E982B99837900BB0E9C /* Base */,
+				A5ED2EB32B9990E400BB0E9C /* ko */,
+				A5ED2EB52B9990F200BB0E9C /* zh-Hans */,
+				A5ED2EB72B9990F600BB0E9C /* zh-Hant */,
+				A5ED2EB92B9990FC00BB0E9C /* ja */,
+				A5ED2EBB2B99910A00BB0E9C /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -175,6 +359,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -238,6 +423,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -302,8 +488,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,8 +520,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -375,6 +561,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A556411B2B9C3FCC000A1F27 /* XCRemoteSwiftPackageReference "Tabman" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uias/Tabman.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.2;
+			};
+		};
+		A5ED2ECB2B9994F900BB0E9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A556411C2B9C3FCC000A1F27 /* Tabman */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A556411B2B9C3FCC000A1F27 /* XCRemoteSwiftPackageReference "Tabman" */;
+			productName = Tabman;
+		};
+		A5ED2ECC2B9994F900BB0E9C /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5ED2ECB2B9994F900BB0E9C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A5ED2E812B99837800BB0E9C /* Project object */;
 }
