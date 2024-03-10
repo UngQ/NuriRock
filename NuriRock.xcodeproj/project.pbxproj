@@ -13,6 +13,16 @@
 		A55641252B9C6E89000A1F27 /* TotalResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641242B9C6E89000A1F27 /* TotalResultTableViewCell.swift */; };
 		A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641262B9C6EAF000A1F27 /* BaseTableViewCell.swift */; };
 		A556412A2B9C7794000A1F27 /* TopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641292B9C7794000A1F27 /* TopCollectionViewCell.swift */; };
+		A556412D2B9CB4B7000A1F27 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556412C2B9CB4B7000A1F27 /* API.swift */; };
+		A55641302B9CB549000A1F27 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A556412F2B9CB549000A1F27 /* Alamofire */; };
+		A55641322B9CB6B9000A1F27 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641312B9CB6B9000A1F27 /* APIService.swift */; };
+		A55641342B9CB906000A1F27 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641332B9CB906000A1F27 /* APIModel.swift */; };
+		A55641372B9D4636000A1F27 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641362B9D4636000A1F27 /* Observable.swift */; };
+		A55641392B9D4CC7000A1F27 /* TotalResultTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641382B9D4CC7000A1F27 /* TotalResultTableViewModel.swift */; };
+		A556413C2B9D5041000A1F27 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A556413B2B9D5041000A1F27 /* Kingfisher */; };
+		A5D5DD5E2B9DACB8007F9935 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */; };
+		A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD602B9DB32F007F9935 /* Delegate.swift */; };
+		A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */; };
 		A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */; };
 		A5ED2E8F2B99837800BB0E9C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */; };
 		A5ED2E912B99837800BB0E9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E902B99837800BB0E9C /* ViewController.swift */; };
@@ -41,6 +51,14 @@
 		A55641242B9C6E89000A1F27 /* TotalResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultTableViewCell.swift; sourceTree = "<group>"; };
 		A55641262B9C6EAF000A1F27 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A55641292B9C7794000A1F27 /* TopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCollectionViewCell.swift; sourceTree = "<group>"; };
+		A556412C2B9CB4B7000A1F27 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		A55641312B9CB6B9000A1F27 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		A55641332B9CB906000A1F27 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
+		A55641362B9D4636000A1F27 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		A55641382B9D4CC7000A1F27 /* TotalResultTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultTableViewModel.swift; sourceTree = "<group>"; };
+		A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		A5D5DD602B9DB32F007F9935 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
+		A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCollectionViewCell.swift; sourceTree = "<group>"; };
 		A5ED2E892B99837800BB0E9C /* NuriRock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuriRock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +97,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A556413C2B9D5041000A1F27 /* Kingfisher in Frameworks */,
+				A55641302B9CB549000A1F27 /* Alamofire in Frameworks */,
 				A5ED2ECD2B9994F900BB0E9C /* SnapKit in Frameworks */,
 				A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */,
 			);
@@ -92,26 +112,54 @@
 			children = (
 				A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */,
 				A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */,
-				A55641232B9C6CD3000A1F27 /* TotalResultTableViewCells */,
+				A55641232B9C6CD3000A1F27 /* TotalResultTableView */,
 			);
 			path = Tabman;
 			sourceTree = "<group>";
 		};
-		A55641232B9C6CD3000A1F27 /* TotalResultTableViewCells */ = {
+		A55641232B9C6CD3000A1F27 /* TotalResultTableView */ = {
 			isa = PBXGroup;
 			children = (
 				A55641242B9C6E89000A1F27 /* TotalResultTableViewCell.swift */,
+				A55641382B9D4CC7000A1F27 /* TotalResultTableViewModel.swift */,
 				A55641282B9C775C000A1F27 /* collectionViewCells */,
 			);
-			path = TotalResultTableViewCells;
+			path = TotalResultTableView;
 			sourceTree = "<group>";
 		};
 		A55641282B9C775C000A1F27 /* collectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				A55641292B9C7794000A1F27 /* TopCollectionViewCell.swift */,
+				A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */,
 			);
 			path = collectionViewCells;
+			sourceTree = "<group>";
+		};
+		A556412B2B9CB43F000A1F27 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A556412C2B9CB4B7000A1F27 /* API.swift */,
+				A55641312B9CB6B9000A1F27 /* APIService.swift */,
+				A55641332B9CB906000A1F27 /* APIModel.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A55641352B9D4628000A1F27 /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				A55641362B9D4636000A1F27 /* Observable.swift */,
+			);
+			path = Observable;
+			sourceTree = "<group>";
+		};
+		A5D5DD5F2B9DB311007F9935 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A5D5DD602B9DB32F007F9935 /* Delegate.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		A5ED2E802B99837800BB0E9C = {
@@ -134,8 +182,11 @@
 		A5ED2E8B2B99837800BB0E9C /* NuriRock */ = {
 			isa = PBXGroup;
 			children = (
+				A55641352B9D4628000A1F27 /* Observable */,
+				A556412B2B9CB43F000A1F27 /* Network */,
 				A5ED2EC32B99945500BB0E9C /* Base */,
 				A5ED2ECE2B99980800BB0E9C /* Enum */,
+				A5D5DD5F2B9DB311007F9935 /* Protocol */,
 				A5ED2EC02B9993CF00BB0E9C /* Onboarding */,
 				A5ED2ED62B99A87400BB0E9C /* Total */,
 				A5ED2EDC2B9AFEFC00BB0E9C /* Search */,
@@ -178,6 +229,7 @@
 			children = (
 				A5ED2ECF2B99981B00BB0E9C /* Country.swift */,
 				A5ED2ED12B999A3B00BB0E9C /* LocalString.swift */,
+				A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -234,6 +286,8 @@
 			packageProductDependencies = (
 				A5ED2ECC2B9994F900BB0E9C /* SnapKit */,
 				A556411C2B9C3FCC000A1F27 /* Tabman */,
+				A556412F2B9CB549000A1F27 /* Alamofire */,
+				A556413B2B9D5041000A1F27 /* Kingfisher */,
 			);
 			productName = NuriRock;
 			productReference = A5ED2E892B99837800BB0E9C /* NuriRock.app */;
@@ -270,6 +324,8 @@
 			packageReferences = (
 				A5ED2ECB2B9994F900BB0E9C /* XCRemoteSwiftPackageReference "SnapKit" */,
 				A556411B2B9C3FCC000A1F27 /* XCRemoteSwiftPackageReference "Tabman" */,
+				A556412E2B9CB549000A1F27 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A556413A2B9D5041000A1F27 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = A5ED2E8A2B99837800BB0E9C /* Products */;
 			projectDirPath = "";
@@ -301,11 +357,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A55641372B9D4636000A1F27 /* Observable.swift in Sources */,
 				A556412A2B9C7794000A1F27 /* TopCollectionViewCell.swift in Sources */,
+				A556412D2B9CB4B7000A1F27 /* API.swift in Sources */,
 				A55641222B9C6B5B000A1F27 /* TotalResultViewController.swift in Sources */,
 				A5ED2ED02B99981B00BB0E9C /* Country.swift in Sources */,
 				A5ED2EDE2B9AFF3700BB0E9C /* SearchViewController.swift in Sources */,
 				A5ED2ED22B999A3B00BB0E9C /* LocalString.swift in Sources */,
+				A55641322B9CB6B9000A1F27 /* APIService.swift in Sources */,
+				A55641342B9CB906000A1F27 /* APIModel.swift in Sources */,
 				A5ED2E912B99837800BB0E9C /* ViewController.swift in Sources */,
 				A5ED2ED82B99A8C100BB0E9C /* TotalViewController.swift in Sources */,
 				A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */,
@@ -313,11 +373,15 @@
 				A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */,
 				A5ED2EC22B9993E400BB0E9C /* OnboardingViewController.swift in Sources */,
 				A5ED2EA32B998B3300BB0E9C /* APIKey.swift in Sources */,
+				A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */,
 				A5ED2E8F2B99837800BB0E9C /* SceneDelegate.swift in Sources */,
+				A5D5DD5E2B9DACB8007F9935 /* ContentType.swift in Sources */,
+				A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */,
 				A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */,
 				A5ED2EE32B9B2A4000BB0E9C /* BaseCollectionViewCell.swift in Sources */,
 				A5ED2EC52B99945F00BB0E9C /* BaseViewController.swift in Sources */,
 				A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */,
+				A55641392B9D4CC7000A1F27 /* TotalResultTableViewModel.swift in Sources */,
 				A55641252B9C6E89000A1F27 /* TotalResultTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +549,7 @@
 				DEVELOPMENT_TEAM = VRPU7TR7JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NuriRock/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NuriRock;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -517,6 +582,7 @@
 				DEVELOPMENT_TEAM = VRPU7TR7JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NuriRock/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NuriRock;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -571,6 +637,22 @@
 				minimumVersion = 3.0.2;
 			};
 		};
+		A556412E2B9CB549000A1F27 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.0;
+			};
+		};
+		A556413A2B9D5041000A1F27 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
 		A5ED2ECB2B9994F900BB0E9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -586,6 +668,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A556411B2B9C3FCC000A1F27 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
+		};
+		A556412F2B9CB549000A1F27 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A556412E2B9CB549000A1F27 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		A556413B2B9D5041000A1F27 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A556413A2B9D5041000A1F27 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		A5ED2ECC2B9994F900BB0E9C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

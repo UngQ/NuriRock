@@ -32,7 +32,9 @@ final class TotalViewController: BaseViewController {
 
 		searchController.searchBar.showsScopeBar = true
 		searchController.searchBar.delegate = self
+
 		self.navigationItem.searchController = searchController
+
 
 
 		let logo = UIImage(resource: .title)
@@ -41,8 +43,7 @@ final class TotalViewController: BaseViewController {
 
 		imageView.contentMode = .scaleAspectFit
 		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .cyan
-
+		navigationController?.navigationBar.backgroundColor = .white
 
 
     }
@@ -84,7 +85,7 @@ final class TotalViewController: BaseViewController {
 //		}
 
 
-		localCollectionView.backgroundColor = .blue
+		localCollectionView.backgroundColor = .white
 
 		localCollectionView.delegate = self
 		localCollectionView.dataSource = self
@@ -122,7 +123,7 @@ final class TotalViewController: BaseViewController {
 
 //네비게이션 서치바
 extension TotalViewController: UISearchBarDelegate {
-
+//sear
 }
 
 

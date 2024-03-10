@@ -21,7 +21,7 @@ final class TabManViewController: TabmanViewController {
         super.viewDidLoad()
 
 		viewControllers.append(TotalResultViewController())
-		viewControllers.append(SearchViewController())
+		viewControllers.append(TotalResultViewController())
 		self.dataSource = self
 
 		view.addSubview(baseView)

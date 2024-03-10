@@ -32,7 +32,7 @@ final class TotalResultViewController: BaseViewController {
 	}
 
 	override func configureView() {
-		mainTableView.backgroundColor = .lightGray
+		mainTableView.backgroundColor = .white
 
 		mainTableView.delegate = self
 		mainTableView.dataSource = self
@@ -50,7 +50,8 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "TotalResultTableViewCell", for: indexPath) as! TotalResultTableViewCell
-
+		
+		cell.delegate = self
 
 		cell.bottomCollectionView.backgroundColor = .brown
 
@@ -59,4 +60,14 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 	
 
 
+}
+
+
+extension TotalResultViewController: TotalResultTableViewCellDelegate {
+	func addButtonDidTap() {
+		print("Hmm..")
+		guard let tabmanController = self.parent as? TabManViewController else { return }
+		print("hihi")
+		tabmanController.scrollToPage(.at(index: 1), animated: true)
+	}
 }

@@ -32,9 +32,8 @@ final class LocalCollectionViewCell: BaseCollectionViewCell {
 	}
 
 	override func configureCell() {
-		imageView.backgroundColor = .green
-
-		cityLabel.backgroundColor = .brown
+		imageView.backgroundColor = .clear
+		cityLabel.backgroundColor = .clear
 		cityLabel.font = .boldSystemFont(ofSize: 8)
 		cityLabel.textAlignment = .center
 
