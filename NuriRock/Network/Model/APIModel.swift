@@ -31,12 +31,14 @@ struct Items: Codable {
 
 // MARK: - Item
 struct Item: Codable {
-	let addr1, addr2, areacode, booktour: String
+	let addr1, addr2, areacode: String
 	let contentid, contenttypeid: String
 	let createdtime: String
 	let firstimage, firstimage2: String
 	let mapx, mapy, mlevel, modifiedtime: String
-	let sigungucode, tel, title, zipcode: String
+	let sigungucode, tel, title: String
+	let zipcode, eventstartdate, eventenddate: String?
+
 
 }
 
@@ -50,3 +52,6 @@ struct Item: Codable {
 struct Header: Codable {
 	let resultCode, resultMsg: String
 }
+
+
+

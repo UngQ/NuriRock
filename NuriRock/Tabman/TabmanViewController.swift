@@ -16,12 +16,21 @@ final class TabManViewController: TabmanViewController {
 
 	private var viewControllers: [UIViewController] = []
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		viewControllers.append(TotalResultViewController())
-		viewControllers.append(TotalResultViewController())
+		let totalResultVC = TotalResultViewController()
+		 totalResultVC.delegate = self
+
+		let searchVC = SearchViewController()
+
+
+		viewControllers.append(totalResultVC)
+		viewControllers.append(searchVC)
+		viewControllers.append(SearchViewController())
+		viewControllers.append(SearchViewController())
+		viewControllers.append(SearchViewController())
+		viewControllers.append(SearchViewController())
 		self.dataSource = self
 
 		view.addSubview(baseView)
@@ -36,11 +45,13 @@ final class TabManViewController: TabmanViewController {
 
 		bar.layout.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
 
+		bar.backgroundColor = .systemBlue
+
 		bar.buttons.customize { (button) in
-			button.tintColor = .systemGray4
+			button.tintColor = .systemGray
 			button.selectedTintColor = .black
-			button.font = .systemFont(ofSize: 15)
-			button.selectedFont = .boldSystemFont(ofSize: 15)
+			button.font = .systemFont(ofSize: 12)
+			button.selectedFont = .boldSystemFont(ofSize: 12)
 		}
 
 		bar.indicator.weight = .custom(value: 2)
@@ -49,7 +60,19 @@ final class TabManViewController: TabmanViewController {
 
 		addBar(bar, dataSource: self, at: .custom(view: baseView, layout: nil))
 
+
+//		TabManViewController.dele
+
     }
+
+	func itemSelected(at index: Int) {
+		// Assuming the first view controller in your viewControllers array
+		// is the one that contains the result table view. Adjust as necessary.
+		if let totalResultVC = viewControllers.first as? TotalResultViewController {
+			totalResultVC.selectedItemIndex = index
+			totalResultVC.updateUIBasedOnSelection()
+		}
+	}
 
 
 }
@@ -71,11 +94,25 @@ extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource
 	func barItem(for bar: Tabman.TMBar, at index: Int) -> Tabman.TMBarItemable {
 		switch index {
 		case 0:
-			let title = "test1"
+			let title = NSLocalizedString(LocalString.total.rawValue, comment: "")
 			return TMBarItem(title: title)
 
 		case 1:
-			let title = "test2"
+			let title = NSLocalizedString(LocalString.touristAttraction.rawValue, comment: "")
+			return TMBarItem(title: title)
+
+		case 2:
+			let title = NSLocalizedString(LocalString.culturalFacilities.rawValue, comment: "")
+			return TMBarItem(title: title)
+
+		case 3:
+			let title = "숙박"
+			return TMBarItem(title: title)
+		case 4:
+			let title = NSLocalizedString(LocalString.shopping.rawValue, comment: "")
+			return TMBarItem(title: title)
+		case 5:
+			let title = "맛집"
 			return TMBarItem(title: title)
 
 		default:
@@ -84,4 +121,11 @@ extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource
 	}
 	
 
+}
+
+extension TabManViewController: TotalResultViewControllerDelegate {
+	func addButtonClicked(_ segmentIndex: Int) {
+		let pageIndex = segmentIndex == 0 ? 1 : 5
+		scrollToPage(.at(index: pageIndex), animated: true)
+	}
 }

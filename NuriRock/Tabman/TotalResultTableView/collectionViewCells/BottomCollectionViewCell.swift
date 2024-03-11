@@ -27,7 +27,11 @@ class BottomCollectionViewCell: BaseCollectionViewCell {
 	}
 
 	override func configureCell() {
-		backgroundColor = .green
+		
+
+		posterImageView.clipsToBounds = true
+		posterImageView.layer.cornerRadius = 20
+		posterImageView.contentMode = .scaleAspectFill
 	}
 
 	required init?(coder: NSCoder) {

@@ -27,7 +27,6 @@ class APIService {
 				print("네트워크 통신 성공!")
 				completionHandler(success, nil)
 			case .failure(let failure):
-
 				print(failure)
 				completionHandler(nil, failure)
 			}

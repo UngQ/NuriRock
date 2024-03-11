@@ -11,8 +11,7 @@ enum ContentType: String {
 	case tour = "12" //관광지
 	case culture = "14" //문화시설
 	case festival = "15" //축제공연행사
-	case course = "25" //여행코스
-	case leports = "28" //레포츠
+
 	case hotel = "32" //숙박
 	case shopping = "38" //쇼핑
 	case restaurant = "39" //음식점

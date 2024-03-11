@@ -12,7 +12,7 @@ final class TotalViewController: BaseViewController {
 
 
 	lazy var localCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionView())
-
+	var selectedCellIndex = 0
 
 	var containerView = UIView()
 	let tabManVC = TabManViewController()
@@ -21,6 +21,13 @@ final class TotalViewController: BaseViewController {
 
 
 	var test = true
+
+	override func viewWillAppear(_ animated: Bool) {
+//		navigationController?.navigationBar.prefersLargeTitles = true
+//		 navigationItem.searchController = searchController
+//		 navigationItem.hidesSearchBarWhenScrolling = false
+//		 definesPresentationContext = true
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +42,7 @@ final class TotalViewController: BaseViewController {
 
 		self.navigationItem.searchController = searchController
 
-
+		navigationItem.hidesSearchBarWhenScrolling = false
 
 		let logo = UIImage(resource: .title)
 		let imageView = UIImageView(image: logo)
@@ -53,7 +60,9 @@ final class TotalViewController: BaseViewController {
 		view.addSubview(localCollectionView)
 //		view.addSubview(resultTableView)
 		view.addSubview(containerView)
+		containerView.addSubview(SearchViewController().view)
 		containerView.addSubview(tabManVC.view)
+
 
 	}
 
@@ -123,7 +132,44 @@ final class TotalViewController: BaseViewController {
 
 //네비게이션 서치바
 extension TotalViewController: UISearchBarDelegate {
-//sear
+
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		print(#function)
+	}
+
+
+
+	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+		print(#function)
+		tabManVC.view.isHidden = true
+		localCollectionView.isHidden = true
+
+		containerView.snp.makeConstraints { make in
+			make.top.equalTo(view.safeAreaLayoutGuide)
+			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+		}
+
+//		let vc = SearchViewController()
+//
+//		navigationController?.pushViewController(vc, animated: true)
+
+	}
+
+	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+		containerView.snp.remakeConstraints { make in
+			make.top.equalTo(localCollectionView.snp.bottom)
+			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+		}
+		localCollectionView.snp.remakeConstraints { make in
+			make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+
+			make.height.equalTo(100)
+		}
+		tabManVC.view.isHidden = false
+		localCollectionView.isHidden = false
+
+
+	}
 }
 
 
@@ -132,7 +178,7 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 17
+		return CityCode.allCases.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -140,13 +186,22 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 		let imageNumber = indexPath.row
 
-		cell.imageView.image = UIImage(imageLiteralResourceName: "\(imageNumber + 1)")
-		cell.cityLabel.text = NSLocalizedString(LocalString.allCases[indexPath.row+1].rawValue, comment: "")
+		cell.imageView.image = UIImage(named: "\(imageNumber + 1)")
+		cell.cityLabel.text = NSLocalizedString(CityCode.allCases[indexPath.row].name, comment: "")
+
+		if selectedCellIndex == indexPath.item {
+			cell.imageView.layer.borderColor = UIColor.systemBlue.cgColor
+			cell.imageView.layer.borderWidth = 4
+		}
+
 		return cell
 	}
 
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		print("select")
+		
+		selectedCellIndex = indexPath.item
+		tabManVC.itemSelected(at: indexPath.row)
+		collectionView.reloadData()
 	}
 
 

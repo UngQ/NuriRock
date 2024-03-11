@@ -12,6 +12,10 @@ final class LocalCollectionViewCell: BaseCollectionViewCell {
 	let imageView = UIImageView(frame: .zero)
 	let cityLabel = UILabel()
 
+	override func prepareForReuse() {
+		imageView.layer.borderColor = UIColor.clear.cgColor
+	}
+
 	override func configureHierarchy() {
 		contentView.addSubview(imageView)
 		contentView.addSubview(cityLabel)
@@ -33,6 +37,10 @@ final class LocalCollectionViewCell: BaseCollectionViewCell {
 
 	override func configureCell() {
 		imageView.backgroundColor = .clear
+
+		imageView.layer.cornerRadius = (UIScreen.main.bounds.width - 24) / 12
+
+
 		cityLabel.backgroundColor = .clear
 		cityLabel.font = .boldSystemFont(ofSize: 8)
 		cityLabel.textAlignment = .center

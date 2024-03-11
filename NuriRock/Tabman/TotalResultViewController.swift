@@ -13,6 +13,10 @@ final class TotalResultViewController: BaseViewController {
 
 	let segmentedControl = UISegmentedControl()
 
+	weak var delegate: TotalResultViewControllerDelegate?
+	var selectedItemIndex: Int?
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,6 +44,9 @@ final class TotalResultViewController: BaseViewController {
 		mainTableView.register(TotalResultTableViewCell.self, forCellReuseIdentifier: "TotalResultTableViewCell")
 	}
 
+	func updateUIBasedOnSelection() {
+		mainTableView.reloadData()
+	}
 
 }
 
@@ -51,9 +58,14 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "TotalResultTableViewCell", for: indexPath) as! TotalResultTableViewCell
 		
-		cell.delegate = self
+		cell.selectionStyle = .none
+		cell.addButtonAction = { [weak self] segmentIndex in
+			self?.delegate?.addButtonClicked(segmentIndex)
+		}
 
-		cell.bottomCollectionView.backgroundColor = .brown
+		if let index = selectedItemIndex {
+			cell.configureWithIndex(index: index)
+		}
 
 		return cell
 	}
@@ -62,12 +74,3 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 
 }
 
-
-extension TotalResultViewController: TotalResultTableViewCellDelegate {
-	func addButtonDidTap() {
-		print("Hmm..")
-		guard let tabmanController = self.parent as? TabManViewController else { return }
-		print("hihi")
-		tabmanController.scrollToPage(.at(index: 1), animated: true)
-	}
-}

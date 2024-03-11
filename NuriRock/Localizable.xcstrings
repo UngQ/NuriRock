@@ -34,6 +34,23 @@
         }
       }
     },
+    "CulturalFacilities" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cultural Facilities"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "문화시설"
+          }
+        }
+      }
+    },
     "Daegu" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -52,6 +69,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "대전"
+          }
+        }
+      }
+    },
+    "Events" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Festivals·Performances·Events"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "축제·공연·행사"
           }
         }
       }
@@ -178,6 +212,68 @@
         }
       }
     },
+    "PopularRestaurant" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Popular Restaurant"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "추천 맛집"
+          }
+        }
+      }
+    },
+    "PopularTouristAttraction" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Popular Tourist Attraction"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추천 관광지"
+          }
+        }
+      }
+    },
+    "Restaurant" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "맛집"
+          }
+        }
+      }
+    },
+    "Seemore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See More"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "더 보기"
+          }
+        }
+      }
+    },
     "Sejong" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -206,6 +302,45 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "세팅"
+          }
+        }
+      }
+    },
+    "Shopping" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "쇼핑"
+          }
+        }
+      }
+    },
+    "Total" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "전체"
+          }
+        }
+      }
+    },
+    "TouristAttraction" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tourist Attraction"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "관광지"
           }
         }
       }

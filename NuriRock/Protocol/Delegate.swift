@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol TotalResultTableViewCellDelegate: AnyObject {
-	func addButtonDidTap()
+protocol TotalResultViewControllerDelegate: AnyObject {
+	func addButtonClicked(_ segmentIndex: Int)
 }

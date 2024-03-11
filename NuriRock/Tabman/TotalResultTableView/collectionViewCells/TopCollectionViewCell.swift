@@ -45,6 +45,7 @@ class TopCollectionViewCell: BaseCollectionViewCell {
 	override func configureCell() {
 		imageView.clipsToBounds = true
 		imageView.layer.cornerRadius = 20
+		imageView.contentMode = .scaleAspectFill
 
 		titleLabel.text = "title"
 		titleLabel.font = .boldSystemFont(ofSize: 14)

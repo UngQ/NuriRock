@@ -32,4 +32,14 @@ enum LocalString: String, CaseIterable {
 	case gyeongbuk = "Gyeongbuk"
 	case gyeongnam = "Gyeongnam"
 	case jeju = "Jeju"
+
+	case total = "Total"
+	case popularTouristAtraction = "PopularTouristAttraction"
+	case popularRestaurant = "PopularRestaurant"
+	case touristAttraction = "TouristAttraction"
+	case culturalFacilities = "CulturalFacilities"
+	case shopping = "Shopping"
+
+	case events = "Events"
+	case seemore = "Seemore"
 }

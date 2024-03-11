@@ -10,24 +10,41 @@ import Kingfisher
 
 class TotalResultTableViewCell: BaseTableViewCell {
 
-
 	let viewModel = TotalResultTableViewModel()
 
-	weak var delegate: TotalResultTableViewCellDelegate?
+	var addButtonAction: ((_ segmentIndex: Int) -> Void)?
+	private var currentSegmentIndex: Int = 0
 
-	let segmentedController = UISegmentedControl(items: ["추천 관광지", "추천 맛집"])
-	lazy var topCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureTopCollectionView())
+	let segmentedController = UISegmentedControl(items: [NSLocalizedString(LocalString.popularTouristAtraction.rawValue, comment: ""),
+														 NSLocalizedString(LocalString.popularRestaurant.rawValue, comment: "")])
+
 	let addButton = UIButton()
 	let concertLabel = UILabel()
 	let dateLabel = UILabel()
 	let calenderButton = UIButton()
-	lazy var bottomCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureBottomCollectionView())
+
+	lazy var topCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureTopCollectionViewFlowLayout())
+	lazy var bottomCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureBottomCollectionViewFlowLayout())
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		bind()
+	}
 
-		viewModel.outputData.apiBind { data in
-			print("HAllo")
+	private func bind() {
+		viewModel.outputTourData.apiBind { data in
+			self.topCollectionView.reloadData()
+		}
+
+		viewModel.outputRestaurantData.apiBind { _ in
+			self.topCollectionView.reloadData()
+		}
+
+		viewModel.outputFestivalData.apiBind { _ in
+			self.bottomCollectionView.reloadData()
+		}
+
+		viewModel.inputSegmentedValue.apiBind { _ in
 			self.topCollectionView.reloadData()
 		}
 	}
@@ -46,7 +63,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		segmentedController.snp.makeConstraints { make in
 			make.top.equalToSuperview().offset(4)
 			make.horizontalEdges.equalToSuperview().inset(8)
-			make.height.equalTo(32)
+			make.height.equalTo(24)
 		}
 
 		topCollectionView.snp.makeConstraints { make in
@@ -57,27 +74,28 @@ class TotalResultTableViewCell: BaseTableViewCell {
 
 		addButton.snp.makeConstraints { make in
 			make.top.equalTo(topCollectionView.snp.bottom).offset(4)
-			make.horizontalEdges.equalToSuperview().inset(8)
+			make.centerX.equalToSuperview()
+			make.width.equalTo(80)
 			make.height.equalTo(24)
 		}
 
 		concertLabel.snp.makeConstraints { make in
 			make.top.equalTo(addButton.snp.bottom).offset(4)
 			make.horizontalEdges.equalToSuperview().inset(8)
-			make.height.equalTo(32)
+			make.height.equalTo(24)
 		}
 
 		dateLabel.snp.makeConstraints { make in
 			make.top.equalTo(concertLabel.snp.bottom).offset(4)
 			make.centerX.equalToSuperview()
 			make.width.greaterThanOrEqualTo(0)
-			make.height.equalTo(32)
+			make.height.equalTo(24)
 		}
 
 		calenderButton.snp.makeConstraints { make in
 			make.top.equalTo(concertLabel.snp.bottom).offset(4)
 			make.trailing.equalToSuperview().offset(-8)
-			make.size.equalTo(32)
+			make.size.equalTo(20)
 		}
 
 		bottomCollectionView.snp.makeConstraints { make in
@@ -87,31 +105,54 @@ class TotalResultTableViewCell: BaseTableViewCell {
 	}
 
 	override func configureCell() {
+
+	
+		addButton.setTitle(NSLocalizedString(LocalString.seemore.rawValue, comment: ""), for: .normal)
+		addButton.backgroundColor = .systemBrown
+		addButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
+		addButton.layer.cornerRadius = 8
+		addButton.titleLabel?.font = .boldSystemFont(ofSize: 12)
+
+		concertLabel.text = NSLocalizedString(LocalString.events.rawValue, comment: "")
+		concertLabel.font = .boldSystemFont(ofSize: 14)
+
+		dateLabel.text = Date().toYYYYMMDD()
+		dateLabel.font = .boldSystemFont(ofSize: 14)
+
+		calenderButton.backgroundColor = .darkGray
+
+
+		configureSegmentedController()
+		configureTopCollectionView()
+		configureBottomCollectionView()
+	}
+
+
+
+
+	private func configureSegmentedController() {
 		segmentedController.selectedSegmentIndex = 0
-		let normalFontAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
-		let selectedFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]
+		let normalFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.white]
+		let selectedFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.black]
 
 		// Apply the attributes to the segmented control
 		segmentedController.setTitleTextAttributes(normalFontAttributes, for: .normal)
 		segmentedController.setTitleTextAttributes(selectedFontAttributes, for: .selected)
 
+		segmentedController.backgroundColor = .systemBlue
+
 		segmentedController.addTarget(self, action: #selector(segmentedValueChanged), for: .valueChanged)
 
-	
-		addButton.setTitle("더보기", for: .normal)
-		addButton.backgroundColor = .systemBrown
-		addButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
+	}
 
-		concertLabel.text = "conccert"
 
-		dateLabel.text = "24ssssss"
-
-		
+	private func configureTopCollectionView() {
 		topCollectionView.delegate = self
 		topCollectionView.dataSource = self
 		topCollectionView.register(TopCollectionViewCell.self, forCellWithReuseIdentifier: "TopCollectionViewCell")
+	}
 
-
+	private func configureBottomCollectionView() {
 		bottomCollectionView.isScrollEnabled = true
 		bottomCollectionView.showsHorizontalScrollIndicator = false
 		bottomCollectionView.showsVerticalScrollIndicator = true
@@ -127,25 +168,19 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		bottomCollectionView.dataSource = self
 		bottomCollectionView.delegate = self
 		bottomCollectionView.register(BottomCollectionViewCell.self, forCellWithReuseIdentifier: "BottomCollectionViewCell")
-
-
-
 	}
 
 	@objc private func addButtonClicked() {
 		print("Add!")
-		delegate?.addButtonDidTap()
+		addButtonAction?(currentSegmentIndex)
 	}
 
-	@objc private func segmentedValueChanged(_ button: UISegmentedControl) {
-		if button.selectedSegmentIndex == 0 {
-			viewModel.inputContentType.value = ContentType.tour.rawValue
-		} else if button.selectedSegmentIndex == 1 {
-			viewModel.inputContentType.value = ContentType.restaurant.rawValue
-		}
+	@objc private func segmentedValueChanged(_ sender: UISegmentedControl) {
+		viewModel.inputSegmentedValue.value = sender.selectedSegmentIndex
+		currentSegmentIndex = sender.selectedSegmentIndex
 	}
 
-	private func configureTopCollectionView() -> UICollectionViewFlowLayout {
+	private func configureTopCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
 
 		let layout = UICollectionViewFlowLayout()
 		let spacing: CGFloat = 12
@@ -161,7 +196,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 
 	}
 
-	private func configureBottomCollectionView() -> UICollectionViewFlowLayout {
+	private func configureBottomCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
 
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .horizontal
@@ -170,6 +205,11 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		layout.minimumInteritemSpacing = 0
 		return layout
 
+	}
+
+	func configureWithIndex(index: Int) {
+
+		viewModel.inputAreaCode.value = CityCode.allCases[index].rawValue
 	}
 
 	required init?(coder: NSCoder) {
@@ -184,7 +224,9 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			return 4
 		} else if collectionView == self.bottomCollectionView {
 			// bottomCollectionView에 대한 아이템 수 반환
-			return 6  // 예시 값
+			guard let data = viewModel.outputFestivalData.value?.response.body.items.item else { return 0 }
+
+			return data.count  // 예시 값
 		}
 		return 0
 	}
@@ -194,8 +236,16 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as? TopCollectionViewCell else {
 				return UICollectionViewCell()
 			}
+			var data: [Item]? = []
+
+			if viewModel.inputSegmentedValue.value == 0 {
+				data = viewModel.outputTourData.value?.response.body.items.item
+			} else {
+				data = viewModel.outputRestaurantData.value?.response.body.items.item
+			}
+
 			// topCollectionView에 대한 셀 구성
-			guard let data = viewModel.outputData.value?.response.body.items.item else { return cell }
+			guard let data = data else { return cell }
 			let url = URL(string: data[indexPath.item].firstimage)
 			cell.imageView.kf.setImage(with: url)
 			cell.titleLabel.text = data[indexPath.item].title
@@ -209,8 +259,10 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			}
 			// bottomCollectionView에 대한 셀 구성
 			// 적절한 데이터 설정
+			guard let data = viewModel.outputFestivalData.value?.response.body.items.item else { return cell }
 
-			cell.posterImageView.image = UIImage(systemName: "star")
+			let url = URL(string: data[indexPath.item].firstimage)
+			cell.posterImageView.kf.setImage(with: url)
 			return cell
 		}
 		return UICollectionViewCell()
@@ -228,7 +280,7 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 extension TotalResultTableViewCell: UICollectionViewDelegateFlowLayout {
 
 	private enum Const {
-		static let itemSize = CGSize(width: 300, height: 400)
+		static let itemSize = CGSize(width: 292, height: 420)
 		static let itemSpacing = 24.0
 
 		static var insetX: CGFloat {
