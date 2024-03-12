@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A50F40F62B9F5DE10097466D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F40F52B9F5DE10097466D /* API.swift */; };
 		A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = A556411C2B9C3FCC000A1F27 /* Tabman */; };
 		A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */; };
 		A55641222B9C6B5B000A1F27 /* TotalResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */; };
 		A55641252B9C6E89000A1F27 /* TotalResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641242B9C6E89000A1F27 /* TotalResultTableViewCell.swift */; };
 		A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641262B9C6EAF000A1F27 /* BaseTableViewCell.swift */; };
 		A556412A2B9C7794000A1F27 /* TopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641292B9C7794000A1F27 /* TopCollectionViewCell.swift */; };
-		A556412D2B9CB4B7000A1F27 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556412C2B9CB4B7000A1F27 /* API.swift */; };
 		A55641302B9CB549000A1F27 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A556412F2B9CB549000A1F27 /* Alamofire */; };
 		A55641322B9CB6B9000A1F27 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641312B9CB6B9000A1F27 /* APIService.swift */; };
 		A55641342B9CB906000A1F27 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641332B9CB906000A1F27 /* APIModel.swift */; };
@@ -48,12 +48,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A50F40F52B9F5DE10097466D /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabmanViewController.swift; sourceTree = "<group>"; };
 		A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultViewController.swift; sourceTree = "<group>"; };
 		A55641242B9C6E89000A1F27 /* TotalResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultTableViewCell.swift; sourceTree = "<group>"; };
 		A55641262B9C6EAF000A1F27 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A55641292B9C7794000A1F27 /* TopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCollectionViewCell.swift; sourceTree = "<group>"; };
-		A556412C2B9CB4B7000A1F27 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A55641312B9CB6B9000A1F27 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		A55641332B9CB906000A1F27 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
 		A55641362B9D4636000A1F27 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		A556412B2B9CB43F000A1F27 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				A556412C2B9CB4B7000A1F27 /* API.swift */,
+				A50F40F52B9F5DE10097466D /* API.swift */,
 				A55641312B9CB6B9000A1F27 /* APIService.swift */,
 				A5D5DD672B9E7EB5007F9935 /* Model */,
 			);
@@ -382,10 +382,10 @@
 				A5D5DD662B9E7D76007F9935 /* DateFormatter.swift in Sources */,
 				A55641372B9D4636000A1F27 /* Observable.swift in Sources */,
 				A556412A2B9C7794000A1F27 /* TopCollectionViewCell.swift in Sources */,
-				A556412D2B9CB4B7000A1F27 /* API.swift in Sources */,
 				A55641222B9C6B5B000A1F27 /* TotalResultViewController.swift in Sources */,
 				A5ED2ED02B99981B00BB0E9C /* Country.swift in Sources */,
 				A5ED2EDE2B9AFF3700BB0E9C /* SearchViewController.swift in Sources */,
+				A50F40F62B9F5DE10097466D /* API.swift in Sources */,
 				A5ED2ED22B999A3B00BB0E9C /* LocalString.swift in Sources */,
 				A55641322B9CB6B9000A1F27 /* APIService.swift in Sources */,
 				A55641342B9CB906000A1F27 /* APIModel.swift in Sources */,

@@ -28,17 +28,11 @@ class TotalResultTableViewModel {
 
 	init() {
 
-
 		inputAreaCode.bind { areaCode in
-
 			self.callAPIDataRequest(api: .tour(areaCode: areaCode))
 			self.callAPIDataRequest(api: .restaurant(areaCode: areaCode))
 			self.callAPIDataRequest(api: .festival(areaCode: areaCode, date: Date().toYYYYMMDD()))
-
-			dump(self.outputFestivalData)
 		}
-
-
 	}
 
 	private func callAPIDataRequest(api: API) {
@@ -55,17 +49,4 @@ class TotalResultTableViewModel {
 			}
 		}
 	}
-
-//
-//	private func callRequest(contentType: String) {
-//		APIService.shared.request(type: Test.self, api: API.local(contentType: contentType)) { response, error in
-//			self.outputData.value = response
-//		}
-//	}
-//
-//	private func callFevstivalDataRequest() {
-//		APIService.shared.request(type: Test.self, api: API.festival(date: inputDate.value)) { response, error in
-//			print(response)
-//		}
-//	}
 }

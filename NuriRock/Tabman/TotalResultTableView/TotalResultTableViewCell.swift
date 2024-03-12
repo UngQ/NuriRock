@@ -80,7 +80,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		}
 
 		concertLabel.snp.makeConstraints { make in
-			make.top.equalTo(addButton.snp.bottom).offset(4)
+			make.top.equalTo(addButton.snp.bottom).offset(12)
 			make.horizontalEdges.equalToSuperview().inset(8)
 			make.height.equalTo(24)
 		}
@@ -95,7 +95,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		calenderButton.snp.makeConstraints { make in
 			make.top.equalTo(concertLabel.snp.bottom).offset(4)
 			make.trailing.equalToSuperview().offset(-8)
-			make.size.equalTo(20)
+			make.size.equalTo(28)
 		}
 
 		bottomCollectionView.snp.makeConstraints { make in
@@ -114,13 +114,12 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		addButton.titleLabel?.font = .boldSystemFont(ofSize: 12)
 
 		concertLabel.text = NSLocalizedString(LocalString.events.rawValue, comment: "")
-		concertLabel.font = .boldSystemFont(ofSize: 14)
+		concertLabel.font = .boldSystemFont(ofSize: 16)
 
-		dateLabel.text = Date().toYYYYMMDD()
+		dateLabel.text = Date().formatDateBasedOnLocale()
 		dateLabel.font = .boldSystemFont(ofSize: 14)
 
-		calenderButton.backgroundColor = .darkGray
-
+		calenderButton.setBackgroundImage(UIImage(systemName: "calendar"), for: .normal)
 
 		configureSegmentedController()
 		configureTopCollectionView()
@@ -224,9 +223,10 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			return 4
 		} else if collectionView == self.bottomCollectionView {
 			// bottomCollectionView에 대한 아이템 수 반환
-			guard let data = viewModel.outputFestivalData.value?.response.body.items.item else { return 0 }
 
-			return data.count  // 예시 값
+			guard let data = viewModel.outputFestivalData.value?.response.body.items else { return 1 }
+
+			return data.item.count  // 예시 값
 		}
 		return 0
 	}
@@ -238,10 +238,15 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			}
 			var data: [Item]? = []
 
+
+
 			if viewModel.inputSegmentedValue.value == 0 {
-				data = viewModel.outputTourData.value?.response.body.items.item
+				guard let items = viewModel.outputTourData.value?.response.body.items else { return cell }
+
+				data = items.item
 			} else {
-				data = viewModel.outputRestaurantData.value?.response.body.items.item
+				guard let items = viewModel.outputRestaurantData.value?.response.body.items else { return cell }
+				data = items.item
 			}
 
 			// topCollectionView에 대한 셀 구성
@@ -259,9 +264,11 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			}
 			// bottomCollectionView에 대한 셀 구성
 			// 적절한 데이터 설정
-			guard let data = viewModel.outputFestivalData.value?.response.body.items.item else { return cell }
+			guard let data = viewModel.outputFestivalData.value?.response.body.items else { 
+				cell.emptyLabel.text = "이 날은 행사가 없습니다. 다른 날짜를 선택해보세요."
+				return cell }
 
-			let url = URL(string: data[indexPath.item].firstimage)
+			let url = URL(string: data.item[indexPath.item].firstimage)
 			cell.posterImageView.kf.setImage(with: url)
 			return cell
 		}

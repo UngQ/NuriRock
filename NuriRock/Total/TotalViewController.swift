@@ -144,7 +144,7 @@ extension TotalViewController: UISearchBarDelegate {
 		tabManVC.view.isHidden = true
 		localCollectionView.isHidden = true
 
-		containerView.snp.makeConstraints { make in
+		containerView.snp.remakeConstraints { make in
 			make.top.equalTo(view.safeAreaLayoutGuide)
 			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 		}
@@ -201,6 +201,7 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 		
 		selectedCellIndex = indexPath.item
 		tabManVC.itemSelected(at: indexPath.row)
+		tabManVC.scrollToPage(.at(index: 0), animated: true)
 		collectionView.reloadData()
 	}
 
