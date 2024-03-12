@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FSCalendar
 
 final class TotalResultViewController: BaseViewController {
 
@@ -57,7 +58,7 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "TotalResultTableViewCell", for: indexPath) as! TotalResultTableViewCell
-		
+		cell.delegate = self
 		cell.selectionStyle = .none
 		cell.addButtonAction = { [weak self] segmentIndex in
 			self?.delegate?.addButtonClicked(segmentIndex)
@@ -69,8 +70,23 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 
 		return cell
 	}
-	
-
-
 }
 
+
+extension TotalResultViewController: TotalResultTableViewCellDelegate, FSCalendarDelegate {
+	func calendarButtonClicked() {
+		let vc = CalendarViewController()
+		vc.calendar.delegate = self
+		present(vc, animated: true)
+	}
+
+	func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+		let cell = mainTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as! TotalResultTableViewCell
+
+		cell.viewModel.inputDate.value = date
+
+		print(date.formatDateBasedOnLocale())
+
+		dismiss(animated: true)
+	}
+}

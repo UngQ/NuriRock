@@ -8,6 +8,7 @@
 import UIKit
 import Tabman
 import Pageboy
+import FSCalendar
 
 final class TabManViewController: TabmanViewController {
 
@@ -61,13 +62,9 @@ final class TabManViewController: TabmanViewController {
 		addBar(bar, dataSource: self, at: .custom(view: baseView, layout: nil))
 
 
-//		TabManViewController.dele
-
     }
 
 	func itemSelected(at index: Int) {
-		// Assuming the first view controller in your viewControllers array
-		// is the one that contains the result table view. Adjust as necessary.
 		if let totalResultVC = viewControllers.first as? TotalResultViewController {
 			totalResultVC.selectedItemIndex = index
 			totalResultVC.updateUIBasedOnSelection()
@@ -127,5 +124,9 @@ extension TabManViewController: TotalResultViewControllerDelegate {
 	func addButtonClicked(_ segmentIndex: Int) {
 		let pageIndex = segmentIndex == 0 ? 1 : 5
 		scrollToPage(.at(index: pageIndex), animated: true)
+
+
 	}
 }
+
+

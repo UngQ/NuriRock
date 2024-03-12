@@ -15,19 +15,10 @@ final class TotalViewController: BaseViewController {
 	var selectedCellIndex = 0
 
 	var containerView = UIView()
+	let searchVC = SearchViewController()
 	let tabManVC = TabManViewController()
 
-//	var resultTableView = UITableView()
-
-
-	var test = true
-
-	override func viewWillAppear(_ animated: Bool) {
-//		navigationController?.navigationBar.prefersLargeTitles = true
-//		 navigationItem.searchController = searchController
-//		 navigationItem.hidesSearchBarWhenScrolling = false
-//		 definesPresentationContext = true
-	}
+	let repository = SearchHistoryRepository()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +26,6 @@ final class TotalViewController: BaseViewController {
 
 		let searchController = UISearchController(searchResultsController: nil)
 		searchController.searchBar.placeholder = "입력해봐"
-//		searchController.searchBar.scopeButtonTitles = ["전체", "관광지","쇼핑", "음식점"]
-
 		searchController.searchBar.showsScopeBar = true
 		searchController.searchBar.delegate = self
 
@@ -58,9 +47,8 @@ final class TotalViewController: BaseViewController {
 	override func configureHierarchy() {
 
 		view.addSubview(localCollectionView)
-//		view.addSubview(resultTableView)
 		view.addSubview(containerView)
-		containerView.addSubview(SearchViewController().view)
+		containerView.addSubview(searchVC.view)
 		containerView.addSubview(tabManVC.view)
 
 
@@ -80,6 +68,11 @@ final class TotalViewController: BaseViewController {
 			make.top.equalTo(localCollectionView.snp.bottom)
 			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 		}
+		searchVC.view.snp.makeConstraints { make in
+			make.edges.equalToSuperview()
+
+		}
+
 
 		tabManVC.view.snp.makeConstraints { make in
 			make.edges.equalToSuperview()
@@ -87,11 +80,7 @@ final class TotalViewController: BaseViewController {
 	}
 
 	override func configureView() {
-//		if test {
-//			localCollectionView.backgroundColor = .darkGray
-//		} else {
-//			localCollectionView.backgroundColor = .brown
-//		}
+
 
 
 		localCollectionView.backgroundColor = .white
@@ -100,12 +89,6 @@ final class TotalViewController: BaseViewController {
 		localCollectionView.dataSource = self
 		localCollectionView.register(LocalCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 
-//		resultTableView.delegate = self
-//		resultTableView.dataSource = self
-//		resultTableView.rowHeight = 300
-//
-//
-//		resultTableView.backgroundColor = .black
 	}
 
 	private func configureCollectionView() -> UICollectionViewFlowLayout {
@@ -129,7 +112,6 @@ final class TotalViewController: BaseViewController {
 	}
 }
 
-
 //네비게이션 서치바
 extension TotalViewController: UISearchBarDelegate {
 
@@ -148,11 +130,6 @@ extension TotalViewController: UISearchBarDelegate {
 			make.top.equalTo(view.safeAreaLayoutGuide)
 			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 		}
-
-//		let vc = SearchViewController()
-//
-//		navigationController?.pushViewController(vc, animated: true)
-
 	}
 
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -167,8 +144,14 @@ extension TotalViewController: UISearchBarDelegate {
 		}
 		tabManVC.view.isHidden = false
 		localCollectionView.isHidden = false
+	}
 
-
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		if searchBar.text != "" {
+			repository.addKeyword(keyword: searchBar.text!)
+			searchVC.list = repository.fetchHistory()
+			searchVC.updateSnapshot()
+		}
 	}
 }
 

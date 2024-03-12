@@ -17,7 +17,7 @@ class BottomCollectionViewCell: BaseCollectionViewCell {
 	}
 	override func prepareForReuse() {
 		posterImageView.image = .none
-		emptyLabel.text = ""
+		emptyLabel.isHidden = true
 	}
 
 
@@ -45,6 +45,8 @@ class BottomCollectionViewCell: BaseCollectionViewCell {
 		emptyLabel.font = .boldSystemFont(ofSize: 20)
 		emptyLabel.textAlignment = .center
 		emptyLabel.numberOfLines = 0
+		emptyLabel.text = "이 날은 행사가 없습니다. 다른 날짜를 선택해보세요."
+		emptyLabel.isHidden = true
 
 	}
 

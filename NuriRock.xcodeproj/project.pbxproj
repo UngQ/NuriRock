@@ -20,6 +20,12 @@
 		A55641372B9D4636000A1F27 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641362B9D4636000A1F27 /* Observable.swift */; };
 		A55641392B9D4CC7000A1F27 /* TotalResultTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55641382B9D4CC7000A1F27 /* TotalResultTableViewModel.swift */; };
 		A556413C2B9D5041000A1F27 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A556413B2B9D5041000A1F27 /* Kingfisher */; };
+		A563B01D2BA085AF005A4F37 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = A563B01C2BA085AF005A4F37 /* FSCalendar */; };
+		A563B0202BA08C91005A4F37 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B01F2BA08C91005A4F37 /* CalendarViewController.swift */; };
+		A563B0242BA0BBDE005A4F37 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = A563B0232BA0BBDE005A4F37 /* Realm */; };
+		A563B0262BA0BBDE005A4F37 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A563B0252BA0BBDE005A4F37 /* RealmSwift */; };
+		A563B0282BA0BC6E005A4F37 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0272BA0BC6E005A4F37 /* RealmModel.swift */; };
+		A563B02A2BA0BEB5005A4F37 /* KeywordHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0292BA0BEB5005A4F37 /* KeywordHistoryRepository.swift */; };
 		A5D5DD5E2B9DACB8007F9935 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */; };
 		A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD602B9DB32F007F9935 /* Delegate.swift */; };
 		A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */; };
@@ -58,6 +64,9 @@
 		A55641332B9CB906000A1F27 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
 		A55641362B9D4636000A1F27 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		A55641382B9D4CC7000A1F27 /* TotalResultTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultTableViewModel.swift; sourceTree = "<group>"; };
+		A563B01F2BA08C91005A4F37 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		A563B0272BA0BC6E005A4F37 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		A563B0292BA0BEB5005A4F37 /* KeywordHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordHistoryRepository.swift; sourceTree = "<group>"; };
 		A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		A5D5DD602B9DB32F007F9935 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -101,9 +110,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A563B0242BA0BBDE005A4F37 /* Realm in Frameworks */,
 				A556413C2B9D5041000A1F27 /* Kingfisher in Frameworks */,
+				A563B0262BA0BBDE005A4F37 /* RealmSwift in Frameworks */,
 				A55641302B9CB549000A1F27 /* Alamofire in Frameworks */,
 				A5ED2ECD2B9994F900BB0E9C /* SnapKit in Frameworks */,
+				A563B01D2BA085AF005A4F37 /* FSCalendar in Frameworks */,
 				A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,14 +123,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A556411E2B9C4019000A1F27 /* Tabman */ = {
+		A556411E2B9C4019000A1F27 /* TabmanView */ = {
 			isa = PBXGroup;
 			children = (
 				A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */,
 				A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */,
 				A55641232B9C6CD3000A1F27 /* TotalResultTableView */,
+				A563B01E2BA08C73005A4F37 /* CalendarView */,
 			);
-			path = Tabman;
+			path = TabmanView;
 			sourceTree = "<group>";
 		};
 		A55641232B9C6CD3000A1F27 /* TotalResultTableView */ = {
@@ -156,6 +169,23 @@
 				A55641362B9D4636000A1F27 /* Observable.swift */,
 			);
 			path = Observable;
+			sourceTree = "<group>";
+		};
+		A563B01E2BA08C73005A4F37 /* CalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				A563B01F2BA08C91005A4F37 /* CalendarViewController.swift */,
+			);
+			path = CalendarView;
+			sourceTree = "<group>";
+		};
+		A563B0212BA0BB27005A4F37 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				A563B0292BA0BEB5005A4F37 /* KeywordHistoryRepository.swift */,
+				A563B0272BA0BC6E005A4F37 /* RealmModel.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		A5D5DD5F2B9DB311007F9935 /* Protocol */ = {
@@ -202,16 +232,15 @@
 		A5ED2E8B2B99837800BB0E9C /* NuriRock */ = {
 			isa = PBXGroup;
 			children = (
-				A55641352B9D4628000A1F27 /* Observable */,
-				A556412B2B9CB43F000A1F27 /* Network */,
 				A5ED2EC32B99945500BB0E9C /* Base */,
 				A5D5DD642B9E7D61007F9935 /* Extension */,
 				A5ED2ECE2B99980800BB0E9C /* Enum */,
 				A5D5DD5F2B9DB311007F9935 /* Protocol */,
+				A55641352B9D4628000A1F27 /* Observable */,
+				A556412B2B9CB43F000A1F27 /* Network */,
+				A563B0212BA0BB27005A4F37 /* Realm */,
 				A5ED2EC02B9993CF00BB0E9C /* Onboarding */,
-				A5ED2EDC2B9AFEFC00BB0E9C /* Search */,
 				A5ED2ED62B99A87400BB0E9C /* Total */,
-				A556411E2B9C4019000A1F27 /* Tabman */,
 				A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */,
 				A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */,
 				A5ED2E902B99837800BB0E9C /* ViewController.swift */,
@@ -268,17 +297,19 @@
 			isa = PBXGroup;
 			children = (
 				A5ED2ED72B99A8C100BB0E9C /* TotalViewController.swift */,
+				A5ED2EDC2B9AFEFC00BB0E9C /* SearchView */,
 				A5ED2EDF2B9B2A1100BB0E9C /* LocalCollectionView */,
+				A556411E2B9C4019000A1F27 /* TabmanView */,
 			);
 			path = Total;
 			sourceTree = "<group>";
 		};
-		A5ED2EDC2B9AFEFC00BB0E9C /* Search */ = {
+		A5ED2EDC2B9AFEFC00BB0E9C /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
 				A5ED2EDD2B9AFF3700BB0E9C /* SearchViewController.swift */,
 			);
-			path = Search;
+			path = SearchView;
 			sourceTree = "<group>";
 		};
 		A5ED2EDF2B9B2A1100BB0E9C /* LocalCollectionView */ = {
@@ -310,6 +341,9 @@
 				A556411C2B9C3FCC000A1F27 /* Tabman */,
 				A556412F2B9CB549000A1F27 /* Alamofire */,
 				A556413B2B9D5041000A1F27 /* Kingfisher */,
+				A563B01C2BA085AF005A4F37 /* FSCalendar */,
+				A563B0232BA0BBDE005A4F37 /* Realm */,
+				A563B0252BA0BBDE005A4F37 /* RealmSwift */,
 			);
 			productName = NuriRock;
 			productReference = A5ED2E892B99837800BB0E9C /* NuriRock.app */;
@@ -348,6 +382,8 @@
 				A556411B2B9C3FCC000A1F27 /* XCRemoteSwiftPackageReference "Tabman" */,
 				A556412E2B9CB549000A1F27 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				A556413A2B9D5041000A1F27 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				A563B01B2BA085AF005A4F37 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				A563B0222BA0BBDE005A4F37 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = A5ED2E8A2B99837800BB0E9C /* Products */;
 			projectDirPath = "";
@@ -392,6 +428,7 @@
 				A5ED2E912B99837800BB0E9C /* ViewController.swift in Sources */,
 				A5ED2ED82B99A8C100BB0E9C /* TotalViewController.swift in Sources */,
 				A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */,
+				A563B0282BA0BC6E005A4F37 /* RealmModel.swift in Sources */,
 				A5ED2EE12B9B2A3200BB0E9C /* LocalCollectionViewCell.swift in Sources */,
 				A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */,
 				A5ED2EC22B9993E400BB0E9C /* OnboardingViewController.swift in Sources */,
@@ -402,6 +439,8 @@
 				A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */,
 				A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */,
 				A5ED2EE32B9B2A4000BB0E9C /* BaseCollectionViewCell.swift in Sources */,
+				A563B02A2BA0BEB5005A4F37 /* KeywordHistoryRepository.swift in Sources */,
+				A563B0202BA08C91005A4F37 /* CalendarViewController.swift in Sources */,
 				A5ED2EC52B99945F00BB0E9C /* BaseViewController.swift in Sources */,
 				A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */,
 				A5D5DD6B2B9F38EF007F9935 /* CityCode.swift in Sources */,
@@ -677,6 +716,22 @@
 				minimumVersion = 7.11.0;
 			};
 		};
+		A563B01B2BA085AF005A4F37 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
+		A563B0222BA0BBDE005A4F37 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.48.0;
+			};
+		};
 		A5ED2ECB2B9994F900BB0E9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -702,6 +757,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A556413A2B9D5041000A1F27 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		A563B01C2BA085AF005A4F37 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A563B01B2BA085AF005A4F37 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+		A563B0232BA0BBDE005A4F37 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A563B0222BA0BBDE005A4F37 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		A563B0252BA0BBDE005A4F37 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A563B0222BA0BBDE005A4F37 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		A5ED2ECC2B9994F900BB0E9C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

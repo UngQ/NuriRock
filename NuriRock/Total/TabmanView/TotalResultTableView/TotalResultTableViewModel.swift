@@ -17,12 +17,14 @@ class TotalResultTableViewModel {
 	var inputSegmentedValue: Observable<Int> = Observable(0)
 
 	var inputContentId: Observable<String> = Observable("")
-	var inputDate: Observable<String> = Observable(Date().toYYYYMMDD())
+	var inputDate: Observable<Date> = Observable(Date())
 	var inputAreaCode: Observable<String> = Observable("1") //초기값 서울(1)
 
 	var outputTourData: Observable<Test?> = Observable(nil)
 	var outputRestaurantData: Observable<Test?> = Observable(nil)
 	var outputFestivalData: Observable<Test?> = Observable(nil)
+
+	var onDateChanged: ((String) -> Void)?
 
 
 
@@ -31,7 +33,12 @@ class TotalResultTableViewModel {
 		inputAreaCode.bind { areaCode in
 			self.callAPIDataRequest(api: .tour(areaCode: areaCode))
 			self.callAPIDataRequest(api: .restaurant(areaCode: areaCode))
-			self.callAPIDataRequest(api: .festival(areaCode: areaCode, date: Date().toYYYYMMDD()))
+			self.callAPIDataRequest(api: .festival(areaCode: areaCode, date: self.inputDate.value.toYYYYMMDD()))
+		}
+
+		inputDate.apiBind { date in
+			self.callAPIDataRequest(api: .festival(areaCode: self.inputAreaCode.value, date: date.toYYYYMMDD()))
+			self.onDateChanged?(date.formatDateBasedOnLocale())
 		}
 	}
 

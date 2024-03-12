@@ -7,10 +7,13 @@
 
 import UIKit
 import Kingfisher
+import FSCalendar
 
 class TotalResultTableViewCell: BaseTableViewCell {
 
 	let viewModel = TotalResultTableViewModel()
+
+	weak var delegate: TotalResultTableViewCellDelegate?
 
 	var addButtonAction: ((_ segmentIndex: Int) -> Void)?
 	private var currentSegmentIndex: Int = 0
@@ -21,7 +24,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 	let addButton = UIButton()
 	let concertLabel = UILabel()
 	let dateLabel = UILabel()
-	let calenderButton = UIButton()
+	let calendarButton = UIButton()
 
 	lazy var topCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureTopCollectionViewFlowLayout())
 	lazy var bottomCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureBottomCollectionViewFlowLayout())
@@ -29,6 +32,10 @@ class TotalResultTableViewCell: BaseTableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		bind()
+
+		viewModel.onDateChanged = {
+			self.dateLabel.text = $0
+		}
 	}
 
 	private func bind() {
@@ -47,6 +54,8 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		viewModel.inputSegmentedValue.apiBind { _ in
 			self.topCollectionView.reloadData()
 		}
+
+
 	}
 
 	override func configureHierarchy() {
@@ -55,7 +64,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		contentView.addSubview(addButton)
 		contentView.addSubview(concertLabel)
 		contentView.addSubview(dateLabel)
-		contentView.addSubview(calenderButton)
+		contentView.addSubview(calendarButton)
 		contentView.addSubview(bottomCollectionView)
 	}
 
@@ -92,7 +101,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 			make.height.equalTo(24)
 		}
 
-		calenderButton.snp.makeConstraints { make in
+		calendarButton.snp.makeConstraints { make in
 			make.top.equalTo(concertLabel.snp.bottom).offset(4)
 			make.trailing.equalToSuperview().offset(-8)
 			make.size.equalTo(28)
@@ -108,7 +117,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 
 	
 		addButton.setTitle(NSLocalizedString(LocalString.seemore.rawValue, comment: ""), for: .normal)
-		addButton.backgroundColor = .systemBrown
+		addButton.backgroundColor = .systemBlue
 		addButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
 		addButton.layer.cornerRadius = 8
 		addButton.titleLabel?.font = .boldSystemFont(ofSize: 12)
@@ -119,7 +128,8 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		dateLabel.text = Date().formatDateBasedOnLocale()
 		dateLabel.font = .boldSystemFont(ofSize: 14)
 
-		calenderButton.setBackgroundImage(UIImage(systemName: "calendar"), for: .normal)
+		calendarButton.setBackgroundImage(UIImage(systemName: "calendar"), for: .normal)
+		calendarButton.addTarget(self, action: #selector(calendarButtonClicked), for: .touchUpInside)
 
 		configureSegmentedController()
 		configureTopCollectionView()
@@ -127,6 +137,9 @@ class TotalResultTableViewCell: BaseTableViewCell {
 	}
 
 
+	@objc func calendarButtonClicked() {
+		delegate?.calendarButtonClicked()
+	}
 
 
 	private func configureSegmentedController() {
@@ -170,7 +183,6 @@ class TotalResultTableViewCell: BaseTableViewCell {
 	}
 
 	@objc private func addButtonClicked() {
-		print("Add!")
 		addButtonAction?(currentSegmentIndex)
 	}
 
@@ -218,9 +230,12 @@ class TotalResultTableViewCell: BaseTableViewCell {
 
 extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		
 		if collectionView == self.topCollectionView {
 			// topCollectionView에 대한 아이템 수 반환
 			return 4
+
+
 		} else if collectionView == self.bottomCollectionView {
 			// bottomCollectionView에 대한 아이템 수 반환
 
@@ -265,7 +280,7 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			// bottomCollectionView에 대한 셀 구성
 			// 적절한 데이터 설정
 			guard let data = viewModel.outputFestivalData.value?.response.body.items else { 
-				cell.emptyLabel.text = "이 날은 행사가 없습니다. 다른 날짜를 선택해보세요."
+				cell.emptyLabel.isHidden = false
 				return cell }
 
 			let url = URL(string: data.item[indexPath.item].firstimage)
@@ -307,3 +322,10 @@ extension TotalResultTableViewCell: UICollectionViewDelegateFlowLayout {
 	}
 }
 
+
+extension TotalResultTableViewCell: CalendarDateSelectionDelegate {
+	func didSelectDate(date: Date) {
+		viewModel.inputDate.value = date
+
+	}
+}
