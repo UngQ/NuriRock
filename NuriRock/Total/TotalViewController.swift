@@ -204,26 +204,4 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 		tabManVC.scrollToPage(.at(index: 0), animated: true)
 		collectionView.reloadData()
 	}
-
-
 }
-
-
-//
-//
-//extension TotalViewController: UITableViewDelegate, UITableViewDataSource {
-//	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//		5
-//	}
-//	
-//	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//		let cell = UITableViewCell()
-//		cell.textLabel?.text = "test"
-//		cell.textLabel?.textColor = .black
-//
-//		return cell
-//	}
-//	
-//
-//
-//}
