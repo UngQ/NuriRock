@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LocalCollectionViewCell: BaseCollectionViewCell {
+final class CityCollectionViewCell: BaseCollectionViewCell {
 
 	let imageView = UIImageView(frame: .zero)
 	let cityLabel = UILabel()

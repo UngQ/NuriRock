@@ -281,10 +281,17 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			// 적절한 데이터 설정
 			guard let data = viewModel.outputFestivalData.value?.response.body.items else { 
 				cell.emptyLabel.isHidden = false
+				cell.detailView.isHidden = true
 				return cell }
 
 			let url = URL(string: data.item[indexPath.item].firstimage)
 			cell.posterImageView.kf.setImage(with: url)
+			cell.titleLabel.text = data.item[indexPath.item].title
+			cell.addrLabel.text = data.item[indexPath.item].addr1
+
+			guard let startDate = data.item[indexPath.item].eventstartdate else { return cell }
+			guard let endDate = data.item[indexPath.item].eventenddate else { return cell }
+			cell.dateLabel.text = "\(startDate.formattedDateString()) ~ \(endDate.formattedDateString())"
 			return cell
 		}
 		return UICollectionViewCell()

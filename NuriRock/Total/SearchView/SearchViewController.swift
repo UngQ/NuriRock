@@ -13,7 +13,7 @@ class SearchViewController: BaseViewController {
 		case history
 	}
 
-	let emptyImageView = UIImageView()
+	let emptyMainLabel = UILabel()
 	let emptyLabel = UILabel()
 
 	var currentSearchLabel = UILabel()
@@ -37,11 +37,14 @@ class SearchViewController: BaseViewController {
 		list = repository.fetchHistory()
 		configureDataSource()
 		updateSnapshot()
+
+		print(#function)
 	}
 
 
 	override func configureHierarchy() {
-		view.addSubview(emptyImageView)
+
+		view.addSubview(emptyMainLabel)
 		view.addSubview(emptyLabel)
 		view.addSubview(currentSearchLabel)
 		view.addSubview(allDeleteButton)
@@ -49,25 +52,37 @@ class SearchViewController: BaseViewController {
 	}
 
 	override func configureLayout() {
-		emptyImageView.snp.makeConstraints { make in
-			make.centerX.centerY.equalToSuperview()
-			make.size.equalTo(100)
-		}
+
+
 
 		emptyLabel.snp.makeConstraints { make in
-			make.top.equalTo(emptyImageView.snp.bottom).offset(8)
+
+			make.centerX.centerY.equalToSuperview()
+			make.width.greaterThanOrEqualTo(0)
+			make.height.equalTo(20)
+
+		}
+		emptyMainLabel.snp.makeConstraints { make in
+
+			make.bottom.equalTo(emptyLabel.snp.top).offset(4)
 			make.centerX.equalToSuperview()
+			make.size.equalTo(100)
 		}
 
 		currentSearchLabel.snp.makeConstraints { make in
 			make.top.equalToSuperview().offset(8)
-			make.leading.equalTo(4)
+			make.leading.equalTo(8)
+			make.width.greaterThanOrEqualTo(0)
+			make.height.equalTo(20)
+
 
 		}
 
 		allDeleteButton.snp.makeConstraints { make in
 			make.top.equalToSuperview().offset(8)
-			make.trailing.equalTo(-4)
+			make.trailing.equalTo(-8)
+			make.width.greaterThanOrEqualTo(0)
+			make.height.equalTo(20)
 		}
 
 		searchHistoryCollectionView.snp.makeConstraints { make in
@@ -79,9 +94,8 @@ class SearchViewController: BaseViewController {
 
 
 	override func configureView() {
-		emptyImageView.backgroundColor = .brown
 
-		currentSearchLabel.text = " 최근 검색"
+		currentSearchLabel.text = " 최근 검색 기록"
 		currentSearchLabel.font = .boldSystemFont(ofSize: 15)
 		currentSearchLabel.textColor = .black
 		currentSearchLabel.textAlignment = .left
@@ -91,14 +105,20 @@ class SearchViewController: BaseViewController {
 		allDeleteButton.titleLabel?.font = .boldSystemFont(ofSize: 13)
 		allDeleteButton.titleLabel?.textAlignment = .right
 
+
 		allDeleteButton.addTarget(self, action: #selector(clearHistory), for: .touchUpInside)
 
 
-		emptyLabel.text = "최근 검색어가 없어요"
+		emptyMainLabel.text = "텅~"
+		emptyMainLabel.font = .boldSystemFont(ofSize: 50)
+		emptyMainLabel.textAlignment = .center
+
+		emptyLabel.text = "최근 검색 기록이 없어요."
 		emptyLabel.font = .boldSystemFont(ofSize: 16)
 		emptyLabel.textColor = .black
 		emptyLabel.textAlignment = .center
 
+//		searchHistoryCollectionView.isHidden = true
 //		if searchHistory == [] {
 //			mainView.currentSearchLabel.isHidden = true
 //			mainView.allDeleteButton.isHidden = true
@@ -160,6 +180,16 @@ class SearchViewController: BaseViewController {
 
 	func updateSnapshot() {
 		list = repository.fetchHistory()
+
+		if list == [] {
+			searchHistoryCollectionView.isHidden = true
+			currentSearchLabel.isHidden = true
+			allDeleteButton.isHidden = true
+		} else {
+			searchHistoryCollectionView.isHidden = false
+			currentSearchLabel.isHidden = false
+			allDeleteButton.isHidden = false
+		}
 
 		var snapshot = NSDiffableDataSourceSnapshot<Section, SearchedKeyword>()
 		snapshot.appendSections(Section.allCases)

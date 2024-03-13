@@ -29,3 +29,22 @@ extension Date {
 		return dateFormatter.string(from: self)
 	}
 }
+
+extension String {
+	func formattedDateString() -> String {
+		let inputFormatter = DateFormatter()
+		inputFormatter.dateFormat = "yyyyMMdd"
+
+		guard let date = inputFormatter.date(from: self) else { return self	}
+
+		let outputFormatter = DateFormatter()
+
+		if Locale.current.language.languageCode == "ko" {
+			outputFormatter.dateFormat = "yyyy년 M월 d일"
+		} else {
+			outputFormatter.dateFormat = "MMMM d, yyyy"
+		}
+
+		return outputFormatter.string(from: date)
+	}
+}

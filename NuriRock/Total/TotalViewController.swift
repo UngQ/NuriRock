@@ -11,7 +11,7 @@ import SnapKit
 final class TotalViewController: BaseViewController {
 
 
-	lazy var localCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionView())
+	lazy var cityCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionView())
 	var selectedCellIndex = 0
 
 	var containerView = UIView()
@@ -46,7 +46,7 @@ final class TotalViewController: BaseViewController {
 
 	override func configureHierarchy() {
 
-		view.addSubview(localCollectionView)
+		view.addSubview(cityCollectionView)
 		view.addSubview(containerView)
 		containerView.addSubview(searchVC.view)
 		containerView.addSubview(tabManVC.view)
@@ -57,7 +57,7 @@ final class TotalViewController: BaseViewController {
 	override func configureLayout() {
 
 
-		localCollectionView.snp.makeConstraints { make in
+		cityCollectionView.snp.makeConstraints { make in
 			make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 
 			make.height.equalTo(100)
@@ -65,7 +65,7 @@ final class TotalViewController: BaseViewController {
 
 
 		containerView.snp.makeConstraints { make in
-			make.top.equalTo(localCollectionView.snp.bottom)
+			make.top.equalTo(cityCollectionView.snp.bottom)
 			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 		}
 		searchVC.view.snp.makeConstraints { make in
@@ -83,11 +83,11 @@ final class TotalViewController: BaseViewController {
 
 
 
-		localCollectionView.backgroundColor = .white
+		cityCollectionView.backgroundColor = .white
 
-		localCollectionView.delegate = self
-		localCollectionView.dataSource = self
-		localCollectionView.register(LocalCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+		cityCollectionView.delegate = self
+		cityCollectionView.dataSource = self
+		cityCollectionView.register(CityCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 
 	}
 
@@ -124,7 +124,7 @@ extension TotalViewController: UISearchBarDelegate {
 	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 		print(#function)
 		tabManVC.view.isHidden = true
-		localCollectionView.isHidden = true
+		cityCollectionView.isHidden = true
 
 		containerView.snp.remakeConstraints { make in
 			make.top.equalTo(view.safeAreaLayoutGuide)
@@ -134,21 +134,22 @@ extension TotalViewController: UISearchBarDelegate {
 
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		containerView.snp.remakeConstraints { make in
-			make.top.equalTo(localCollectionView.snp.bottom)
+			make.top.equalTo(cityCollectionView.snp.bottom)
 			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 		}
-		localCollectionView.snp.remakeConstraints { make in
+		cityCollectionView.snp.remakeConstraints { make in
 			make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 
 			make.height.equalTo(100)
 		}
 		tabManVC.view.isHidden = false
-		localCollectionView.isHidden = false
+		cityCollectionView.isHidden = false
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		if searchBar.text != "" {
 			repository.addKeyword(keyword: searchBar.text!)
+			searchBar.text = ""
 			searchVC.list = repository.fetchHistory()
 			searchVC.updateSnapshot()
 		}
@@ -165,7 +166,7 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! LocalCollectionViewCell
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CityCollectionViewCell
 
 		let imageNumber = indexPath.row
 
