@@ -27,6 +27,9 @@
 		A563B0282BA0BC6E005A4F37 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0272BA0BC6E005A4F37 /* RealmModel.swift */; };
 		A563B02A2BA0BEB5005A4F37 /* KeywordHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0292BA0BEB5005A4F37 /* KeywordHistoryRepository.swift */; };
 		A563B02E2BA12DA8005A4F37 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B02D2BA12DA8005A4F37 /* MainTabbarController.swift */; };
+		A563B0332BA2846B005A4F37 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = A563B0322BA2846B005A4F37 /* SVProgressHUD */; };
+		A563B0382BA305B9005A4F37 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0372BA305B9005A4F37 /* SearchResultViewController.swift */; };
+		A563B03A2BA3063C005A4F37 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0392BA3063C005A4F37 /* SearchResultViewModel.swift */; };
 		A5D5DD5E2B9DACB8007F9935 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */; };
 		A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD602B9DB32F007F9935 /* Delegate.swift */; };
 		A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */; };
@@ -69,6 +72,8 @@
 		A563B0272BA0BC6E005A4F37 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		A563B0292BA0BEB5005A4F37 /* KeywordHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordHistoryRepository.swift; sourceTree = "<group>"; };
 		A563B02D2BA12DA8005A4F37 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
+		A563B0372BA305B9005A4F37 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		A563B0392BA3063C005A4F37 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		A5D5DD602B9DB32F007F9935 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -116,6 +121,7 @@
 				A556413C2B9D5041000A1F27 /* Kingfisher in Frameworks */,
 				A563B0262BA0BBDE005A4F37 /* RealmSwift in Frameworks */,
 				A55641302B9CB549000A1F27 /* Alamofire in Frameworks */,
+				A563B0332BA2846B005A4F37 /* SVProgressHUD in Frameworks */,
 				A5ED2ECD2B9994F900BB0E9C /* SnapKit in Frameworks */,
 				A563B01D2BA085AF005A4F37 /* FSCalendar in Frameworks */,
 				A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */,
@@ -206,6 +212,15 @@
 			path = Tabbar;
 			sourceTree = "<group>";
 		};
+		A563B0362BA30501005A4F37 /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				A563B0372BA305B9005A4F37 /* SearchResultViewController.swift */,
+				A563B0392BA3063C005A4F37 /* SearchResultViewModel.swift */,
+			);
+			path = SearchResult;
+			sourceTree = "<group>";
+		};
 		A5D5DD5F2B9DB311007F9935 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +275,7 @@
 				A5ED2EC02B9993CF00BB0E9C /* Onboarding */,
 				A563B02C2BA12D94005A4F37 /* Tabbar */,
 				A5ED2ED62B99A87400BB0E9C /* Total */,
+				A563B0362BA30501005A4F37 /* SearchResult */,
 				A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */,
 				A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */,
 				A5ED2E902B99837800BB0E9C /* ViewController.swift */,
@@ -363,6 +379,7 @@
 				A563B01C2BA085AF005A4F37 /* FSCalendar */,
 				A563B0232BA0BBDE005A4F37 /* Realm */,
 				A563B0252BA0BBDE005A4F37 /* RealmSwift */,
+				A563B0322BA2846B005A4F37 /* SVProgressHUD */,
 			);
 			productName = NuriRock;
 			productReference = A5ED2E892B99837800BB0E9C /* NuriRock.app */;
@@ -403,6 +420,7 @@
 				A556413A2B9D5041000A1F27 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				A563B01B2BA085AF005A4F37 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				A563B0222BA0BBDE005A4F37 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				A563B0312BA2846B005A4F37 /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
 			);
 			productRefGroup = A5ED2E8A2B99837800BB0E9C /* Products */;
 			projectDirPath = "";
@@ -437,6 +455,7 @@
 				A5D5DD662B9E7D76007F9935 /* DateFormatter.swift in Sources */,
 				A563B02E2BA12DA8005A4F37 /* MainTabbarController.swift in Sources */,
 				A55641372B9D4636000A1F27 /* Observable.swift in Sources */,
+				A563B03A2BA3063C005A4F37 /* SearchResultViewModel.swift in Sources */,
 				A556412A2B9C7794000A1F27 /* TopCollectionViewCell.swift in Sources */,
 				A55641222B9C6B5B000A1F27 /* TotalResultViewController.swift in Sources */,
 				A5ED2ED02B99981B00BB0E9C /* Country.swift in Sources */,
@@ -453,6 +472,7 @@
 				A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */,
 				A5ED2EC22B9993E400BB0E9C /* OnboardingViewController.swift in Sources */,
 				A5ED2EA32B998B3300BB0E9C /* APIKey.swift in Sources */,
+				A563B0382BA305B9005A4F37 /* SearchResultViewController.swift in Sources */,
 				A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */,
 				A5ED2E8F2B99837800BB0E9C /* SceneDelegate.swift in Sources */,
 				A5D5DD5E2B9DACB8007F9935 /* ContentType.swift in Sources */,
@@ -754,6 +774,14 @@
 				version = 10.48.0;
 			};
 		};
+		A563B0312BA2846B005A4F37 /* XCRemoteSwiftPackageReference "SVProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVProgressHUD/SVProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.1;
+			};
+		};
 		A5ED2ECB2B9994F900BB0E9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -794,6 +822,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A563B0222BA0BBDE005A4F37 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		A563B0322BA2846B005A4F37 /* SVProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A563B0312BA2846B005A4F37 /* XCRemoteSwiftPackageReference "SVProgressHUD" */;
+			productName = SVProgressHUD;
 		};
 		A5ED2ECC2B9994F900BB0E9C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

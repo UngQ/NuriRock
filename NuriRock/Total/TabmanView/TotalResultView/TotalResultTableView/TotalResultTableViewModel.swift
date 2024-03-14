@@ -18,11 +18,15 @@ class TotalResultTableViewModel {
 
 	var inputContentId: Observable<String> = Observable("")
 	var inputDate: Observable<Date> = Observable(Date())
-	var inputAreaCode: Observable<String> = Observable("1") //초기값 서울(1)
+	var inputAreaCode: Observable<CityCode> = Observable(.seoul) //초기값 서울(1)
 
 	var outputTourData: Observable<Test?> = Observable(nil)
-	var outputRestaurantData: Observable<Test?> = Observable(nil)
+	var outputCultureData: Observable<Test?> = Observable(nil)
 	var outputFestivalData: Observable<Test?> = Observable(nil)
+	var outputHotelData: Observable<Test?> = Observable(nil)
+	var outputShoppingData: Observable<Test?> = Observable(nil)
+	var outputRestaurantData: Observable<Test?> = Observable(nil)
+
 
 	var onDateChanged: ((String) -> Void)?
 
@@ -31,28 +35,46 @@ class TotalResultTableViewModel {
 	init() {
 
 		inputAreaCode.bind { areaCode in
-			self.callAPIDataRequest(api: .tour(areaCode: areaCode))
-			self.callAPIDataRequest(api: .restaurant(areaCode: areaCode))
-			self.callAPIDataRequest(api: .festival(areaCode: areaCode, date: self.inputDate.value.toYYYYMMDD()))
+			self.callAPIDataRequest(api: .areaBasedList(contentType: .tour, areaCode: areaCode, numOfRows: 4, pageNo: 1))
+			self.callAPIDataRequest(api: .areaBasedList(contentType: .restaurant, areaCode: areaCode, numOfRows: 4, pageNo: 1))
+			self.callAPIDataRequest(api: .areaBasedList(contentType: .festival, areaCode: areaCode, numOfRows: 4, pageNo: 1))
+			self.callAPIDataRequest(api: .searchFestival(eventStartDate: self.inputDate.value.toYYYYMMDD(), areaCode: areaCode, numOfRows: 10, pageNo: 1))
 		}
 
 		inputDate.apiBind { date in
-			self.callAPIDataRequest(api: .festival(areaCode: self.inputAreaCode.value, date: date.toYYYYMMDD()))
+			self.callAPIDataRequest(api: .searchFestival(eventStartDate: date.toYYYYMMDD(), areaCode: self.inputAreaCode.value, numOfRows: 10, pageNo: 1))
 			self.onDateChanged?(date.formatDateBasedOnLocale())
 		}
 	}
 
 	private func callAPIDataRequest(api: API) {
+
+
+
 		APIService.shared.request(type: Test.self, api: api) { response, error in
+			guard let response = response else { return }
 			switch api {
-			case .tour:
-				self.outputTourData.value = response
-			case .restaurant:
-				self.outputRestaurantData.value = response
-			case .festival:
+			case .areaBasedList(let contentType, _, _, _):
+				switch contentType {
+				case .tour:
+					self.outputTourData.value = response
+				case .culture:
+					self.outputCultureData.value = response
+				case .festival: //축제 정보는 지역 + 오늘날짜 기반으로만 정보 받아와서 .areaBasedList에서 사용 X
+					break
+				case .hotel:
+					self.outputHotelData.value = response
+				case .shopping:
+					self.outputShoppingData.value = response
+				case .restaurant:
+					self.outputRestaurantData.value = response
+
+				}
+			case .searchFestival:
 				self.outputFestivalData.value = response
+
 			default:
-				return
+				break
 			}
 		}
 	}

@@ -8,13 +8,30 @@
 import UIKit
 import FSCalendar
 
+protocol SeeMoreButtonClickedDelegate: AnyObject {
+	func seeMoreButtonClicked(_ segmentIndex: Int)
+
+}
+
+protocol TotalResultViewControllerDelegate: AnyObject {
+	func didScrollTableView(_ direction: ScrollDirection)
+}
+
+enum ScrollDirection {
+	case up
+	case down
+}
+
+
 final class TotalResultViewController: BaseViewController {
 
 	let mainTableView = UITableView()
 
 	let segmentedControl = UISegmentedControl()
 
-	weak var delegate: TotalResultViewControllerDelegate?
+	weak var delegate: SeeMoreButtonClickedDelegate?
+	weak var scrollDelegate: TotalResultViewControllerDelegate?
+
 	var selectedItemIndex: Int?
 
 
@@ -60,8 +77,9 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 		let cell = tableView.dequeueReusableCell(withIdentifier: "TotalResultTableViewCell", for: indexPath) as! TotalResultTableViewCell
 		cell.delegate = self
 		cell.selectionStyle = .none
+
 		cell.addButtonAction = { [weak self] segmentIndex in
-			self?.delegate?.addButtonClicked(segmentIndex)
+			self?.delegate?.seeMoreButtonClicked(segmentIndex)
 		}
 
 		if let index = selectedItemIndex {
@@ -73,7 +91,7 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 
-extension TotalResultViewController: TotalResultTableViewCellDelegate, FSCalendarDelegate {
+extension TotalResultViewController: CalendarDateDelegate, FSCalendarDelegate {
 	func calendarButtonClicked() {
 		let vc = CalendarViewController()
 		vc.calendar.delegate = self
@@ -84,9 +102,20 @@ extension TotalResultViewController: TotalResultTableViewCellDelegate, FSCalenda
 		let cell = mainTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as! TotalResultTableViewCell
 
 		cell.viewModel.inputDate.value = date
-
-		print(date.formatDateBasedOnLocale())
+		cell.bottomCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
 
 		dismiss(animated: true)
+	}
+}
+
+extension TotalResultViewController: UIScrollViewDelegate {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
+
+		if translation.y > 0 {
+			scrollDelegate?.didScrollTableView(.down)
+		} else if translation.y < 0 {
+			scrollDelegate?.didScrollTableView(.up)
+		}
 	}
 }

@@ -8,99 +8,92 @@
 import Foundation
 import Alamofire
 
+
 enum API {
-	case tour(areaCode: String)
-	case culture(areaCode: String)
-	case festival(areaCode: String, date: String)
-	case hotel(areaCode: String)
-	case shopping(areaCode: String)
-	case restaurant(areaCode: String)
+	case searchKeyword(keyword: String, contentType: ContentType, areaCode: CityCode, numOfRows: Int, pageNo: Int)
+	case areaBasedList(contentType: ContentType, areaCode: CityCode, numOfRows: Int, pageNo: Int)
+	case searchFestival(eventStartDate: String, areaCode: CityCode, numOfRows: Int, pageNo: Int)
+
+	enum ContentType: String {
+		case tour = "tour"
+		case culture = "culture"
+		case festival = "festival"
+		case hotel = "hotel"
+		case shopping = "shopping"
+		case restaurant = "restaurant"
+
+		var contentTypeCode: String {
+			switch self {
+			case .tour:
+				return Locale.current.language.languageCode == "ko" ? "12" : "76"
+			case .culture:
+				return Locale.current.language.languageCode == "ko" ? "14" : "78"
+			case .festival:
+				return Locale.current.language.languageCode == "ko" ? "15" : "85"
+			case .hotel:
+				return Locale.current.language.languageCode == "ko" ? "32" : "80"
+			case .shopping:
+				return Locale.current.language.languageCode == "ko" ? "38" : "79"
+			case .restaurant:
+				return Locale.current.language.languageCode == "ko" ? "39" : "82"
+			}
+		}
+	}
 
 	var baseURL: String {
-		let languageCode = Locale.current.language.languageCode ?? "en"
-		switch languageCode {
-		case "ko":
-			return "http://apis.data.go.kr/B551011/KorService1"
-		default:
-			return "http://apis.data.go.kr/B551011/EngService1"
-		}
-	}
-
-	var contentTypeCode: String {
-		let languageCode = Locale.current.language.languageCode ?? "en"
-		switch self {
-		case .tour:
-			return languageCode == "ko" ? "12" : "76"
-		case .culture:
-			return languageCode == "ko" ? "14" : "78"
-		case .festival:
-			return languageCode == "ko" ? "15" : "85"
-		case .hotel:
-			return languageCode == "ko" ? "32" : "80"
-		case .shopping:
-			return languageCode == "ko" ? "38" : "79"
-		case .restaurant:
-			return languageCode == "ko" ? "39" : "82"
-		}
-	}
-
-	var areaCode: String {
-		switch self {
-		case .tour(let code),
-				.culture(let code),
-				.festival(let code, _),
-				.hotel(let code),
-				.shopping(let code),
-				.restaurant(let code):
-			return code
-		}
-	}
-
-	var date: String? {
-		switch self {
-		case .festival(_, let date):
-			return date
-		default:
-			return nil
-		}
+		return Locale.current.language.languageCode == "ko" ? "http://apis.data.go.kr/B551011/KorService1" : "http://apis.data.go.kr/B551011/EngService1"
 	}
 
 	var endPoint: String {
 		switch self {
-		case .festival:
-			return baseURL + "/searchFestival1"
-
-		default:
+		case .searchKeyword:
+			return baseURL + "/searchKeyword1"
+		case .areaBasedList:
 			return baseURL + "/areaBasedList1"
+		case .searchFestival:
+			return baseURL + "/searchFestival1"
 		}
+	}
+
+	var parameter: [String: Any] {
+		var params: [String: Any] = [
+			"serviceKey": APIKey.korDataAPIServiceKey,
+			"MobileOS": "IOS",
+			"MobileApp": "NuriRock",
+			"_type": "json",
+			"listYN": "Y",
+			"arrange": "Q"
+		]
+
+		switch self {
+		case .searchKeyword(let keyword, let contentType, let areaCode, let numOfRows, let pageNo):
+			params["keyword"] = keyword
+			params["contentTypeId"] = contentType.contentTypeCode
+			params["numOfRows"] = numOfRows
+			params["pageNo"] = pageNo
+			params["areaCode"] = areaCode.rawValue
+
+		case .areaBasedList(let contentType, let areaCode, let numOfRows, let pageNo):
+			params["contentTypeId"] = contentType.contentTypeCode
+			params["numOfRows"] = numOfRows
+			params["pageNo"] = pageNo
+			params["areaCode"] = areaCode.rawValue
+
+		case .searchFestival(let eventStartDate, let areaCode, let numOfRows, let pageNo):
+			params["eventStartDate"] = eventStartDate.formattedDateString()
+			params["contentTypeId"] = ContentType.festival.contentTypeCode
+			params["numOfRows"] = numOfRows
+			params["pageNo"] = pageNo
+			params["areaCode"] = areaCode.rawValue
+		}
+
+		return params
 	}
 
 	var method: HTTPMethod {
 		return .get
 	}
-
-	var parameter: Parameters? {
-		var paras: [String: Any] = [
-			"serviceKey": APIKey.korDataAPIServiceKey,
-			"numOfRows": "10",
-			"pageNo": "1",
-			"MobileOS": "IOS",
-			"MobileApp": "NuriRock",
-			"_type": "json",
-			"listYN": "Y",
-			"arrange": "Q",
-			"areaCode": areaCode
-		]
-
-		if let date = self.date {
-			paras["eventStartDate"] = date
-		} else {
-			paras["contentTypeId"] = contentTypeCode
-		}
-
-		return paras
-	}
-
+	
 	var encoding: URLEncoding {
 		return .queryString
 	}

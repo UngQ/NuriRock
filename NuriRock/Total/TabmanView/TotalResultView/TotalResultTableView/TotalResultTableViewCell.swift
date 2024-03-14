@@ -9,11 +9,15 @@ import UIKit
 import Kingfisher
 import FSCalendar
 
+protocol CalendarDateDelegate: AnyObject {
+	func calendarButtonClicked()
+}
+
 class TotalResultTableViewCell: BaseTableViewCell {
 
 	let viewModel = TotalResultTableViewModel()
 
-	weak var delegate: TotalResultTableViewCellDelegate?
+	weak var delegate: CalendarDateDelegate?
 
 	var addButtonAction: ((_ segmentIndex: Int) -> Void)?
 	private var currentSegmentIndex: Int = 0
@@ -36,6 +40,8 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		viewModel.onDateChanged = {
 			self.dateLabel.text = $0
 		}
+
+	
 	}
 
 	private func bind() {
@@ -139,6 +145,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 
 	@objc func calendarButtonClicked() {
 		delegate?.calendarButtonClicked()
+
 	}
 
 
@@ -220,7 +227,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 
 	func configureWithIndex(index: Int) {
 
-		viewModel.inputAreaCode.value = CityCode.allCases[index].rawValue
+		viewModel.inputAreaCode.value = CityCode.allCases[index]
 	}
 
 	required init?(coder: NSCoder) {
@@ -241,7 +248,7 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 
 			guard let data = viewModel.outputFestivalData.value?.response.body.items else { return 1 }
 
-			return data.item.count  // 예시 값
+			return data.item.count
 		}
 		return 0
 	}
@@ -329,10 +336,10 @@ extension TotalResultTableViewCell: UICollectionViewDelegateFlowLayout {
 	}
 }
 
-
-extension TotalResultTableViewCell: CalendarDateSelectionDelegate {
-	func didSelectDate(date: Date) {
-		viewModel.inputDate.value = date
-
-	}
-}
+//
+//extension TotalResultTableViewCell: CalendarDateSelectionDelegate {
+//	func didSelectDate(date: Date) {
+//		viewModel.inputDate.value = date
+//
+//	}
+//}

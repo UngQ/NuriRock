@@ -20,9 +20,11 @@ final class TotalViewController: BaseViewController {
 
 	let repository = SearchHistoryRepository()
 
+	var isInSearchView = false
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
 		let searchController = UISearchController(searchResultsController: nil)
 		searchController.searchBar.placeholder = "입력해봐"
@@ -41,6 +43,9 @@ final class TotalViewController: BaseViewController {
 		navigationItem.titleView = imageView
 		navigationController?.navigationBar.backgroundColor = .white
 
+		if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
+			totalResultVC.scrollDelegate = self
+}
 
     }
 
@@ -115,12 +120,6 @@ final class TotalViewController: BaseViewController {
 //네비게이션 서치바
 extension TotalViewController: UISearchBarDelegate {
 
-	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-		print(#function)
-	}
-
-
-
 	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 		print(#function)
 		tabManVC.view.isHidden = true
@@ -130,6 +129,8 @@ extension TotalViewController: UISearchBarDelegate {
 			make.top.equalTo(view.safeAreaLayoutGuide)
 			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 		}
+
+		isInSearchView = true
 	}
 
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -144,6 +145,8 @@ extension TotalViewController: UISearchBarDelegate {
 		}
 		tabManVC.view.isHidden = false
 		cityCollectionView.isHidden = false
+
+		isInSearchView = false
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -153,6 +156,9 @@ extension TotalViewController: UISearchBarDelegate {
 			searchVC.list = repository.fetchHistory()
 			searchVC.updateSnapshot()
 		}
+
+		let vc = SearchResultViewController()
+		navigationController?.pushViewController(vc, animated: true)
 	}
 }
 
@@ -181,11 +187,41 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 		return cell
 	}
 
+	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		
 		selectedCellIndex = indexPath.item
-		tabManVC.itemSelected(at: indexPath.row)
+		tabManVC.itemSelected(at: indexPath.item)
 		tabManVC.scrollToPage(.at(index: 0), animated: true)
 		collectionView.reloadData()
+	}
+}
+
+
+extension TotalViewController: TotalResultViewControllerDelegate {
+	func didScrollTableView(_ direction: ScrollDirection) {
+		switch direction {
+		case .down:
+			if !isInSearchView {
+				UIView.animate(withDuration: 0.3) {
+					self.cityCollectionView.isHidden = false
+					self.containerView.snp.remakeConstraints { make in
+						make.top.equalTo(self.cityCollectionView.snp.bottom)
+						make.bottom.horizontalEdges.equalTo(self.view.safeAreaLayoutGuide)
+					}
+
+					self.view.layoutIfNeeded()
+				}
+			}
+		case .up:
+			UIView.animate(withDuration: 0.3) {
+				self.cityCollectionView.isHidden = true
+				self.containerView.snp.remakeConstraints { make in
+					make.top.equalTo(self.view.safeAreaLayoutGuide)
+					make.bottom.horizontalEdges.equalTo(self.view.safeAreaLayoutGuide)
+				}
+				self.view.layoutIfNeeded()
+			}
+		}
 	}
 }

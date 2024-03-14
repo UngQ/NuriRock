@@ -8,26 +8,27 @@
 import UIKit
 import Tabman
 import Pageboy
-import FSCalendar
 
 final class TabManViewController: TabmanViewController {
 
 
 	let baseView = UIView()
 
-	private var viewControllers: [UIViewController] = []
+	var viewControllers: [UIViewController] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
 		let totalResultVC = TotalResultViewController()
-		 totalResultVC.delegate = self
+		totalResultVC.delegate = self
 
 		let searchVC = SearchViewController()
 
 
 		viewControllers.append(totalResultVC)
 		viewControllers.append(searchVC)
+		viewControllers.append(SearchViewController())
 		viewControllers.append(SearchViewController())
 		viewControllers.append(SearchViewController())
 		viewControllers.append(SearchViewController())
@@ -103,15 +104,18 @@ extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource
 			return TMBarItem(title: title)
 
 		case 3:
-			let title = "숙박"
+			let title = "축제공연행사"
 			return TMBarItem(title: title)
 		case 4:
-			let title = NSLocalizedString(LocalString.shopping.rawValue, comment: "")
+			let title = "숙박"
 			return TMBarItem(title: title)
 		case 5:
-			let title = "맛집"
+			let title = NSLocalizedString(LocalString.shopping.rawValue, comment: "")
 			return TMBarItem(title: title)
 
+		case 6:
+			let title = "맛집"
+			return TMBarItem(title: title)
 		default:
 			return TMBarItem(title: "")
 		}
@@ -120,12 +124,10 @@ extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource
 
 }
 
-extension TabManViewController: TotalResultViewControllerDelegate {
-	func addButtonClicked(_ segmentIndex: Int) {
-		let pageIndex = segmentIndex == 0 ? 1 : 5
+extension TabManViewController: SeeMoreButtonClickedDelegate {
+	func seeMoreButtonClicked(_ segmentIndex: Int) {
+		let pageIndex = segmentIndex == 0 ? 1 : 6
 		scrollToPage(.at(index: pageIndex), animated: true)
-
-
 	}
 }
 

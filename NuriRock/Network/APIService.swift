@@ -18,6 +18,7 @@ class APIService {
 
 	func request<T: Decodable>(type: T.Type, api: API, completionHandler: @escaping (T?, AFError?) -> Void) {
 
+
 		AF.request(api.endPoint,
 				   method: api.method,
 				   parameters: api.parameter,
