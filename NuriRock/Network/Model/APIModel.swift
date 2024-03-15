@@ -8,68 +8,84 @@
 import Foundation
 
 
-struct Test: Codable {
+struct Test: Decodable {
 	let response: Response
 }
 
-// MARK: - Response
-struct Response: Codable {
+struct Response: Decodable {
 	let header: Header
 	let body: Body
 }
 
-// MARK: - Body
-struct Body: Codable {
-	let items: Items?
-	let numOfRows, pageNo, totalCount: Int
+struct Header: Decodable {
+	let resultCode: String
+	let resultMsg: String
+}
 
-	//items가 0개 일떄 String("")으로 전달받는 것을 처리
+struct Body: Decodable {
+	let items: ItemContainer?
+	let numOfRows: Int
+	let pageNo: Int
+	let totalCount: Int
+
+	enum CodingKeys: String, CodingKey {
+		 case items, numOfRows, pageNo, totalCount
+	 }
+
+
 	init(from decoder: Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-		numOfRows = try container.decode(Int.self, forKey: .numOfRows)
-		pageNo = try container.decode(Int.self, forKey: .pageNo)
-		totalCount = try container.decode(Int.self, forKey: .totalCount)
+		   let container = try decoder.container(keyedBy: CodingKeys.self)
+		   numOfRows = try container.decode(Int.self, forKey: .numOfRows)
+		   pageNo = try container.decode(Int.self, forKey: .pageNo)
+		   totalCount = try container.decode(Int.self, forKey: .totalCount)
 
-		if let itemsObject = try? container.decode(Items.self, forKey: .items) {
-			items = itemsObject
-		} else if let itemsString = try? container.decode(String.self, forKey: .items), itemsString == "" {
-			items = nil
-		} else {
-			throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath + [CodingKeys.items], debugDescription: "Expected items to be either an Items object or an empty string"))
-		}
-	}
-}
-
-// MARK: - Items
-struct Items: Codable {
-	let item: [Item]
-
-	
-}
-
-// MARK: - Item
-struct Item: Codable {
-	let addr1, addr2, areacode: String
-	let contentid, contenttypeid: String
-	let createdtime: String
-	let firstimage, firstimage2: String
-	let mapx, mapy, mlevel, modifiedtime: String
-	let tel, title: String
-	let zipcode, eventstartdate, eventenddate: String?
-
+		   if let itemArray = try? container.decode(ItemContainer.self, forKey: .items) {
+			   items = itemArray
+		   } else {
+			   items = nil
+		   }
+	   }
 
 }
 
-//enum Cat1: String, Codable {
-//	case a01 = "A01"
-//	case a02 = "A02"
-//}
 
-
-// MARK: - Header
-struct Header: Codable {
-	let resultCode, resultMsg: String
+struct ItemContainer: Decodable {
+	let item: [Item]?
 }
 
+struct Item: Decodable {
+	let addr1: String
+	let addr2: String
+	let areacode: String
+
+	let contentid: String
+	let contenttypeid: String
+
+	let firstimage: String
+	let firstimage2: String
+
+	let mapx: String?
+	let mapy: String?
+
+	let tel: String?
+	let title: String
+	let zipcode: String?
+	let eventstartdate: String?
+	let eventenddate: String?
+
+
+	//	let cat1: String?
+	//	let cat2: String?
+	//	let cat3: String?
+
+	//	let createdtime: String?
+	//	let modifiedtime: String?
+
+	//	let cpyrhtDivCd: String?
+
+	//	let mlevel: String?
+
+	//	let sigungucode: String?
+}
 
 

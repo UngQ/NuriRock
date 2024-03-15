@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Toast
 
 final class TotalViewController: BaseViewController {
 
@@ -25,6 +26,8 @@ final class TotalViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
 
 		let searchController = UISearchController(searchResultsController: nil)
 		searchController.searchBar.placeholder = "입력해봐"
@@ -150,15 +153,23 @@ extension TotalViewController: UISearchBarDelegate {
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-		if searchBar.text != "" {
+
+		guard let searchText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines), !searchText.isEmpty else {
+
+			view.makeToast("공백 없이 입력해주세요", position: .center)
+			return
+		}
+
 			repository.addKeyword(keyword: searchBar.text!)
+			let vc = SearchResultViewController()
+			vc.viewModel.inputKeyword.value = searchBar.text!
+			navigationController?.pushViewController(vc, animated: true)
 			searchBar.text = ""
 			searchVC.list = repository.fetchHistory()
 			searchVC.updateSnapshot()
-		}
 
-		let vc = SearchResultViewController()
-		navigationController?.pushViewController(vc, animated: true)
+
+
 	}
 }
 
@@ -193,6 +204,9 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 		selectedCellIndex = indexPath.item
 		tabManVC.itemSelected(at: indexPath.item)
 		tabManVC.scrollToPage(.at(index: 0), animated: true)
+		if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
+			totalResultVC.segmentedControl.selectedSegmentIndex = 0
+}
 		collectionView.reloadData()
 	}
 }

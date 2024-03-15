@@ -29,8 +29,17 @@ class APIService {
 				completionHandler(success, nil)
 			case .failure(let failure):
 				print(failure)
-				completionHandler(nil, failure)
+				print("error낫슈")
+				print(response.error?.responseCode)
+
+
+				DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+					self.request(type: type, api: api, completionHandler: completionHandler)
+				}
 			}
 		}
 	}
 }
+
+
+

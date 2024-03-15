@@ -7,12 +7,28 @@
 
 import Foundation
 
-//enum ContentType: String {
-//	case tour = "12" //관광지
-//	case culture = "14" //문화시설
-//	case festival = "15" //축제공연행사
-//
-//	case hotel = "32" //숙박
-//	case shopping = "38" //쇼핑
-//	case restaurant = "39" //음식점
-//}
+enum ContentType: String {
+	case tour = "tour"
+	case culture = "culture"
+	case festival = "festival"
+	case hotel = "hotel"
+	case shopping = "shopping"
+	case restaurant = "restaurant"
+
+	var contentTypeCode: String {
+		switch self {
+		case .tour:
+			return Locale.current.language.languageCode == "ko" ? "12" : "76"
+		case .culture:
+			return Locale.current.language.languageCode == "ko" ? "14" : "78"
+		case .festival:
+			return Locale.current.language.languageCode == "ko" ? "15" : "85"
+		case .hotel:
+			return Locale.current.language.languageCode == "ko" ? "32" : "80"
+		case .shopping:
+			return Locale.current.language.languageCode == "ko" ? "38" : "79"
+		case .restaurant:
+			return Locale.current.language.languageCode == "ko" ? "39" : "82"
+		}
+	}
+}

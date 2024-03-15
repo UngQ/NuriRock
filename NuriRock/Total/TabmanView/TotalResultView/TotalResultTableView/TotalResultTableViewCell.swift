@@ -246,9 +246,9 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 		} else if collectionView == self.bottomCollectionView {
 			// bottomCollectionView에 대한 아이템 수 반환
 
-			guard let data = viewModel.outputFestivalData.value?.response.body.items else { return 1 }
+			guard let data = viewModel.outputFestivalData.value?.response.body.items?.item else { return 1 }
 
-			return data.item.count
+			return data.count
 		}
 		return 0
 	}
@@ -258,21 +258,20 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as? TopCollectionViewCell else {
 				return UICollectionViewCell()
 			}
-			var data: [Item]? = []
+			var data: [Item] = []
 
 
 
 			if viewModel.inputSegmentedValue.value == 0 {
-				guard let items = viewModel.outputTourData.value?.response.body.items else { return cell }
+				guard let items = viewModel.outputTourData.value?.response.body.items?.item else { return cell }
 
-				data = items.item
+				data = items
 			} else {
-				guard let items = viewModel.outputRestaurantData.value?.response.body.items else { return cell }
-				data = items.item
+				guard let items = viewModel.outputRestaurantData.value?.response.body.items?.item else { return cell }
+				data = items
 			}
 
 			// topCollectionView에 대한 셀 구성
-			guard let data = data else { return cell }
 			let url = URL(string: data[indexPath.item].firstimage)
 			cell.imageView.kf.setImage(with: url)
 			cell.titleLabel.text = data[indexPath.item].title
@@ -286,18 +285,18 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			}
 			// bottomCollectionView에 대한 셀 구성
 			// 적절한 데이터 설정
-			guard let data = viewModel.outputFestivalData.value?.response.body.items else { 
+			guard let data = viewModel.outputFestivalData.value?.response.body.items?.item else {
 				cell.emptyLabel.isHidden = false
 				cell.detailView.isHidden = true
 				return cell }
 
-			let url = URL(string: data.item[indexPath.item].firstimage)
+			let url = URL(string: data[indexPath.item].firstimage)
 			cell.posterImageView.kf.setImage(with: url)
-			cell.titleLabel.text = data.item[indexPath.item].title
-			cell.addrLabel.text = data.item[indexPath.item].addr1
+			cell.titleLabel.text = data[indexPath.item].title
+			cell.addrLabel.text = data[indexPath.item].addr1
 
-			guard let startDate = data.item[indexPath.item].eventstartdate else { return cell }
-			guard let endDate = data.item[indexPath.item].eventenddate else { return cell }
+			guard let startDate = data[indexPath.item].eventstartdate else { return cell }
+			guard let endDate = data[indexPath.item].eventenddate else { return cell }
 			cell.dateLabel.text = "\(startDate.formattedDateString()) ~ \(endDate.formattedDateString())"
 			return cell
 		}

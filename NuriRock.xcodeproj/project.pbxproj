@@ -30,6 +30,9 @@
 		A563B0332BA2846B005A4F37 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = A563B0322BA2846B005A4F37 /* SVProgressHUD */; };
 		A563B0382BA305B9005A4F37 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0372BA305B9005A4F37 /* SearchResultViewController.swift */; };
 		A563B03A2BA3063C005A4F37 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0392BA3063C005A4F37 /* SearchResultViewModel.swift */; };
+		A563B03D2BA35EED005A4F37 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = A563B03C2BA35EED005A4F37 /* Toast */; };
+		A563B0402BA3CC5A005A4F37 /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B03F2BA3CC5A005A4F37 /* ResultCollectionViewCell.swift */; };
+		A563B0422BA3D084005A4F37 /* ResultCollectionViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0412BA3D084005A4F37 /* ResultCollectionViewSectionHeaderView.swift */; };
 		A5D5DD5E2B9DACB8007F9935 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */; };
 		A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD602B9DB32F007F9935 /* Delegate.swift */; };
 		A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */; };
@@ -74,6 +77,8 @@
 		A563B02D2BA12DA8005A4F37 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		A563B0372BA305B9005A4F37 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		A563B0392BA3063C005A4F37 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
+		A563B03F2BA3CC5A005A4F37 /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		A563B0412BA3D084005A4F37 /* ResultCollectionViewSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewSectionHeaderView.swift; sourceTree = "<group>"; };
 		A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		A5D5DD602B9DB32F007F9935 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -120,6 +125,7 @@
 				A563B0242BA0BBDE005A4F37 /* Realm in Frameworks */,
 				A556413C2B9D5041000A1F27 /* Kingfisher in Frameworks */,
 				A563B0262BA0BBDE005A4F37 /* RealmSwift in Frameworks */,
+				A563B03D2BA35EED005A4F37 /* Toast in Frameworks */,
 				A55641302B9CB549000A1F27 /* Alamofire in Frameworks */,
 				A563B0332BA2846B005A4F37 /* SVProgressHUD in Frameworks */,
 				A5ED2ECD2B9994F900BB0E9C /* SnapKit in Frameworks */,
@@ -217,8 +223,18 @@
 			children = (
 				A563B0372BA305B9005A4F37 /* SearchResultViewController.swift */,
 				A563B0392BA3063C005A4F37 /* SearchResultViewModel.swift */,
+				A563B03E2BA3CC40005A4F37 /* resultCollectionViewCell */,
 			);
 			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		A563B03E2BA3CC40005A4F37 /* resultCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A563B03F2BA3CC5A005A4F37 /* ResultCollectionViewCell.swift */,
+				A563B0412BA3D084005A4F37 /* ResultCollectionViewSectionHeaderView.swift */,
+			);
+			path = resultCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		A5D5DD5F2B9DB311007F9935 /* Protocol */ = {
@@ -380,6 +396,7 @@
 				A563B0232BA0BBDE005A4F37 /* Realm */,
 				A563B0252BA0BBDE005A4F37 /* RealmSwift */,
 				A563B0322BA2846B005A4F37 /* SVProgressHUD */,
+				A563B03C2BA35EED005A4F37 /* Toast */,
 			);
 			productName = NuriRock;
 			productReference = A5ED2E892B99837800BB0E9C /* NuriRock.app */;
@@ -421,6 +438,7 @@
 				A563B01B2BA085AF005A4F37 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				A563B0222BA0BBDE005A4F37 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				A563B0312BA2846B005A4F37 /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
+				A563B03B2BA35EED005A4F37 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = A5ED2E8A2B99837800BB0E9C /* Products */;
 			projectDirPath = "";
@@ -453,9 +471,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5D5DD662B9E7D76007F9935 /* DateFormatter.swift in Sources */,
+				A563B0422BA3D084005A4F37 /* ResultCollectionViewSectionHeaderView.swift in Sources */,
 				A563B02E2BA12DA8005A4F37 /* MainTabbarController.swift in Sources */,
 				A55641372B9D4636000A1F27 /* Observable.swift in Sources */,
 				A563B03A2BA3063C005A4F37 /* SearchResultViewModel.swift in Sources */,
+				A563B0402BA3CC5A005A4F37 /* ResultCollectionViewCell.swift in Sources */,
 				A556412A2B9C7794000A1F27 /* TopCollectionViewCell.swift in Sources */,
 				A55641222B9C6B5B000A1F27 /* TotalResultViewController.swift in Sources */,
 				A5ED2ED02B99981B00BB0E9C /* Country.swift in Sources */,
@@ -782,6 +802,14 @@
 				minimumVersion = 2.3.1;
 			};
 		};
+		A563B03B2BA35EED005A4F37 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		A5ED2ECB2B9994F900BB0E9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -827,6 +855,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A563B0312BA2846B005A4F37 /* XCRemoteSwiftPackageReference "SVProgressHUD" */;
 			productName = SVProgressHUD;
+		};
+		A563B03C2BA35EED005A4F37 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A563B03B2BA35EED005A4F37 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 		A5ED2ECC2B9994F900BB0E9C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

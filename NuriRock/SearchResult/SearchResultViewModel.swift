@@ -12,7 +12,7 @@ class SearchResultViewModel {
   var inputKeyword: Observable<String> = Observable("")
 
 	var outputTourData: Observable<Test?> = Observable(nil)
-	var outputCulturalFacilitiesData: Observable<Test?> = Observable(nil)
+	var outputCultureData: Observable<Test?> = Observable(nil)
 	var outputFestivalData: Observable<Test?> = Observable(nil)
 	var outputHotelData: Observable<Test?> = Observable(nil)
 	var outputShoppingData: Observable<Test?> = Observable(nil)
@@ -22,26 +22,45 @@ class SearchResultViewModel {
 
    init() {
 
-	   inputKeyword.bind { areaCode in
-//		   self.callAPIDataRequest(api: .tour(areaCode: areaCode))
-//		   self.callAPIDataRequest(api: .restaurant(areaCode: areaCode))
-//		   self.callAPIDataRequest(api: .festival(areaCode: areaCode, date: self.inputDate.value.toYYYYMMDD()))
+	   inputKeyword.apiBind { keyword in
+		   self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .tour, numOfRows: 10, pageNo: 1))
+		   self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .culture, numOfRows: 10, pageNo: 1))
+		   self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .festival, numOfRows: 10, pageNo: 1))
+		   self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .hotel, numOfRows: 10, pageNo: 1))
+		   self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .shopping, numOfRows: 10, pageNo: 1))
+		   self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .restaurant, numOfRows: 10, pageNo: 1))
 	   }
 
    }
 
-//   private func callAPIDataRequest(api: API) {
-//	   APIService.shared.request(type: Test.self, api: api) { response, error in
-//		   switch api {
-//		   case .tour:
-//			   self.outputTourData.value = response
-//		   case .restaurant:
-//			   self.outputRestaurantData.value = response
-//		   case .festival:
-//			   self.outputFestivalData.value = response
-//		   default:
-//			   return
-//		   }
-//	   }
-//   }
+	private func callAPIDataRequest(api: API) {
+		APIService.shared.request(type: Test.self, api: api) { response, error in
+			guard let response = response else { return }
+			switch api {
+			case .searchKeyword(_, let contentType, _, _):
+				switch contentType {
+				case .tour:
+					self.outputTourData.value = response
+					print(response)
+				case .culture:
+					self.outputCultureData.value = response
+					print(response)
+				case .festival:
+					self.outputFestivalData.value = response
+					print(response)
+				case .hotel:
+					self.outputHotelData.value = response
+					print(response)
+				case .shopping:
+					self.outputShoppingData.value = response
+					print(response)
+				case .restaurant:
+					self.outputRestaurantData.value = response
+					print(response)
+				}
+			default:
+				break
+			}
+		}
+	}
 }

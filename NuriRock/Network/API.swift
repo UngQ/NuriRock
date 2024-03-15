@@ -10,7 +10,7 @@ import Alamofire
 
 
 enum API {
-	case searchKeyword(keyword: String, contentType: ContentType, areaCode: CityCode, numOfRows: Int, pageNo: Int)
+	case searchKeyword(keyword: String, contentType: ContentType, numOfRows: Int, pageNo: Int)
 	case areaBasedList(contentType: ContentType, areaCode: CityCode, numOfRows: Int, pageNo: Int)
 	case searchFestival(eventStartDate: String, areaCode: CityCode, numOfRows: Int, pageNo: Int)
 
@@ -55,7 +55,7 @@ enum API {
 		}
 	}
 
-	var parameter: [String: Any] {
+	var parameter: Parameters {
 		var params: [String: Any] = [
 			"serviceKey": APIKey.korDataAPIServiceKey,
 			"MobileOS": "IOS",
@@ -66,12 +66,11 @@ enum API {
 		]
 
 		switch self {
-		case .searchKeyword(let keyword, let contentType, let areaCode, let numOfRows, let pageNo):
+		case .searchKeyword(let keyword, let contentType, let numOfRows, let pageNo):
 			params["keyword"] = keyword
 			params["contentTypeId"] = contentType.contentTypeCode
 			params["numOfRows"] = numOfRows
 			params["pageNo"] = pageNo
-			params["areaCode"] = areaCode.rawValue
 
 		case .areaBasedList(let contentType, let areaCode, let numOfRows, let pageNo):
 			params["contentTypeId"] = contentType.contentTypeCode
@@ -80,8 +79,7 @@ enum API {
 			params["areaCode"] = areaCode.rawValue
 
 		case .searchFestival(let eventStartDate, let areaCode, let numOfRows, let pageNo):
-			params["eventStartDate"] = eventStartDate.formattedDateString()
-			params["contentTypeId"] = ContentType.festival.contentTypeCode
+			params["eventStartDate"] = eventStartDate
 			params["numOfRows"] = numOfRows
 			params["pageNo"] = pageNo
 			params["areaCode"] = areaCode.rawValue

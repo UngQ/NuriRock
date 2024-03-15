@@ -35,10 +35,11 @@ class TotalResultTableViewModel {
 	init() {
 
 		inputAreaCode.bind { areaCode in
-			self.callAPIDataRequest(api: .areaBasedList(contentType: .tour, areaCode: areaCode, numOfRows: 4, pageNo: 1))
-			self.callAPIDataRequest(api: .areaBasedList(contentType: .restaurant, areaCode: areaCode, numOfRows: 4, pageNo: 1))
-			self.callAPIDataRequest(api: .areaBasedList(contentType: .festival, areaCode: areaCode, numOfRows: 4, pageNo: 1))
+			print(areaCode.rawValue)
+			self.callAPIDataRequest(api: .areaBasedList(contentType: .tour, areaCode: areaCode, numOfRows: 10, pageNo: 1))
+			self.callAPIDataRequest(api: .areaBasedList(contentType: .restaurant, areaCode: areaCode, numOfRows: 10, pageNo: 1))
 			self.callAPIDataRequest(api: .searchFestival(eventStartDate: self.inputDate.value.toYYYYMMDD(), areaCode: areaCode, numOfRows: 10, pageNo: 1))
+
 		}
 
 		inputDate.apiBind { date in
@@ -58,8 +59,10 @@ class TotalResultTableViewModel {
 				switch contentType {
 				case .tour:
 					self.outputTourData.value = response
+
 				case .culture:
 					self.outputCultureData.value = response
+					dump(response)
 				case .festival: //축제 정보는 지역 + 오늘날짜 기반으로만 정보 받아와서 .areaBasedList에서 사용 X
 					break
 				case .hotel:
@@ -72,6 +75,7 @@ class TotalResultTableViewModel {
 				}
 			case .searchFestival:
 				self.outputFestivalData.value = response
+
 
 			default:
 				break
