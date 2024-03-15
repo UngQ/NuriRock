@@ -86,19 +86,19 @@ class BottomCollectionViewCell: BaseCollectionViewCell {
 
 		detailView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
 
-		titleLabel.text = "test"
+
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		titleLabel.font = .boldSystemFont(ofSize: 12)
 		titleLabel.numberOfLines = 0
 
-		addrLabel.text = "addr"
+
 		addrLabel.textColor = .white
 		addrLabel.textAlignment = .center
 		addrLabel.font = .systemFont(ofSize: 10)
 		addrLabel.numberOfLines = 0
 
-		dateLabel.text = "date"
+
 		dateLabel.textColor = .white
 		dateLabel.textAlignment = .center
 		dateLabel.font = .systemFont(ofSize: 10)

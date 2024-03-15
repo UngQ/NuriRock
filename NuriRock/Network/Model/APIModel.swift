@@ -53,7 +53,7 @@ struct ItemContainer: Decodable {
 	let item: [Item]?
 }
 
-struct Item: Decodable {
+struct Item: Decodable, Hashable {
 	let addr1: String
 	let addr2: String
 	let areacode: String

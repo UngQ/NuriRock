@@ -31,11 +31,12 @@ class APIService {
 				print(failure)
 				print("error낫슈")
 				print(response.error?.responseCode)
+				completionHandler(nil, failure)
 
-
-				DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+				DispatchQueue.main.asyncAfter(deadline: .now()) {
 					self.request(type: type, api: api, completionHandler: completionHandler)
 				}
+
 			}
 		}
 	}

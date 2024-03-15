@@ -47,10 +47,10 @@ class TopCollectionViewCell: BaseCollectionViewCell {
 		imageView.layer.cornerRadius = 20
 		imageView.contentMode = .scaleAspectFill
 
-		titleLabel.text = "title"
+
 		titleLabel.font = .boldSystemFont(ofSize: 14)
 
-		addressLabel.text = "address"
+
 		addressLabel.font = .systemFont(ofSize: 10)
 		addressLabel.numberOfLines = 0
 

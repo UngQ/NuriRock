@@ -9,6 +9,8 @@ import UIKit
 import Kingfisher
 import FSCalendar
 
+import SVProgressHUD
+
 protocol CalendarDateDelegate: AnyObject {
 	func calendarButtonClicked()
 }
@@ -61,8 +63,21 @@ class TotalResultTableViewCell: BaseTableViewCell {
 			self.topCollectionView.reloadData()
 		}
 
+		viewModel.onError.bind { _ in
+			if self.viewModel.onError.value {
+				SVProgressHUD.show()
+			} else {
+				SVProgressHUD.dismiss()
+			}
+		}
+
 
 	}
+
+//	func makeAlert() {
+//		let alert = UIAlertController()
+//		let retry = UIAlert
+//	}
 
 	override func configureHierarchy() {
 		contentView.addSubview(segmentedController)

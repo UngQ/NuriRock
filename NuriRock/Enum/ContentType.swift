@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum ContentType: String {
-	case tour = "tour"
-	case culture = "culture"
-	case festival = "festival"
-	case hotel = "hotel"
-	case shopping = "shopping"
-	case restaurant = "restaurant"
+enum ContentType: Int, CaseIterable {
+	case tour
+	case culture
+	case festival
+	case hotel
+	case shopping
+	case restaurant
 
 	var contentTypeCode: String {
 		switch self {

@@ -27,6 +27,7 @@ class TotalResultTableViewModel {
 	var outputShoppingData: Observable<Test?> = Observable(nil)
 	var outputRestaurantData: Observable<Test?> = Observable(nil)
 
+	var onError: Observable<Bool> = Observable(true)
 
 	var onDateChanged: ((String) -> Void)?
 
@@ -49,36 +50,46 @@ class TotalResultTableViewModel {
 	}
 
 	private func callAPIDataRequest(api: API) {
-
-
+		self.onError.value = true
 
 		APIService.shared.request(type: Test.self, api: api) { response, error in
-			guard let response = response else { return }
-			switch api {
-			case .areaBasedList(let contentType, _, _, _):
-				switch contentType {
-				case .tour:
-					self.outputTourData.value = response
+			if let response = response {
 
-				case .culture:
-					self.outputCultureData.value = response
-					dump(response)
-				case .festival: //축제 정보는 지역 + 오늘날짜 기반으로만 정보 받아와서 .areaBasedList에서 사용 X
+				switch api {
+				case .areaBasedList(let contentType, _, _, _):
+					switch contentType {
+					case .tour:
+						self.outputTourData.value = response
+						self.onError.value = false
+
+					case .culture:
+						self.outputCultureData.value = response
+						self.onError.value = false
+					case .festival: //축제 정보는 지역 + 오늘날짜 기반으로만 정보 받아와서 .areaBasedList에서 사용 X
+						break
+					case .hotel:
+						self.outputHotelData.value = response
+						self.onError.value = false
+					case .shopping:
+						self.outputShoppingData.value = response
+						self.onError.value = false
+					case .restaurant:
+						self.outputRestaurantData.value = response
+						self.onError.value = false
+					}
+				case .searchFestival:
+					self.outputFestivalData.value = response
+					self.onError.value = false
+
+
+				default:
 					break
-				case .hotel:
-					self.outputHotelData.value = response
-				case .shopping:
-					self.outputShoppingData.value = response
-				case .restaurant:
-					self.outputRestaurantData.value = response
-
 				}
-			case .searchFestival:
-				self.outputFestivalData.value = response
+			} else if let error = error {
+				self.onError.value = true
 
 
-			default:
-				break
+			
 			}
 		}
 	}
