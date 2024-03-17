@@ -7,19 +7,19 @@
 
 import UIKit
 
-class SectionHeaderView: UICollectionReusableView {
+class ResultCollectionViewSectionHeaderView: UICollectionReusableView {
 	static let identifier = "SectionHeaderView"
 
-	private let titleLabel: UILabel = {
+	let titleLabel: UILabel = {
 		let label = UILabel()
 		label.textColor = .black
 		label.font = UIFont.boldSystemFont(ofSize: 16)
 		return label
 	}()
-
-	public func configure(title: String) {
-		titleLabel.text = title
-	}
+//
+//	public func configure(title: String) {
+//		titleLabel.text = title
+//	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)

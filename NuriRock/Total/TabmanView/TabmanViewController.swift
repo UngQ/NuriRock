@@ -14,25 +14,40 @@ final class TabManViewController: TabmanViewController {
 
 	let baseView = UIView()
 
+	var localCollectionViewRow = 0
+
 	var viewControllers: [UIViewController] = []
+
+	let totalResultVC = TotalResultViewController()
+
+	let tourVC = ContentViewController()
+	let cultureVC = ContentViewController()
+	let festivalVC = ContentViewController()
+	let hotelVC = ContentViewController()
+	let shoppingVC = ContentViewController()
+	let restaurantVC = ContentViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
 
-		let totalResultVC = TotalResultViewController()
-		totalResultVC.delegate = self
+		totalResultVC.seeMoreDelegate = self
 
-		let searchVC = SearchViewController()
 
+		tourVC.viewModel.inputContentType.value = ContentType.tour
+		cultureVC.viewModel.inputContentType.value = ContentType.culture
+		festivalVC.viewModel.inputContentType.value = ContentType.festival
+		hotelVC.viewModel.inputContentType.value = ContentType.hotel
+		shoppingVC.viewModel.inputContentType.value = ContentType.shopping
+		restaurantVC.viewModel.inputContentType.value = ContentType.restaurant
 
 		viewControllers.append(totalResultVC)
-		viewControllers.append(searchVC)
-		viewControllers.append(SearchViewController())
-		viewControllers.append(SearchViewController())
-		viewControllers.append(SearchViewController())
-		viewControllers.append(SearchViewController())
-		viewControllers.append(SearchViewController())
+		viewControllers.append(tourVC)
+		viewControllers.append(cultureVC)
+		viewControllers.append(festivalVC)
+		viewControllers.append(hotelVC)
+		viewControllers.append(shoppingVC)
+		viewControllers.append(restaurantVC)
 		self.dataSource = self
 
 		view.addSubview(baseView)
@@ -69,6 +84,12 @@ final class TabManViewController: TabmanViewController {
 		if let totalResultVC = viewControllers.first as? TotalResultViewController {
 			totalResultVC.selectedItemIndex = index
 			totalResultVC.updateUIBasedOnSelection()
+		}
+
+		viewControllers.forEach {
+			if let contentVC = $0 as? ContentViewController {
+				contentVC.updateForCity(index: index)
+			}
 		}
 	}
 
@@ -128,7 +149,8 @@ extension TabManViewController: SeeMoreButtonClickedDelegate {
 	func seeMoreButtonClicked(_ segmentIndex: Int) {
 		let pageIndex = segmentIndex == 0 ? 1 : 6
 		scrollToPage(.at(index: pageIndex), animated: true)
+		
+		let test = totalResultVC.mainTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TotalResultTableViewCell
+//		tourVC. test.viewModel.outputTourData
 	}
 }
-
-

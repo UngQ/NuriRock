@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 import Toast
 
-final class TotalViewController: BaseViewController {
 
+final class TotalViewController: BaseViewController {
 
 	lazy var cityCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionView())
 	var selectedCellIndex = 0
@@ -200,13 +200,18 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		
+
+		tabManVC.localCollectionViewRow = indexPath.item
+
 		selectedCellIndex = indexPath.item
 		tabManVC.itemSelected(at: indexPath.item)
 		tabManVC.scrollToPage(.at(index: 0), animated: true)
-		if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
-			totalResultVC.segmentedControl.selectedSegmentIndex = 0
-}
+
+//		if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
+//			totalResultVC.segmentedControl.selectedSegmentIndex = 0
+//			totalResultVC.mainTableView.scrollsToTop = true
+//			print("여기 작동되니?")
+//		}
 		collectionView.reloadData()
 	}
 }

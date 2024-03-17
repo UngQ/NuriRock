@@ -15,6 +15,23 @@ enum ContentType: Int, CaseIterable {
 	case shopping
 	case restaurant
 
+	var title: String {
+		switch self {
+		case .tour:
+			"Tour"
+		case .culture:
+			"Culture"
+		case .festival:
+			"Festival"
+		case .hotel:
+			"Hotel"
+		case .shopping:
+			"Shopping"
+		case .restaurant:
+			"Restaurant"
+		}
+	}
+
 	var contentTypeCode: String {
 		switch self {
 		case .tour:

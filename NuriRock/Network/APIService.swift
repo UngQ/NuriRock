@@ -16,8 +16,7 @@ class APIService {
 
 	
 
-	func request<T: Decodable>(type: T.Type, api: API, completionHandler: @escaping (T?, AFError?) -> Void) {
-
+	func request<T: Decodable>(type: T.Type, api: API, retryCount: Int = 2, completionHandler: @escaping (T?, AFError?) -> Void) {
 
 		AF.request(api.endPoint,
 				   method: api.method,
@@ -28,13 +27,16 @@ class APIService {
 				print("네트워크 통신 성공!")
 				completionHandler(success, nil)
 			case .failure(let failure):
-				print(failure)
-				print("error낫슈")
-				print(response.error?.responseCode)
-				completionHandler(nil, failure)
+				print("에러")
+				if retryCount > 0 {
 
-				DispatchQueue.main.asyncAfter(deadline: .now()) {
-					self.request(type: type, api: api, completionHandler: completionHandler)
+					DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+						self.request(type: type, api: api, retryCount: retryCount - 1, completionHandler: completionHandler)
+						print(retryCount)
+					}
+				} else {
+					print("여기로오나")
+					completionHandler(nil, failure)
 				}
 
 			}

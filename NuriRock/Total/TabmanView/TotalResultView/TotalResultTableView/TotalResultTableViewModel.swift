@@ -27,7 +27,9 @@ class TotalResultTableViewModel {
 	var outputShoppingData: Observable<Test?> = Observable(nil)
 	var outputRestaurantData: Observable<Test?> = Observable(nil)
 
-	var onError: Observable<Bool> = Observable(true)
+	var onProgress: Observable<Bool> = Observable(true)
+	var noMoreRetryAttempts: Observable<Bool> = Observable(false)
+
 
 	var onDateChanged: ((String) -> Void)?
 
@@ -50,7 +52,8 @@ class TotalResultTableViewModel {
 	}
 
 	private func callAPIDataRequest(api: API) {
-		self.onError.value = true
+		self.onProgress.value = true
+		self.noMoreRetryAttempts.value = false
 
 		APIService.shared.request(type: Test.self, api: api) { response, error in
 			if let response = response {
@@ -60,35 +63,34 @@ class TotalResultTableViewModel {
 					switch contentType {
 					case .tour:
 						self.outputTourData.value = response
-						self.onError.value = false
+						self.onProgress.value = false
 
 					case .culture:
 						self.outputCultureData.value = response
-						self.onError.value = false
+						self.onProgress.value = false
 					case .festival: //축제 정보는 지역 + 오늘날짜 기반으로만 정보 받아와서 .areaBasedList에서 사용 X
 						break
 					case .hotel:
 						self.outputHotelData.value = response
-						self.onError.value = false
+						self.onProgress.value = false
 					case .shopping:
 						self.outputShoppingData.value = response
-						self.onError.value = false
+						self.onProgress.value = false
 					case .restaurant:
 						self.outputRestaurantData.value = response
-						self.onError.value = false
+						self.onProgress.value = false
 					}
 				case .searchFestival:
 					self.outputFestivalData.value = response
-					self.onError.value = false
+					self.onProgress.value = false
 
 
 				default:
 					break
 				}
 			} else if let error = error {
-				self.onError.value = true
-
-
+				self.noMoreRetryAttempts.value = true
+				self.onProgress.value = false
 			
 			}
 		}

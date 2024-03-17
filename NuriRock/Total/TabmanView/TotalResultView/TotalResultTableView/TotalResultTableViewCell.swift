@@ -15,19 +15,26 @@ protocol CalendarDateDelegate: AnyObject {
 	func calendarButtonClicked()
 }
 
+protocol NoMoreTryDelegate: AnyObject {
+	func noMoreAlert()
+}
+
 class TotalResultTableViewCell: BaseTableViewCell {
 
 	let viewModel = TotalResultTableViewModel()
 
+
 	weak var delegate: CalendarDateDelegate?
 
-	var addButtonAction: ((_ segmentIndex: Int) -> Void)?
+	weak var noMoreaTryDelegate: NoMoreTryDelegate?
+
+	var seeMoreButtonAction: ((_ segmentIndex: Int) -> Void)?
 	private var currentSegmentIndex: Int = 0
 
 	let segmentedController = UISegmentedControl(items: [NSLocalizedString(LocalString.popularTouristAtraction.rawValue, comment: ""),
 														 NSLocalizedString(LocalString.popularRestaurant.rawValue, comment: "")])
 
-	let addButton = UIButton()
+	let seeMoreButton = UIButton()
 	let concertLabel = UILabel()
 	let dateLabel = UILabel()
 	let calendarButton = UIButton()
@@ -63,30 +70,34 @@ class TotalResultTableViewCell: BaseTableViewCell {
 			self.topCollectionView.reloadData()
 		}
 
-		viewModel.onError.bind { _ in
-			if self.viewModel.onError.value {
+		viewModel.onProgress.bind { _ in
+			if self.viewModel.onProgress.value {
 				SVProgressHUD.show()
 			} else {
 				SVProgressHUD.dismiss()
 			}
 		}
 
+		viewModel.noMoreRetryAttempts.apiBind { _ in
+			if self.viewModel.noMoreRetryAttempts.value {
+				self.noMoreaTryDelegate?.noMoreAlert()
+			}
+		}
+
 
 	}
 
-//	func makeAlert() {
-//		let alert = UIAlertController()
-//		let retry = UIAlert
-//	}
 
 	override func configureHierarchy() {
+
 		contentView.addSubview(segmentedController)
 		contentView.addSubview(topCollectionView)
-		contentView.addSubview(addButton)
+		contentView.addSubview(seeMoreButton)
 		contentView.addSubview(concertLabel)
 		contentView.addSubview(dateLabel)
 		contentView.addSubview(calendarButton)
 		contentView.addSubview(bottomCollectionView)
+
 	}
 
 	override func configureLayout() {
@@ -102,7 +113,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 			make.height.equalTo(420)
 		}
 
-		addButton.snp.makeConstraints { make in
+		seeMoreButton.snp.makeConstraints { make in
 			make.top.equalTo(topCollectionView.snp.bottom).offset(4)
 			make.centerX.equalToSuperview()
 			make.width.equalTo(80)
@@ -110,7 +121,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		}
 
 		concertLabel.snp.makeConstraints { make in
-			make.top.equalTo(addButton.snp.bottom).offset(12)
+			make.top.equalTo(seeMoreButton.snp.bottom).offset(12)
 			make.horizontalEdges.equalToSuperview().inset(8)
 			make.height.equalTo(24)
 		}
@@ -132,16 +143,16 @@ class TotalResultTableViewCell: BaseTableViewCell {
 			make.top.equalTo(dateLabel.snp.bottom).offset(4)
 			make.bottom.horizontalEdges.equalToSuperview()
 		}
+
 	}
 
 	override func configureCell() {
 
-	
-		addButton.setTitle(NSLocalizedString(LocalString.seemore.rawValue, comment: ""), for: .normal)
-		addButton.backgroundColor = .systemBlue
-		addButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
-		addButton.layer.cornerRadius = 8
-		addButton.titleLabel?.font = .boldSystemFont(ofSize: 12)
+		seeMoreButton.setTitle(NSLocalizedString(LocalString.seemore.rawValue, comment: ""), for: .normal)
+		seeMoreButton.backgroundColor = .systemBlue
+		seeMoreButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
+		seeMoreButton.layer.cornerRadius = 8
+		seeMoreButton.titleLabel?.font = .boldSystemFont(ofSize: 12)
 
 		concertLabel.text = NSLocalizedString(LocalString.events.rawValue, comment: "")
 		concertLabel.font = .boldSystemFont(ofSize: 16)
@@ -205,7 +216,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 	}
 
 	@objc private func addButtonClicked() {
-		addButtonAction?(currentSegmentIndex)
+		seeMoreButtonAction?(currentSegmentIndex)
 	}
 
 	@objc private func segmentedValueChanged(_ sender: UISegmentedControl) {
@@ -241,7 +252,9 @@ class TotalResultTableViewCell: BaseTableViewCell {
 	}
 
 	func configureWithIndex(index: Int) {
-
+		
+		segmentedController.selectedSegmentIndex = 0
+		segmentedValueChanged(segmentedController)
 		viewModel.inputAreaCode.value = CityCode.allCases[index]
 	}
 
