@@ -14,7 +14,10 @@ protocol SeeMoreButtonClickedDelegate: AnyObject {
 
 protocol TotalResultViewControllerDelegate: AnyObject {
 	func didScrollTableView(_ direction: ScrollDirection)
+	func totalResultViewControllerDidSelectItem(withID id: String)
+
 }
+
 
 enum ScrollDirection {
 	case up
@@ -76,8 +79,10 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "TotalResultTableViewCell", for: indexPath) as! TotalResultTableViewCell
 		cell.delegate = self
+		cell.didSelectDelegate = self
 		cell.noMoreaTryDelegate = self
 		cell.selectionStyle = .none
+
 
 		cell.seeMoreButtonAction = { [weak self] segmentIndex in
 			self?.seeMoreDelegate?.seeMoreButtonClicked(segmentIndex)
@@ -132,4 +137,16 @@ extension TotalResultViewController: NoMoreTryDelegate {
 	}
 	
 
+}
+
+extension TotalResultViewController: TotalResultTableViewCellDelegate {
+	func didSelectItem(selectedItem: String) {
+//		let vc = DetailContentInfoViewController()
+//		vc.label.text = selectedItem
+//
+//		navigationController?.pushViewController(vc, animated: true)
+
+		scrollDelegate?.totalResultViewControllerDidSelectItem(withID: selectedItem)
+
+	}
 }

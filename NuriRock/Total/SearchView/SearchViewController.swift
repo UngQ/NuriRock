@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol SearchViewControllerDelegate: AnyObject {
+	func didSelectSearchResult(keyword: String)
+}
+
 class SearchViewController: BaseViewController {
 
 	enum Section: CaseIterable {
 		case history
 	}
+
+	weak var delegate: SearchViewControllerDelegate?
 
 	let emptyMainLabel = UILabel()
 	let emptyLabel = UILabel()
@@ -22,7 +28,7 @@ class SearchViewController: BaseViewController {
 
 	lazy var searchHistoryCollectionView = {
 		let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
-//		view.delegate = self
+		view.delegate = self
 		return view
 	}()
 
@@ -199,3 +205,19 @@ class SearchViewController: BaseViewController {
 		dataSource.apply(snapshot) //reloadData
 	}
 }
+
+extension SearchViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let keyword = list[indexPath.item].keyword
+		delegate?.didSelectSearchResult(keyword: keyword)
+
+		repository.addKeyword(keyword: list[indexPath.item].keyword)
+		list = repository.fetchHistory()
+		updateSnapshot()
+
+
+
+	}
+}
+
+

@@ -91,11 +91,14 @@ final class TotalViewController: BaseViewController {
 
 
 
+
 		cityCollectionView.backgroundColor = .white
 
 		cityCollectionView.delegate = self
 		cityCollectionView.dataSource = self
 		cityCollectionView.register(CityCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+
+		searchVC.delegate = self
 
 	}
 
@@ -218,6 +221,12 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 
 extension TotalViewController: TotalResultViewControllerDelegate {
+	func totalResultViewControllerDidSelectItem(withID id: String) {
+		let vc = DetailContentInfoViewController()
+		vc.label.text = id
+		navigationController?.pushViewController(vc, animated: true)
+	}
+	
 	func didScrollTableView(_ direction: ScrollDirection) {
 		switch direction {
 		case .down:
@@ -243,4 +252,26 @@ extension TotalViewController: TotalResultViewControllerDelegate {
 			}
 		}
 	}
+}
+
+
+extension TotalViewController: SearchViewControllerDelegate {
+	func didSelectSearchResult(keyword: String) {
+		let vc = SearchResultViewController()
+		vc.viewModel.inputKeyword.value = keyword
+		navigationController?.pushViewController(vc, animated: true)
+	}
+	
+
+}
+
+extension TotalViewController: TotalResultTableViewCellDelegate {
+	func didSelectItem(selectedItem: String) {
+		let vc = DetailContentInfoViewController()
+		vc.label.text = selectedItem
+
+		navigationController?.pushViewController(vc, animated: true)
+	}
+	
+
 }

@@ -19,6 +19,10 @@ protocol NoMoreTryDelegate: AnyObject {
 	func noMoreAlert()
 }
 
+protocol TotalResultTableViewCellDelegate: AnyObject {
+	func didSelectItem(selectedItem: String)
+}
+
 class TotalResultTableViewCell: BaseTableViewCell {
 
 	let viewModel = TotalResultTableViewModel()
@@ -27,6 +31,8 @@ class TotalResultTableViewCell: BaseTableViewCell {
 	weak var delegate: CalendarDateDelegate?
 
 	weak var noMoreaTryDelegate: NoMoreTryDelegate?
+
+	weak var didSelectDelegate: TotalResultTableViewCellDelegate?
 
 	var seeMoreButtonAction: ((_ segmentIndex: Int) -> Void)?
 	private var currentSegmentIndex: Int = 0
@@ -46,14 +52,16 @@ class TotalResultTableViewCell: BaseTableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		bind()
 
-		viewModel.onDateChanged = {
-			self.dateLabel.text = $0
-		}
+
 
 	
 	}
 
 	private func bind() {
+		viewModel.onDateChanged = {
+			self.dateLabel.text = $0
+		}
+
 		viewModel.outputTourData.apiBind { data in
 			self.topCollectionView.reloadData()
 		}
@@ -286,24 +294,22 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as? TopCollectionViewCell else {
 				return UICollectionViewCell()
 			}
-			var data: [Item] = []
-
 
 
 			if viewModel.inputSegmentedValue.value == 0 {
 				guard let items = viewModel.outputTourData.value?.response.body.items?.item else { return cell }
 
-				data = items
+				viewModel.currentData = items
 			} else {
 				guard let items = viewModel.outputRestaurantData.value?.response.body.items?.item else { return cell }
-				data = items
+				viewModel.currentData = items
 			}
 
 			// topCollectionView에 대한 셀 구성
-			let url = URL(string: data[indexPath.item].firstimage)
+			let url = URL(string: viewModel.currentData[indexPath.item].firstimage)
 			cell.imageView.kf.setImage(with: url)
-			cell.titleLabel.text = data[indexPath.item].title
-			cell.addressLabel.text = data[indexPath.item].addr1
+			cell.titleLabel.text = viewModel.currentData[indexPath.item].title
+			cell.addressLabel.text = viewModel.currentData[indexPath.item].addr1
 
 			return cell
 
@@ -332,7 +338,20 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 	}
 
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		print("hi")
+		if collectionView == self.topCollectionView {
+			print("위")
+
+			didSelectDelegate?.didSelectItem(selectedItem: viewModel.currentData[indexPath.item].contentid)
+
+
+		} else if collectionView == self.bottomCollectionView {
+			// bottomCollectionView에 대한 아이템 수 반환
+
+			print("아래")
+
+			didSelectDelegate?.didSelectItem(selectedItem: viewModel.currentData[indexPath.item].contentid)
+		}
+
 	}
 
 

@@ -82,14 +82,15 @@ class ResultCollectionViewCell: UICollectionViewCell {
 
 //		 backgroundColor = .lightGray
 
-		 let fullText = itemIdentifier.title
+		 let fullTitle = itemIdentifier.title
 		 let searchText = searchKeyword
 
-		 let searchKeyword = NSAttributedString.highlight(searchText: searchText, in: fullText, highlightColor: .systemBlue, textColor: .black, font: .boldSystemFont(ofSize: 14))
+		 let searchKeyword = NSAttributedString.highlight(searchText: searchText, in: fullTitle, highlightColor: .systemBlue, textColor: .black, font: .boldSystemFont(ofSize: 14))
 		 mainLabel.attributedText = searchKeyword
 
 		 let url = URL(string: itemIdentifier.firstimage)
 		 mainImageView.kf.setImage(with: url)
+
 
 		 addrLabel.text = itemIdentifier.addr1
 

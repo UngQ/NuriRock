@@ -38,6 +38,7 @@
 		A563B0492BA57A2C005A4F37 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0482BA57A2C005A4F37 /* ContentViewController.swift */; };
 		A563B04B2BA58B09005A4F37 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B04A2BA58B09005A4F37 /* ContentViewModel.swift */; };
 		A563B04D2BA68D91005A4F37 /* ContentViewFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B04C2BA68D91005A4F37 /* ContentViewFooterView.swift */; };
+		A563B0502BA7B1F8005A4F37 /* DetailContentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B04F2BA7B1F8005A4F37 /* DetailContentInfoViewController.swift */; };
 		A5D5DD5E2B9DACB8007F9935 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */; };
 		A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD602B9DB32F007F9935 /* Delegate.swift */; };
 		A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */; };
@@ -89,6 +90,7 @@
 		A563B0482BA57A2C005A4F37 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		A563B04A2BA58B09005A4F37 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		A563B04C2BA68D91005A4F37 /* ContentViewFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewFooterView.swift; sourceTree = "<group>"; };
+		A563B04F2BA7B1F8005A4F37 /* DetailContentInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailContentInfoViewController.swift; sourceTree = "<group>"; };
 		A5D5DD5D2B9DACB8007F9935 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		A5D5DD602B9DB32F007F9935 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -248,14 +250,22 @@
 			path = resultCollectionViewCell;
 			sourceTree = "<group>";
 		};
-		A563B0472BA57A01005A4F37 /* EachContent */ = {
+		A563B0472BA57A01005A4F37 /* EachContentList */ = {
 			isa = PBXGroup;
 			children = (
 				A563B0482BA57A2C005A4F37 /* ContentViewController.swift */,
 				A563B04A2BA58B09005A4F37 /* ContentViewModel.swift */,
 				A563B04C2BA68D91005A4F37 /* ContentViewFooterView.swift */,
 			);
-			path = EachContent;
+			path = EachContentList;
+			sourceTree = "<group>";
+		};
+		A563B04E2BA7B1C4005A4F37 /* DetailContentInfo */ = {
+			isa = PBXGroup;
+			children = (
+				A563B04F2BA7B1F8005A4F37 /* DetailContentInfoViewController.swift */,
+			);
+			path = DetailContentInfo;
 			sourceTree = "<group>";
 		};
 		A5D5DD5F2B9DB311007F9935 /* Protocol */ = {
@@ -314,7 +324,8 @@
 				A563B02C2BA12D94005A4F37 /* Tabbar */,
 				A5ED2ED62B99A87400BB0E9C /* Total */,
 				A563B0362BA30501005A4F37 /* SearchResult */,
-				A563B0472BA57A01005A4F37 /* EachContent */,
+				A563B0472BA57A01005A4F37 /* EachContentList */,
+				A563B04E2BA7B1C4005A4F37 /* DetailContentInfo */,
 				A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */,
 				A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */,
 				A5ED2E902B99837800BB0E9C /* ViewController.swift */,
@@ -514,6 +525,7 @@
 				A5ED2ED82B99A8C100BB0E9C /* TotalViewController.swift in Sources */,
 				A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */,
 				A563B0282BA0BC6E005A4F37 /* RealmModel.swift in Sources */,
+				A563B0502BA7B1F8005A4F37 /* DetailContentInfoViewController.swift in Sources */,
 				A5ED2EE12B9B2A3200BB0E9C /* CityCollectionViewCell.swift in Sources */,
 				A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */,
 				A5ED2EC22B9993E400BB0E9C /* OnboardingViewController.swift in Sources */,

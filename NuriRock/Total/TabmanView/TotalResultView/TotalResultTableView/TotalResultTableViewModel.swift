@@ -11,6 +11,8 @@ import Alamofire
 
 class TotalResultTableViewModel {
 
+	var currentData: [Item] = []
+
 
 	var inputViewDidLoadTrigger: Observable<Void?> = Observable(nil)
 
