@@ -183,7 +183,9 @@ extension SearchResultViewController {
 
 	@objc func test(_ sender: UIButton) {
 		let vc = ContentViewController()
-		vc.viewModel.inputContentType.value = ContentType.allCases[sender.tag]
+		vc.viewModel.isAreaOrKeyword = false
+		vc.viewModel.intputContentTypeAtKeyword.value = ContentType.allCases[sender.tag]
+		vc.viewModel.inputKeyword.value = viewModel.inputKeyword.value
 		navigationController?.pushViewController(vc, animated: true)
 	}
 }

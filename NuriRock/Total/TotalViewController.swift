@@ -210,11 +210,6 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 		tabManVC.itemSelected(at: indexPath.item)
 		tabManVC.scrollToPage(.at(index: 0), animated: true)
 
-//		if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
-//			totalResultVC.segmentedControl.selectedSegmentIndex = 0
-//			totalResultVC.mainTableView.scrollsToTop = true
-//			print("여기 작동되니?")
-//		}
 		collectionView.reloadData()
 	}
 }

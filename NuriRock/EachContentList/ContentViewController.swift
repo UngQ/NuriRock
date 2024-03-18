@@ -22,6 +22,7 @@ class ContentViewController: BaseViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
+		viewModel.inputViewWillAppearTrigger.value = ()
 		print(#function)
 	}
 
@@ -64,15 +65,35 @@ class ContentViewController: BaseViewController {
 
 	override func configureView() {
 		 
+
 	}
 
 	private func bindViewModel() {
+
+		viewModel.noMoreRetryAttempts.apiBind { _ in
+			if self.viewModel.noMoreRetryAttempts.value {
+				self.view.makeToast("잠시 후 다시 시도해주세요.", position: .center)
+			}
+		}
+
 		viewModel.outputContentData.bind { _ in
 			self.updateSnapshot()
 		}
 
 		viewModel.outputItemList.bind { _ in
 			self.updateSnapshot()
+		}
+
+		viewModel.onProgress.bind { _ in
+			if self.viewModel.onProgress.value {
+				SVProgressHUD.show()
+			} else {
+				SVProgressHUD.dismiss()
+			}
+		}
+
+		viewModel.isLastPage.apiBind { _ in
+			self.view.makeToast("더 이상 목록이 없습니다")
 		}
 
 //		viewModel.onProgress.bind { _ in
@@ -127,7 +148,7 @@ extension ContentViewController {
 		let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
 			layoutSize: headerFooterSize,
 			elementKind: SearchResultViewController.sectionFooterElementKind, alignment: .bottom)
-		section.boundarySupplementaryItems = [sectionFooter]
+//		section.boundarySupplementaryItems = [sectionFooter]
 
 		let layout = UICollectionViewCompositionalLayout(section: section)
 		return layout
@@ -208,10 +229,14 @@ extension ContentViewController: UICollectionViewDataSourcePrefetching {
 
 		for item in indexPaths {
 			guard let count = viewModel.outputItemList.value?.count else { return }
-			if count - 4 == item.row {
-				viewModel.isAreaChange = false
-				viewModel.inputPageNo.value += 1
+			if count - 10 == item.row {
 				
+				if viewModel.isAreaOrKeyword {
+					viewModel.isAreaChange = false
+					viewModel.inputPageNo.value += 1
+				} else {
+					viewModel.inputPageNo.value += 1
+				}
 				print("hi~~")
 			}
 		}
