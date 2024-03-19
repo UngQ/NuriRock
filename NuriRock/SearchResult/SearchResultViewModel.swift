@@ -40,6 +40,7 @@ class SearchResultViewModel {
 			self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .hotel, numOfRows: 3, pageNo: 1))
 			self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .shopping, numOfRows: 3, pageNo: 1))
 			self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .restaurant, numOfRows: 3, pageNo: 1))
+
 		}
 
 	}
@@ -58,27 +59,21 @@ class SearchResultViewModel {
 					case .tour:
 						self.outputTourData.value = response
 						self.onProgress.value = false
-						print(response)
 					case .culture:
 						self.outputCultureData.value = response
 						self.onProgress.value = false
-						print(response)
 					case .festival:
 						self.outputFestivalData.value = response
 						self.onProgress.value = false
-						print(response)
 					case .hotel:
 						self.outputHotelData.value = response
 						self.onProgress.value = false
-						print(response)
 					case .shopping:
 						self.outputShoppingData.value = response
 						self.onProgress.value = false
-						print(response)
 					case .restaurant:
 						self.outputRestaurantData.value = response
 						self.onProgress.value = false
-						print(response)
 					}
 				default:
 					break

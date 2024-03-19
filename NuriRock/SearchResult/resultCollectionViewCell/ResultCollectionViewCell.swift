@@ -15,9 +15,10 @@ class ResultCollectionViewCell: UICollectionViewCell {
 		 view.contentMode = .scaleAspectFill
 		 view.clipsToBounds = true
 		 view.layer.cornerRadius = 12
-		 view.backgroundColor = .green
 		 return view
 	 }()
+
+
 
 	 let mainLabel = {
 		 let view = UILabel()
@@ -26,6 +27,12 @@ class ResultCollectionViewCell: UICollectionViewCell {
 		 view.font = .boldSystemFont(ofSize: 14)
 		 return view
 	 }()
+
+	let lineView = {
+		let view = UIView()
+		view.backgroundColor = .systemBlue
+		return view
+	}()
 
 	let addrLabel = {
 		let view = UILabel()
@@ -41,6 +48,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
 		 super.init(frame: frame)
 
 		 contentView.addSubview(mainImageView)
+		 contentView.addSubview(lineView)
 		 contentView.addSubview(mainLabel)
 		 contentView.addSubview(addrLabel)
 
@@ -50,16 +58,23 @@ class ResultCollectionViewCell: UICollectionViewCell {
 
 		 }
 
+		 lineView.snp.makeConstraints { make in
+			 make.leading.equalTo(mainImageView.snp.trailing).offset(4)
+			 make.centerY.equalToSuperview()
+			 make.trailing.equalToSuperview()
+			 make.height.equalTo(1)
+		 }
+
 		 mainLabel.snp.makeConstraints { make in
 			 make.leading.equalTo(mainImageView.snp.trailing).offset(4)
-			 make.trailing.equalTo(self.safeAreaLayoutGuide).offset(-4)
+			 make.bottom.equalTo(lineView.snp.top).offset(4)
 			 make.height.greaterThanOrEqualTo(0)
 			 make.top.equalToSuperview()
 
 		 }
 
 		 addrLabel.snp.makeConstraints { make in
-			 make.top.equalTo(mainLabel.snp.bottom).offset(2)
+			 make.top.equalTo(lineView.snp.bottom).offset(2)
 			 make.leading.equalTo(mainImageView.snp.trailing).offset(4)
 			 make.trailing.equalTo(self.safeAreaLayoutGuide).offset(-4)
 			 make.height.greaterThanOrEqualTo(0)

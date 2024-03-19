@@ -46,9 +46,15 @@ final class TotalViewController: BaseViewController {
 		navigationItem.titleView = imageView
 		navigationController?.navigationBar.backgroundColor = .white
 
-		if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
-			totalResultVC.scrollDelegate = self
-}
+
+		tabManVC.viewControllers.forEach {
+			if let contentVC = $0 as? ContentViewController {
+				contentVC.scrollDelegate = self
+				contentVC.didSelectDelegate = self
+			} else		if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
+				totalResultVC.scrollDelegate = self
+		 }
+		}
 
     }
 
@@ -218,7 +224,7 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 extension TotalViewController: TotalResultViewControllerDelegate {
 	func totalResultViewControllerDidSelectItem(withID id: String) {
 		let vc = DetailContentInfoViewController()
-		vc.label.text = id
+		vc.viewModel.inputContentId.value = id
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	
@@ -263,8 +269,7 @@ extension TotalViewController: SearchViewControllerDelegate {
 extension TotalViewController: TotalResultTableViewCellDelegate {
 	func didSelectItem(selectedItem: String) {
 		let vc = DetailContentInfoViewController()
-		vc.label.text = selectedItem
-
+		vc.viewModel.inputContentId.value = selectedItem
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	

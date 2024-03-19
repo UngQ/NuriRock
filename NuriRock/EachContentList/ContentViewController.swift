@@ -7,6 +7,7 @@
 
 import UIKit
 import SVProgressHUD
+import Kingfisher
 
 class ContentViewController: BaseViewController {
 
@@ -18,24 +19,62 @@ class ContentViewController: BaseViewController {
 
 	let viewModel = ContentViewModel()
 
+	weak var scrollDelegate: TotalResultViewControllerDelegate?
+	weak var didSelectDelegate: TotalResultTableViewCellDelegate?
+
+
+//	lazy var scrollViewHeight = self.collectionView.contentSize.height {
+//		didSet {
+//			if viewModel.isAreaOrKeyword {
+//				viewModel.isAreaChange = false
+//				viewModel.inputPageNo.value += 1
+//			} else {
+//				viewModel.inputPageNo.value += 1
+//			}
+//		}
+//	}
+
+
+
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		viewModel.inputViewWillAppearTrigger.value = ()
+//		viewModel.outputItemList.value = []
+		if let _ = viewModel.outputItemList.value {
+
+		} else {
+			viewModel.inputViewWillAppearTrigger.value = ()
+		}
 		print(#function)
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		let cashe = ImageCache.default
+		cashe.clearMemoryCache()
+		cashe.clearDiskCache {
+			print("done")
+		}
+		cashe.cleanExpiredMemoryCache()
+		cashe.cleanExpiredDiskCache {
+			print("done")
+		}
+
+	}
+
+
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		print(viewModel.inputContentType.value)
 
 		configureHierarchy()
 		configureDataSource()
 		bindViewModel()
 		updateSnapshot()
 
+//		viewModel.inputViewWillAppearTrigger.value = ()
 
 	}
 
@@ -43,6 +82,7 @@ class ContentViewController: BaseViewController {
 	func updateForCity(index: Int) {
 		viewModel.isAreaChange = true
 		viewModel.inputAreaCode.value = CityCode.allCases[index]
+		viewModel.outputItemList.value = nil
 		viewModel.inputPageNo.value = 1
 	}
 
@@ -52,13 +92,20 @@ class ContentViewController: BaseViewController {
 		collectionView.backgroundColor = .systemBackground
 
 		collectionView.delegate = self
-		collectionView.prefetchDataSource = self
+
 	}
 
 	override func configureLayout() {
-		collectionView.snp.makeConstraints { make in
-			make.top.equalTo(view.safeAreaLayoutGuide).offset(44)
-			make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+		if viewModel.isAreaOrKeyword == false {
+			collectionView.snp.makeConstraints { make in
+				make.top.equalTo(view.safeAreaLayoutGuide)
+				make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+			}
+		} else  {
+			collectionView.snp.makeConstraints { make in
+				make.top.equalTo(view.safeAreaLayoutGuide).offset(56)
+				make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+			}
 		}
 
 	}
@@ -82,6 +129,7 @@ class ContentViewController: BaseViewController {
 
 		viewModel.outputItemList.bind { _ in
 			self.updateSnapshot()
+			self.viewModel.isLoading = false
 		}
 
 		viewModel.onProgress.bind { _ in
@@ -118,10 +166,10 @@ class ContentViewController: BaseViewController {
 
 		snapshot.appendItems(viewModel.outputItemList.value ?? [], toSection: .tour)
 
-		dataSource.apply(snapshot) //reloadData
+		dataSource.apply(snapshot, animatingDifferences: true) //reloadData
 
 		//realm과 결합할 때, 삭제 할때 스냅샷이 안먹힐때
-		//		dataSource.applySnapshotUsingReloadData(snapshot)
+//				dataSource.applySnapshotUsingReloadData(snapshot)
 	}
 }
 
@@ -145,9 +193,9 @@ extension ContentViewController {
 //		let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
 //			layoutSize: headerFooterSize,
 //			elementKind: SearchResultViewController.sectionHeaderElementKind, alignment: .top)
-		let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
-			layoutSize: headerFooterSize,
-			elementKind: SearchResultViewController.sectionFooterElementKind, alignment: .bottom)
+//		let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
+//			layoutSize: headerFooterSize,
+//			elementKind: SearchResultViewController.sectionFooterElementKind, alignment: .bottom)
 //		section.boundarySupplementaryItems = [sectionFooter]
 
 		let layout = UICollectionViewCompositionalLayout(section: section)
@@ -216,30 +264,60 @@ extension ContentViewController {
 
 extension ContentViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		print("select")
-		collectionView.deselectItem(at: indexPath, animated: true)
+
+		if let selectedItem = viewModel.outputItemList.value?[indexPath.row].contentid {
+			didSelectDelegate?.didSelectItem(selectedItem: selectedItem)
+		}
+
+		let vc = DetailContentInfoViewController()
+		vc.viewModel.inputContentId.value = viewModel.outputItemList.value?[indexPath.row].contentid
+		navigationController?.pushViewController(vc, animated: true)
+
 	}
 }
 
-extension ContentViewController: UICollectionViewDataSourcePrefetching {
+extension ContentViewController: UIScrollViewDelegate {
 
 
-	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
 
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
 
-		for item in indexPaths {
-			guard let count = viewModel.outputItemList.value?.count else { return }
-			if count - 10 == item.row {
-				
+		if translation.y > 0 {
+			scrollDelegate?.didScrollTableView(.down)
+		} else if translation.y < 0 {
+
+			let offsetY = scrollView.contentOffset.y
+			let contentHeight = scrollView.contentSize.height
+			let height = scrollView.frame.size.height
+
+			if offsetY > contentHeight - height * 1.1 && !viewModel.isLoading {
+				viewModel.isLoading = true
 				if viewModel.isAreaOrKeyword {
 					viewModel.isAreaChange = false
 					viewModel.inputPageNo.value += 1
 				} else {
 					viewModel.inputPageNo.value += 1
 				}
-				print("hi~~")
 			}
+
+			scrollDelegate?.didScrollTableView(.up)
 		}
 	}
 
+
+
+//	func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//		if viewModel.isAreaOrKeyword {
+//			viewModel.isAreaChange = false
+//			viewModel.inputPageNo.value += 1
+//		} else {
+//			viewModel.inputPageNo.value += 1
+//		}
+//		print("hi~~")
+//	}
+//
+//	func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+//		print("gggg")
+//	}
 }

@@ -27,46 +27,46 @@ class SearchResultViewController: UIViewController {
 		updateSnapshot()
 	}
 
-		private func bindViewModel() {
-			viewModel.outputTourData.bind { _ in
-				self.updateSnapshot()
-			}
-	
-			viewModel.outputCultureData.bind { _ in
-				self.updateSnapshot()
-			}
-	
-			viewModel.outputFestivalData.bind { _ in
-				self.updateSnapshot()
-			}
-	
-			viewModel.outputHotelData.bind { _ in
-				self.updateSnapshot()
-			}
-	
-			viewModel.outputShoppingData.bind { _ in
-				self.updateSnapshot()
-			}
-	
-			viewModel.outputRestaurantData.bind { _ in
-				self.updateSnapshot()
-			}
+	private func bindViewModel() {
+		viewModel.outputTourData.bind { _ in
+			self.updateSnapshot()
+		}
 
-			viewModel.onProgress.bind { _ in
-				if self.viewModel.onProgress.value {
-					SVProgressHUD.show()
-				} else {
-					SVProgressHUD.dismiss()
-				}
-			}
+		viewModel.outputCultureData.bind { _ in
+			self.updateSnapshot()
+		}
 
-			viewModel.noMoreRetryAttempts.apiBind { _ in
-				if self.viewModel.noMoreRetryAttempts.value {
-					self.view.makeToast("잠시 후 다시 시도해주세요.", position: .center)
-				}
+		viewModel.outputFestivalData.bind { _ in
+			self.updateSnapshot()
+		}
+
+		viewModel.outputHotelData.bind { _ in
+			self.updateSnapshot()
+		}
+
+		viewModel.outputShoppingData.bind { _ in
+			self.updateSnapshot()
+		}
+
+		viewModel.outputRestaurantData.bind { _ in
+			self.updateSnapshot()
+		}
+
+		viewModel.onProgress.bind { _ in
+			if self.viewModel.onProgress.value {
+				SVProgressHUD.show()
+			} else {
+				SVProgressHUD.dismiss()
 			}
 		}
-	
+
+		viewModel.noMoreRetryAttempts.apiBind { _ in
+			if self.viewModel.noMoreRetryAttempts.value {
+				self.view.makeToast("잠시 후 다시 시도해주세요.", position: .center)
+			}
+		}
+	}
+
 
 	private func updateSnapshot() {
 		var snapshot = NSDiffableDataSourceSnapshot<ContentType, Item>()
@@ -82,7 +82,7 @@ class SearchResultViewController: UIViewController {
 		dataSource.apply(snapshot) //reloadData
 
 		//realm과 결합할 때, 삭제 할때 스냅샷이 안먹힐때
-//		dataSource.applySnapshotUsingReloadData(snapshot)
+		//		dataSource.applySnapshotUsingReloadData(snapshot)
 	}
 }
 
@@ -90,11 +90,11 @@ extension SearchResultViewController {
 	/// - Tag: HeaderFooter
 	func createLayout() -> UICollectionViewLayout {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-											 heightDimension: .fractionalHeight(1.0))
+											  heightDimension: .fractionalHeight(1.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
 		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-											  heightDimension: .absolute(72))
+											   heightDimension: .absolute(72))
 		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
 		let section = NSCollectionLayoutSection(group: group)
@@ -102,7 +102,7 @@ extension SearchResultViewController {
 		section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
 
 		let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-													 heightDimension: .estimated(44))
+													  heightDimension: .estimated(44))
 		let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
 			layoutSize: headerFooterSize,
 			elementKind: SearchResultViewController.sectionHeaderElementKind, alignment: .top)
@@ -130,7 +130,7 @@ extension SearchResultViewController {
 
 		let cellRegistration = UICollectionView.CellRegistration<ResultCollectionViewCell, Item> { (cell, indexPath, identifier) in
 			// Populate the cell with our item description.
-//			cell.mainLabel.text = "\(indexPath.section),\(indexPath.item)"
+			//			cell.mainLabel.text = "\(indexPath.section),\(indexPath.item)"
 			cell.searchKeyword = self.viewModel.inputKeyword.value
 			cell.updateUI(identifier)
 
@@ -143,9 +143,9 @@ extension SearchResultViewController {
 			supplementaryView.titleLabel.text = ContentType(rawValue: indexPath.section)?.title
 
 
-//			supplementaryView.backgroundColor = .lightGray
-//			supplementaryView.layer.borderColor = UIColor.black.cgColor
-//			supplementaryView.layer.borderWidth = 1.0
+			//			supplementaryView.backgroundColor = .lightGray
+			//			supplementaryView.layer.borderColor = UIColor.black.cgColor
+			//			supplementaryView.layer.borderWidth = 1.0
 		}
 
 		let footerRegistration = UICollectionView.SupplementaryRegistration
@@ -183,6 +183,7 @@ extension SearchResultViewController {
 
 	@objc func test(_ sender: UIButton) {
 		let vc = ContentViewController()
+		vc.navigationItem.title = ContentType.allCases[sender.tag].title
 		vc.viewModel.isAreaOrKeyword = false
 		vc.viewModel.intputContentTypeAtKeyword.value = ContentType.allCases[sender.tag]
 		vc.viewModel.inputKeyword.value = viewModel.inputKeyword.value
@@ -192,8 +193,38 @@ extension SearchResultViewController {
 
 extension SearchResultViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		print("select")
-		collectionView.deselectItem(at: indexPath, animated: true)
+
+		if let section = ContentType(rawValue: indexPath.section) {
+			switch section {
+			case .tour:
+				print(section)
+				let vc = DetailContentInfoViewController()
+				vc.viewModel.inputContentId.value = viewModel.outputTourData.value?.response.body.items?.item?[indexPath.item].contentid
+				navigationController?.pushViewController(vc, animated: true)
+			case .culture:
+				print(section)
+				let vc = DetailContentInfoViewController()
+				vc.viewModel.inputContentId.value = viewModel.outputCultureData.value?.response.body.items?.item?[indexPath.item].contentid
+				navigationController?.pushViewController(vc, animated: true)
+			case .festival:
+				let vc = DetailContentInfoViewController()
+				vc.viewModel.inputContentId.value = viewModel.outputFestivalData.value?.response.body.items?.item?[indexPath.item].contentid
+				navigationController?.pushViewController(vc, animated: true)
+			case .hotel:
+				let vc = DetailContentInfoViewController()
+				vc.viewModel.inputContentId.value = viewModel.outputHotelData.value?.response.body.items?.item?[indexPath.item].contentid
+				navigationController?.pushViewController(vc, animated: true)
+			case .shopping:
+				let vc = DetailContentInfoViewController()
+				vc.viewModel.inputContentId.value = viewModel.outputShoppingData.value?.response.body.items?.item?[indexPath.item].contentid
+				navigationController?.pushViewController(vc, animated: true)
+			case .restaurant:
+				let vc = DetailContentInfoViewController()
+				vc.viewModel.inputContentId.value = viewModel.outputRestaurantData.value?.response.body.items?.item?[indexPath.item].contentid
+				navigationController?.pushViewController(vc, animated: true)
+			}
+		} 
+
 	}
 }
 //

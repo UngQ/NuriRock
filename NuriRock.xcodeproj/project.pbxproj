@@ -64,6 +64,7 @@
 		A5ED2EDE2B9AFF3700BB0E9C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EDD2B9AFF3700BB0E9C /* SearchViewController.swift */; };
 		A5ED2EE12B9B2A3200BB0E9C /* CityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EE02B9B2A3200BB0E9C /* CityCollectionViewCell.swift */; };
 		A5ED2EE32B9B2A4000BB0E9C /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EE22B9B2A4000BB0E9C /* BaseCollectionViewCell.swift */; };
+		A5EFCD7D2BA9B258002894D2 /* DetailContentInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EFCD7C2BA9B258002894D2 /* DetailContentInfoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +128,7 @@
 		A5ED2EDD2B9AFF3700BB0E9C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A5ED2EE02B9B2A3200BB0E9C /* CityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCollectionViewCell.swift; sourceTree = "<group>"; };
 		A5ED2EE22B9B2A4000BB0E9C /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		A5EFCD7C2BA9B258002894D2 /* DetailContentInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailContentInfoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				A563B04F2BA7B1F8005A4F37 /* DetailContentInfoViewController.swift */,
+				A5EFCD7C2BA9B258002894D2 /* DetailContentInfoViewModel.swift */,
 			);
 			path = DetailContentInfo;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */,
 				A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */,
 				A5ED2EE32B9B2A4000BB0E9C /* BaseCollectionViewCell.swift in Sources */,
+				A5EFCD7D2BA9B258002894D2 /* DetailContentInfoViewModel.swift in Sources */,
 				A563B02A2BA0BEB5005A4F37 /* KeywordHistoryRepository.swift in Sources */,
 				A563B04B2BA58B09005A4F37 /* ContentViewModel.swift in Sources */,
 				A563B0202BA08C91005A4F37 /* CalendarViewController.swift in Sources */,

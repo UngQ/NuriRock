@@ -32,6 +32,7 @@ class ContentViewModel {
 
 	var isAreaOrKeyword = true // true일 경우 Area기반 검색, false일 경우 Keyword기반 검색
 	var isAreaChange = true
+	var isLoading = false
 
 	init() {
 
@@ -45,6 +46,7 @@ class ContentViewModel {
 
 		inputViewWillAppearTrigger.apiBind { _ in
 			if self.isAreaOrKeyword {
+				print("wukkk")
 				self.callAPIDataRequest(api: .areaBasedList(contentType: self.inputContentType.value, areaCode: self.inputAreaCode.value, numOfRows: 20, pageNo: 1))
 			} else {
 				self.callAPIDataRequest(api: .searchKeyword(keyword: self.inputKeyword.value, contentType: self.intputContentTypeAtKeyword.value, numOfRows: 20, pageNo: 1))

@@ -39,6 +39,8 @@ struct Body: Decodable {
 		   pageNo = try container.decode(Int.self, forKey: .pageNo)
 		   totalCount = try container.decode(Int.self, forKey: .totalCount)
 
+
+
 		   if let itemArray = try? container.decode(ItemContainer.self, forKey: .items) {
 			   items = itemArray
 		   } else {
@@ -51,12 +53,14 @@ struct Body: Decodable {
 
 struct ItemContainer: Decodable {
 	let item: [Item]?
+
 }
 
 struct Item: Decodable, Hashable {
+//	let id = UUID()
 	let addr1: String
 	let addr2: String
-	let areacode: String
+	let areacode: String?
 
 	let contentid: String
 	let contenttypeid: String

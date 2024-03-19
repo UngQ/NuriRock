@@ -110,7 +110,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 
 	override func configureLayout() {
 		segmentedController.snp.makeConstraints { make in
-			make.top.equalToSuperview().offset(4)
+			make.top.equalToSuperview().offset(12)
 			make.horizontalEdges.equalToSuperview().inset(8)
 			make.height.equalTo(24)
 		}
@@ -341,15 +341,19 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 		if collectionView == self.topCollectionView {
 			print("위")
 
-			didSelectDelegate?.didSelectItem(selectedItem: viewModel.currentData[indexPath.item].contentid)
+			if viewModel.currentData != [] {
 
+				didSelectDelegate?.didSelectItem(selectedItem: viewModel.currentData[indexPath.item].contentid)
+
+			}
 
 		} else if collectionView == self.bottomCollectionView {
 			// bottomCollectionView에 대한 아이템 수 반환
 
-			print("아래")
-
-			didSelectDelegate?.didSelectItem(selectedItem: viewModel.currentData[indexPath.item].contentid)
+			if viewModel.currentData != [] {
+				
+				didSelectDelegate?.didSelectItem(selectedItem: viewModel.currentData[indexPath.item].contentid)
+			}
 		}
 
 	}

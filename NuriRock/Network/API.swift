@@ -13,32 +13,7 @@ enum API {
 	case searchKeyword(keyword: String, contentType: ContentType, numOfRows: Int, pageNo: Int)
 	case areaBasedList(contentType: ContentType, areaCode: CityCode, numOfRows: Int, pageNo: Int)
 	case searchFestival(eventStartDate: String, areaCode: CityCode, numOfRows: Int, pageNo: Int)
-
-//	enum ContentType: String {
-//		case tour = "tour"
-//		case culture = "culture"
-//		case festival = "festival"
-//		case hotel = "hotel"
-//		case shopping = "shopping"
-//		case restaurant = "restaurant"
-//
-//		var contentTypeCode: String {
-//			switch self {
-//			case .tour:
-//				return Locale.current.language.languageCode == "ko" ? "12" : "76"
-//			case .culture:
-//				return Locale.current.language.languageCode == "ko" ? "14" : "78"
-//			case .festival:
-//				return Locale.current.language.languageCode == "ko" ? "15" : "85"
-//			case .hotel:
-//				return Locale.current.language.languageCode == "ko" ? "32" : "80"
-//			case .shopping:
-//				return Locale.current.language.languageCode == "ko" ? "38" : "79"
-//			case .restaurant:
-//				return Locale.current.language.languageCode == "ko" ? "39" : "82"
-//			}
-//		}
-//	}
+	case detailCommon(contentId: String)
 
 	var baseURL: String {
 		return Locale.current.language.languageCode == "ko" ? "http://apis.data.go.kr/B551011/KorService1" : "http://apis.data.go.kr/B551011/EngService1"
@@ -52,6 +27,8 @@ enum API {
 			return baseURL + "/areaBasedList1"
 		case .searchFestival:
 			return baseURL + "/searchFestival1"
+		case .detailCommon:
+			return baseURL + "/detailCommon1"
 		}
 	}
 
@@ -59,10 +36,8 @@ enum API {
 		var params: [String: Any] = [
 			"serviceKey": APIKey.korDataAPIServiceKey,
 			"MobileOS": "IOS",
-			"MobileApp": "test",
+			"MobileApp": "NuriROCK",
 			"_type": "json",
-			"listYN": "Y",
-			"arrange": "Q"
 		]
 
 		switch self {
@@ -71,18 +46,35 @@ enum API {
 			params["contentTypeId"] = contentType.contentTypeCode
 			params["numOfRows"] = numOfRows
 			params["pageNo"] = pageNo
+			params["listYN"] = "Y"
+			params["arrange"] = "Q"
 
 		case .areaBasedList(let contentType, let areaCode, let numOfRows, let pageNo):
 			params["contentTypeId"] = contentType.contentTypeCode
 			params["numOfRows"] = numOfRows
 			params["pageNo"] = pageNo
 			params["areaCode"] = areaCode.rawValue
+			params["listYN"] = "Y"
+			params["arrange"] = "Q"
 
 		case .searchFestival(let eventStartDate, let areaCode, let numOfRows, let pageNo):
 			params["eventStartDate"] = eventStartDate
+			params["eventEndDate"] = eventStartDate
 			params["numOfRows"] = numOfRows
 			params["pageNo"] = pageNo
 			params["areaCode"] = areaCode.rawValue
+			params["listYN"] = "Y"
+			params["arrange"] = "Q"
+
+		case .detailCommon(let contentId):
+			params["contentId"] = contentId
+			params["defaultYN"] = "Y"
+			params["firstImageYN"] = "Y"
+			params["addrinfoYN"] = "Y"
+			params["mapinfoYN"] = "Y"
+			params["overviewYN"] = "Y"
+//			params["numOfRows"] = 10
+//			params["pageNo"] = 1
 		}
 
 		return params
