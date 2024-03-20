@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ResultCollectionViewSectionFooterView: UICollectionReusableView {
+final class ResultCollectionViewSectionFooterView: UICollectionReusableView {
 	static let identifier = "SectionFooterView"
 
 	let seeMoreButton: UIButton = {

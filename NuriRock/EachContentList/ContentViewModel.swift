@@ -7,7 +7,9 @@
 
 import Foundation
 
-class ContentViewModel {
+final class ContentViewModel {
+
+	let repository = BookmarkRepository()
 
 	var inputViewWillAppearTrigger: Observable<Void?> = Observable(nil)
 

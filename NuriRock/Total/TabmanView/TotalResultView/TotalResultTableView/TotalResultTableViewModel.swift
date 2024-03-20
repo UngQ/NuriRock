@@ -9,7 +9,9 @@ import Foundation
 import Alamofire
 
 
-class TotalResultTableViewModel {
+final class TotalResultTableViewModel {
+
+	let repository = BookmarkRepository()
 
 	var currentData: [Item] = []
 
@@ -31,6 +33,8 @@ class TotalResultTableViewModel {
 
 	var onProgress: Observable<Bool> = Observable(true)
 	var noMoreRetryAttempts: Observable<Bool> = Observable(false)
+
+	var isBookmarkButtonClicked: Observable<Bool> = Observable(false)
 
 
 	var onDateChanged: ((String) -> Void)?

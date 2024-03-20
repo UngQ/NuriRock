@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BottomCollectionViewCell: BaseCollectionViewCell {
+final class BottomCollectionViewCell: BaseCollectionViewCell {
 
 	let posterImageView = UIImageView(frame: .zero)
 	let emptyLabel = UILabel()
@@ -16,6 +16,8 @@ class BottomCollectionViewCell: BaseCollectionViewCell {
 	let titleLabel = UILabel()
 	let addrLabel = UILabel()
 	let dateLabel = UILabel()
+
+	let bookmarkButton = UIButton()
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -34,6 +36,8 @@ class BottomCollectionViewCell: BaseCollectionViewCell {
 		detailView.addSubview(titleLabel)
 		detailView.addSubview(addrLabel)
 		detailView.addSubview(dateLabel)
+
+		contentView.addSubview(bookmarkButton)
 	}
 
 	override func configureLayout() {
@@ -66,6 +70,11 @@ class BottomCollectionViewCell: BaseCollectionViewCell {
 			make.top.equalTo(addrLabel.snp.bottom).offset(4)
 			make.horizontalEdges.equalToSuperview()
 			make.height.equalTo(20)
+		}
+
+		bookmarkButton.snp.makeConstraints { make in
+			make.top.trailing.equalTo(posterImageView).inset(8)
+			make.size.equalTo(16)
 		}
 
 	}
@@ -103,6 +112,7 @@ class BottomCollectionViewCell: BaseCollectionViewCell {
 		dateLabel.textAlignment = .center
 		dateLabel.font = .systemFont(ofSize: 10)
 
+		bookmarkButton.backgroundColor = .green
 
 	}
 

@@ -26,7 +26,7 @@ final class TotalViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		
 
 
 		let searchController = UISearchController(searchResultsController: nil)
@@ -250,6 +250,8 @@ extension TotalViewController: TotalResultViewControllerDelegate {
 					make.bottom.horizontalEdges.equalTo(self.view.safeAreaLayoutGuide)
 				}
 				self.view.layoutIfNeeded()
+
+		
 			}
 		}
 	}

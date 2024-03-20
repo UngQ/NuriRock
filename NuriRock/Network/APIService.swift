@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class APIService {
+final class APIService {
 
 	static let shared = APIService()
 

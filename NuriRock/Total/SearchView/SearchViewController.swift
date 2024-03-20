@@ -11,7 +11,7 @@ protocol SearchViewControllerDelegate: AnyObject {
 	func didSelectSearchResult(keyword: String)
 }
 
-class SearchViewController: BaseViewController {
+final class SearchViewController: BaseViewController {
 
 	enum Section: CaseIterable {
 		case history

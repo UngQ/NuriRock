@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContentViewFooterView: UICollectionReusableView {
+final class ContentViewFooterView: UICollectionReusableView {
 	static let identifier = "SectionFooterView"
 
 	let seeMoreButton: UIButton = {

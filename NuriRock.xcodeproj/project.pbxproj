@@ -24,8 +24,8 @@
 		A563B0202BA08C91005A4F37 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B01F2BA08C91005A4F37 /* CalendarViewController.swift */; };
 		A563B0242BA0BBDE005A4F37 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = A563B0232BA0BBDE005A4F37 /* Realm */; };
 		A563B0262BA0BBDE005A4F37 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A563B0252BA0BBDE005A4F37 /* RealmSwift */; };
-		A563B0282BA0BC6E005A4F37 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0272BA0BC6E005A4F37 /* RealmModel.swift */; };
-		A563B02A2BA0BEB5005A4F37 /* KeywordHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0292BA0BEB5005A4F37 /* KeywordHistoryRepository.swift */; };
+		A563B0282BA0BC6E005A4F37 /* SearchedKeywordRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0272BA0BC6E005A4F37 /* SearchedKeywordRealmModel.swift */; };
+		A563B02A2BA0BEB5005A4F37 /* SearchHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0292BA0BEB5005A4F37 /* SearchHistoryRepository.swift */; };
 		A563B02E2BA12DA8005A4F37 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B02D2BA12DA8005A4F37 /* MainTabbarController.swift */; };
 		A563B0332BA2846B005A4F37 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = A563B0322BA2846B005A4F37 /* SVProgressHUD */; };
 		A563B0382BA305B9005A4F37 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A563B0372BA305B9005A4F37 /* SearchResultViewController.swift */; };
@@ -65,6 +65,10 @@
 		A5ED2EE12B9B2A3200BB0E9C /* CityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EE02B9B2A3200BB0E9C /* CityCollectionViewCell.swift */; };
 		A5ED2EE32B9B2A4000BB0E9C /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2EE22B9B2A4000BB0E9C /* BaseCollectionViewCell.swift */; };
 		A5EFCD7D2BA9B258002894D2 /* DetailContentInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EFCD7C2BA9B258002894D2 /* DetailContentInfoViewModel.swift */; };
+		A5EFCD802BAA5DB9002894D2 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EFCD7F2BAA5DB9002894D2 /* BookmarkViewController.swift */; };
+		A5EFCD832BAA5FA9002894D2 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EFCD822BAA5FA9002894D2 /* SettingViewController.swift */; };
+		A5EFCD862BAABE7F002894D2 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EFCD852BAABE7F002894D2 /* BookmarkRepository.swift */; };
+		A5EFCD882BAABEE2002894D2 /* BookmarkRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EFCD872BAABEE2002894D2 /* BookmarkRealmModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,8 +83,8 @@
 		A55641362B9D4636000A1F27 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		A55641382B9D4CC7000A1F27 /* TotalResultTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultTableViewModel.swift; sourceTree = "<group>"; };
 		A563B01F2BA08C91005A4F37 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		A563B0272BA0BC6E005A4F37 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
-		A563B0292BA0BEB5005A4F37 /* KeywordHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordHistoryRepository.swift; sourceTree = "<group>"; };
+		A563B0272BA0BC6E005A4F37 /* SearchedKeywordRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedKeywordRealmModel.swift; sourceTree = "<group>"; };
+		A563B0292BA0BEB5005A4F37 /* SearchHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryRepository.swift; sourceTree = "<group>"; };
 		A563B02D2BA12DA8005A4F37 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		A563B0372BA305B9005A4F37 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		A563B0392BA3063C005A4F37 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
@@ -129,6 +133,10 @@
 		A5ED2EE02B9B2A3200BB0E9C /* CityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCollectionViewCell.swift; sourceTree = "<group>"; };
 		A5ED2EE22B9B2A4000BB0E9C /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		A5EFCD7C2BA9B258002894D2 /* DetailContentInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailContentInfoViewModel.swift; sourceTree = "<group>"; };
+		A5EFCD7F2BAA5DB9002894D2 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		A5EFCD822BAA5FA9002894D2 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		A5EFCD852BAABE7F002894D2 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
+		A5EFCD872BAABEE2002894D2 /* BookmarkRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRealmModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,8 +217,10 @@
 		A563B0212BA0BB27005A4F37 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				A563B0292BA0BEB5005A4F37 /* KeywordHistoryRepository.swift */,
-				A563B0272BA0BC6E005A4F37 /* RealmModel.swift */,
+				A563B0292BA0BEB5005A4F37 /* SearchHistoryRepository.swift */,
+				A563B0272BA0BC6E005A4F37 /* SearchedKeywordRealmModel.swift */,
+				A5EFCD852BAABE7F002894D2 /* BookmarkRepository.swift */,
+				A5EFCD872BAABEE2002894D2 /* BookmarkRealmModel.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -329,6 +339,8 @@
 				A563B0362BA30501005A4F37 /* SearchResult */,
 				A563B0472BA57A01005A4F37 /* EachContentList */,
 				A563B04E2BA7B1C4005A4F37 /* DetailContentInfo */,
+				A5EFCD7E2BAA5D80002894D2 /* Bookmark */,
+				A5EFCD812BAA5F97002894D2 /* Setting */,
 				A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */,
 				A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */,
 				A5ED2E902B99837800BB0E9C /* ViewController.swift */,
@@ -406,6 +418,22 @@
 				A5ED2EE02B9B2A3200BB0E9C /* CityCollectionViewCell.swift */,
 			);
 			path = CityCollectionView;
+			sourceTree = "<group>";
+		};
+		A5EFCD7E2BAA5D80002894D2 /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				A5EFCD7F2BAA5DB9002894D2 /* BookmarkViewController.swift */,
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
+		A5EFCD812BAA5F97002894D2 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				A5EFCD822BAA5FA9002894D2 /* SettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,10 +535,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5EFCD802BAA5DB9002894D2 /* BookmarkViewController.swift in Sources */,
 				A563B0442BA56840005A4F37 /* StringHighlight.swift in Sources */,
 				A5D5DD662B9E7D76007F9935 /* DateFormatter.swift in Sources */,
+				A5EFCD882BAABEE2002894D2 /* BookmarkRealmModel.swift in Sources */,
 				A563B04D2BA68D91005A4F37 /* ContentViewFooterView.swift in Sources */,
 				A563B0422BA3D084005A4F37 /* ResultCollectionViewSectionHeaderView.swift in Sources */,
+				A5EFCD832BAA5FA9002894D2 /* SettingViewController.swift in Sources */,
 				A563B02E2BA12DA8005A4F37 /* MainTabbarController.swift in Sources */,
 				A55641372B9D4636000A1F27 /* Observable.swift in Sources */,
 				A563B03A2BA3063C005A4F37 /* SearchResultViewModel.swift in Sources */,
@@ -527,9 +558,10 @@
 				A563B0492BA57A2C005A4F37 /* ContentViewController.swift in Sources */,
 				A5ED2ED82B99A8C100BB0E9C /* TotalViewController.swift in Sources */,
 				A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */,
-				A563B0282BA0BC6E005A4F37 /* RealmModel.swift in Sources */,
+				A563B0282BA0BC6E005A4F37 /* SearchedKeywordRealmModel.swift in Sources */,
 				A563B0502BA7B1F8005A4F37 /* DetailContentInfoViewController.swift in Sources */,
 				A5ED2EE12B9B2A3200BB0E9C /* CityCollectionViewCell.swift in Sources */,
+				A5EFCD862BAABE7F002894D2 /* BookmarkRepository.swift in Sources */,
 				A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */,
 				A5ED2EC22B9993E400BB0E9C /* OnboardingViewController.swift in Sources */,
 				A5ED2EA32B998B3300BB0E9C /* APIKey.swift in Sources */,
@@ -541,7 +573,7 @@
 				A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */,
 				A5ED2EE32B9B2A4000BB0E9C /* BaseCollectionViewCell.swift in Sources */,
 				A5EFCD7D2BA9B258002894D2 /* DetailContentInfoViewModel.swift in Sources */,
-				A563B02A2BA0BEB5005A4F37 /* KeywordHistoryRepository.swift in Sources */,
+				A563B02A2BA0BEB5005A4F37 /* SearchHistoryRepository.swift in Sources */,
 				A563B04B2BA58B09005A4F37 /* ContentViewModel.swift in Sources */,
 				A563B0202BA08C91005A4F37 /* CalendarViewController.swift in Sources */,
 				A5ED2EC52B99945F00BB0E9C /* BaseViewController.swift in Sources */,

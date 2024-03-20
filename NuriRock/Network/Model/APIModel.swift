@@ -77,6 +77,7 @@ struct Item: Decodable, Hashable {
 	let eventstartdate: String?
 	let eventenddate: String?
 
+	let overview: String?
 
 	//	let cat1: String?
 	//	let cat2: String?

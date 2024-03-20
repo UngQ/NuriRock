@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabbarController: UITabBarController {
+final class MainTabbarController: UITabBarController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -23,19 +23,19 @@ class MainTabbarController: UITabBarController {
 
 		let firstVC = UINavigationController(rootViewController: TotalViewController())
 
-		firstVC.tabBarItem.title = "메인"
+		firstVC.tabBarItem.title = ""
 		firstVC.tabBarItem.image = UIImage(systemName: "house.fill")
 
-		let secondVC = UINavigationController(rootViewController: TotalViewController())
+		let secondVC = UINavigationController(rootViewController: BookmarkViewController())
 
-		secondVC.tabBarItem.title = "위시"
-		secondVC.tabBarItem.image = UIImage(systemName: "heart")
+		secondVC.tabBarItem.title = ""
+		secondVC.tabBarItem.image = UIImage(systemName: "bookmark.fill")
 
 
-		let thirdVC = UINavigationController(rootViewController: TotalViewController())
+		let thirdVC = UINavigationController(rootViewController: SettingViewController())
 
-		thirdVC.tabBarItem.title = "위시"
-		thirdVC.tabBarItem.image = UIImage(systemName: "heart")
+		thirdVC.tabBarItem.title = ""
+		thirdVC.tabBarItem.image = UIImage(systemName: "gearshape.fill")
 
 
 

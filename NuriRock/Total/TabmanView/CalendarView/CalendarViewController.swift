@@ -8,7 +8,7 @@
 import UIKit
 import FSCalendar
 
-class CalendarViewController: BaseViewController {
+final class CalendarViewController: BaseViewController {
 
 	let calendar = FSCalendar()
 

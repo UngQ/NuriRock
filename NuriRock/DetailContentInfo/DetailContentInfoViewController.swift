@@ -7,12 +7,19 @@
 
 import UIKit
 import MapKit
+import SVProgressHUD
 
-class DetailContentInfoViewController: BaseViewController {
+final class DetailContentInfoViewController: BaseViewController {
 
 	let viewModel = DetailContentInfoViewModel()
 
-	let scrollView = UIScrollView()
+	lazy var scrollView = {
+		let view = UIScrollView()
+		view.delegate = self
+		view.isScrollEnabled = true
+		return view
+	}()
+
 	let contentView = UIView()
 
 	let mainImageView = {
@@ -25,18 +32,43 @@ class DetailContentInfoViewController: BaseViewController {
 
 	let titleLabel = {
 		let view = UILabel()
-		view.text = "test"
+		view.numberOfLines = 0
+		view.font = .boldSystemFont(ofSize: 14)
 		return view
 	}()
 
 	let addrLabel = {
 		let view = UILabel()
-		view.text = "test"
+		view.numberOfLines = 0
+		view.font = .boldSystemFont(ofSize: 12)
 		return view
 	}()
 
-	let mapView = MKMapView()
+	let mapView = {
+		let view = MKMapView()
+		view.layer.cornerRadius = 12
+		view.layer.masksToBounds = true
+		return view
+	}()
 
+	let overViewLabel = {
+		let view = UILabel()
+		view.numberOfLines = 0
+		view.font = .boldSystemFont(ofSize: 12)
+		return view
+	}()
+
+	let lineView = {
+		let view = UIView()
+		view.backgroundColor = .systemBlue
+		return view
+	}()
+
+	let secondLineView = {
+		let view = UIView()
+		view.backgroundColor = .systemBlue
+		return view
+	}()
 
 
     override func viewDidLoad() {
@@ -50,7 +82,11 @@ class DetailContentInfoViewController: BaseViewController {
 		contentView.addSubview(mainImageView)
 		contentView.addSubview(titleLabel)
 		contentView.addSubview(addrLabel)
+		contentView.addSubview(overViewLabel)
 		contentView.addSubview(mapView)
+
+		contentView.addSubview(lineView)
+		contentView.addSubview(secondLineView)
 	}
 
 	override func configureLayout() {
@@ -75,51 +111,121 @@ class DetailContentInfoViewController: BaseViewController {
 
 		titleLabel.snp.makeConstraints { make in
 			make.top.equalTo(mainImageView.snp.bottom).offset(8)
-			make.horizontalEdges.equalTo(contentView)
-			make.height.equalTo(400)
+			make.horizontalEdges.equalTo(contentView).inset(8)
+
+		}
+
+		lineView.snp.makeConstraints { make in
+			make.top.equalTo(titleLabel.snp.bottom).offset(8)
+			make.horizontalEdges.equalTo(contentView).inset(8)
+			make.height.equalTo(1)
 		}
 
 		addrLabel.snp.makeConstraints { make in
-			make.top.equalTo(titleLabel.snp.bottom).offset(8)
-			make.horizontalEdges.equalTo(contentView)
-			make.bottom.equalTo(mapView.snp.top)
+			make.top.equalTo(lineView.snp.bottom).offset(8)
+			make.horizontalEdges.equalTo(contentView).inset(8)
+
+		}
+
+		secondLineView.snp.makeConstraints { make in
+			make.top.equalTo(addrLabel.snp.bottom).offset(8)
+			make.horizontalEdges.equalTo(contentView).inset(8)
+			make.height.equalTo(1)
+		}
+
+		overViewLabel.snp.makeConstraints { make in
+			make.top.equalTo(secondLineView.snp.bottom).offset(8)
+			make.horizontalEdges.equalTo(contentView).inset(8)
+			make.bottom.equalTo(mapView.snp.top).offset(-8)
 		}
 	}
 
 	override func configureView() {
-		titleLabel.backgroundColor = .green
-		addrLabel.backgroundColor = .blue
-		scrollView.delegate = self
-		scrollView.isScrollEnabled = true
 
-		addrLabel.numberOfLines = 0
-		addrLabel.font = .boldSystemFont(ofSize: 40)
-		addrLabel.text = "adfasdfsadf333fadfasdfasdfasdfasdfasdfasdfsdfasdf\n\n\nfadfasdfasdfasdfasdf\n\nasdfasdfadfafdasdf\n\nasdfasdfsadfasdf"
+		let logo = UIImage(resource: .title)
+		let imageView = UIImageView(image: logo)
+		imageView.contentMode = .scaleAspectFit
+		navigationItem.titleView = imageView
+		navigationController?.navigationBar.backgroundColor = .white
+
+
+
+	}
+
+	@objc func rightBarButtonClicked(_ sender: UIBarButtonItem) {
+		print(#function)
+		SVProgressHUD.show()
+		guard let data = viewModel.outputContentInfo.value?[0] else { return }
+
+		if viewModel.repository.isBookmarked(contentId: data.contentid) {
+			sender.image = UIImage(systemName: "bookmark")
+			viewModel.repository.deleteBookmark(data: data)
+
+			SVProgressHUD.dismiss(withDelay: 0.2)
+
+		} else {
+			sender.image = UIImage(systemName: "bookmark.fill")
+			viewModel.repository.addBookmarkInDetailView(data: data)
+
+			SVProgressHUD.dismiss(withDelay: 0.2)
+		}
+
 
 	}
 
 	func bind() {
+
+		SVProgressHUD.show()
+
 		viewModel.outputContentInfo.apiBind { _ in
-			let url = URL(string: self.viewModel.outputContentInfo.value?[0].firstimage ?? "")
-			self.mainImageView.kf.setImage(with: url)
 
-			if let latString = self.viewModel.outputContentInfo.value?[0].mapy,
-			   let lonString = self.viewModel.outputContentInfo.value?[0].mapx,
-			   let latitude = Double(latString),
-			   let longitude = Double(lonString) {
-				let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-				let annontation = MKPointAnnotation()
-				annontation.coordinate = coordinate
-				annontation.title = self.viewModel.outputContentInfo.value?[0].title
+			DispatchQueue.main.async {
 
-				let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 30000, longitudinalMeters: 30000)
-				self.mapView.setRegion(region, animated: true)
 
-				self.mapView.addAnnotation(annontation)
-			} else {
-				// Handle the case where conversion failed or values were nil
-				print("Failed to convert strings to doubles or values were nil.")
+
+				if self.viewModel.repository.isBookmarked(contentId: self.viewModel.inputContentId.value ?? "") {
+					let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .plain, target: self, action: #selector(self.rightBarButtonClicked))
+					self.navigationItem.rightBarButtonItem = rightBarButton
+				} else {
+					let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(self.rightBarButtonClicked))
+					self.navigationItem.rightBarButtonItem = rightBarButton
+				}
+
+				guard let data = self.viewModel.outputContentInfo.value?[0] else { return }
+
+				//이미지 바인드
+				let url = URL(string: data.firstimage)
+				self.mainImageView.kf.setImage(with: url)
+
+				//타이틀 바인드
+				self.titleLabel.text = data.title
+
+				//주소 바인드
+				self.addrLabel.text = data.addr1
+
+				//오버뷰 바인드
+				self.overViewLabel.text = data.overview
+
+				//맵뷰 바인드
+				if let latString = data.mapy,
+				   let lonString = data.mapx,
+				   let latitude = Double(latString),
+				   let longitude = Double(lonString) {
+					let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+					let annontation = MKPointAnnotation()
+					annontation.coordinate = coordinate
+					annontation.title = self.viewModel.outputContentInfo.value?[0].title
+
+					let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+					self.mapView.setRegion(region, animated: true)
+
+					self.mapView.addAnnotation(annontation)
+				} else {
+					// Handle the case where conversion failed or values were nil
+					print("Failed to convert strings to doubles or values were nil.")
+				}
 			}
+			SVProgressHUD.dismiss()
 		}
 	}
 

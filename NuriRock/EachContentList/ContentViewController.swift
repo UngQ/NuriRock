@@ -9,7 +9,7 @@ import UIKit
 import SVProgressHUD
 import Kingfisher
 
-class ContentViewController: BaseViewController {
+final class ContentViewController: BaseViewController {
 
 	static let sectionHeaderElementKind = "section-header-element-kind"
 	static let sectionFooterElementKind = "section-footer-element-kind"
@@ -214,6 +214,8 @@ extension ContentViewController {
 			//			cell.mainLabel.text = "\(indexPath.section),\(indexPath.item)"
 //			cell.searchKeyword = self.viewModel.inputKeyword.value
 			cell.updateUI(identifier)
+			cell.bookmarkButton.tag = indexPath.item
+			cell.bookmarkButton.addTarget(self, action: #selector(self.bookmarkButtonClicked), for: .touchUpInside)
 		}
 
 		let headerRegistration = UICollectionView.SupplementaryRegistration
@@ -230,7 +232,7 @@ extension ContentViewController {
 		<ResultCollectionViewSectionFooterView>(elementKind: SearchResultViewController.sectionFooterElementKind) {
 			(supplementaryView, string, indexPath) in
 
-			supplementaryView.seeMoreButton.addTarget(self, action: #selector(self.test), for: .touchUpInside)
+//			supplementaryView.seeMoreButton.addTarget(self, action: #selector(self.test), for: .touchUpInside)
 			supplementaryView.backgroundColor = .lightGray
 			//			supplementaryView.layer.borderColor = UIColor.black.cgColor
 			//			supplementaryView.layer.borderWidth = 1.0
@@ -253,6 +255,36 @@ extension ContentViewController {
 					using: footerRegistration, for: indexPath)
 			} else {
 				return nil
+			}
+		}
+	}
+
+	@objc func bookmarkButtonClicked(_ sender: UIButton) {
+		SVProgressHUD.show()
+
+		guard let data = viewModel.outputItemList.value?[sender.tag] else {
+			return }
+
+
+		if viewModel.repository.isBookmarked(contentId: data.contentid) {
+			viewModel.repository.deleteBookmark(data: data)
+
+			SVProgressHUD.dismiss(withDelay: 0.2)
+			updateSnapshot()
+		} else {
+
+			viewModel.repository.addBookmark(id: data.contentid) { success in
+
+				DispatchQueue.main.async {
+					if success {
+						SVProgressHUD.dismiss()
+					} else {
+						SVProgressHUD.showError(withStatus: "서버 오류")
+
+					}
+
+					self.updateSnapshot()
+				}
 			}
 		}
 	}
@@ -304,20 +336,4 @@ extension ContentViewController: UIScrollViewDelegate {
 			scrollDelegate?.didScrollTableView(.up)
 		}
 	}
-
-
-
-//	func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//		if viewModel.isAreaOrKeyword {
-//			viewModel.isAreaChange = false
-//			viewModel.inputPageNo.value += 1
-//		} else {
-//			viewModel.inputPageNo.value += 1
-//		}
-//		print("hi~~")
-//	}
-//
-//	func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-//		print("gggg")
-//	}
 }

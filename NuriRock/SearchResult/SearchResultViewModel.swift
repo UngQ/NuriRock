@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SearchResultViewModel {
+final class SearchResultViewModel {
 
 	var inputKeyword: Observable<String> = Observable("")
 

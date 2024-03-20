@@ -23,7 +23,7 @@ protocol TotalResultTableViewCellDelegate: AnyObject {
 	func didSelectItem(selectedItem: String)
 }
 
-class TotalResultTableViewCell: BaseTableViewCell {
+final class TotalResultTableViewCell: BaseTableViewCell {
 
 	let viewModel = TotalResultTableViewModel()
 
@@ -91,6 +91,8 @@ class TotalResultTableViewCell: BaseTableViewCell {
 				self.noMoreaTryDelegate?.noMoreAlert()
 			}
 		}
+
+
 
 
 	}
@@ -273,7 +275,7 @@ class TotalResultTableViewCell: BaseTableViewCell {
 
 extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		
+
 		if collectionView == self.topCollectionView {
 			// topCollectionView에 대한 아이템 수 반환
 			return 4
@@ -311,6 +313,16 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			cell.titleLabel.text = viewModel.currentData[indexPath.item].title
 			cell.addressLabel.text = viewModel.currentData[indexPath.item].addr1
 
+			if viewModel.repository.isBookmarked(contentId: viewModel.currentData[indexPath.item].contentid) {
+				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+
+			} else if !viewModel.repository.isBookmarked(contentId: viewModel.currentData[indexPath.item].contentid) {
+				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+			}
+
+			cell.bookmarkButton.tag = indexPath.item
+			cell.bookmarkButton.addTarget(self, action: #selector(bookmarkButtonClickedInTopCV), for: .touchUpInside)
+
 			return cell
 
 		} else if collectionView == self.bottomCollectionView {
@@ -332,6 +344,18 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			guard let startDate = data[indexPath.item].eventstartdate else { return cell }
 			guard let endDate = data[indexPath.item].eventenddate else { return cell }
 			cell.dateLabel.text = "\(startDate.formattedDateString()) ~ \(endDate.formattedDateString())"
+
+
+			if viewModel.repository.isBookmarked(contentId: data[indexPath.item].contentid) {
+				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+
+			} else if !viewModel.repository.isBookmarked(contentId: data[indexPath.item].contentid) {
+				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+			}
+
+			cell.bookmarkButton.tag = indexPath.item
+			cell.bookmarkButton.addTarget(self, action: #selector(bookmarkButtonClickedInBottomCV), for: .touchUpInside)
+
 			return cell
 		}
 		return UICollectionViewCell()
@@ -350,16 +374,74 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 		} else if collectionView == self.bottomCollectionView {
 			// bottomCollectionView에 대한 아이템 수 반환
 
-			if viewModel.currentData != [] {
-				
-				didSelectDelegate?.didSelectItem(selectedItem: viewModel.currentData[indexPath.item].contentid)
+			if let data = viewModel.outputFestivalData.value?.response.body.items?.item {
+
+				didSelectDelegate?.didSelectItem(selectedItem: data[indexPath.item].contentid)
 			}
 		}
 
 	}
 
 
+	@objc func bookmarkButtonClickedInTopCV(_ sender: UIButton) {
+
+		SVProgressHUD.show()
+
+		let data = viewModel.currentData[sender.tag]
+
+		if viewModel.repository.isBookmarked(contentId: data.contentid) {
+			viewModel.repository.deleteBookmark(data: data)
+
+			SVProgressHUD.dismiss(withDelay: 0.2)
+			topCollectionView.reloadData()
+
+		} else {
+			
+			viewModel.repository.addBookmark(id: data.contentid) { success in
+				DispatchQueue.main.async {
+					if success {
+						SVProgressHUD.dismiss()
+					} else {
+						SVProgressHUD.showError(withStatus: "서버 오류")
+					}
+					self.topCollectionView.reloadData()
+				}
+			}
+		}
+	}
+
+	@objc func bookmarkButtonClickedInBottomCV(_ sender: UIButton) {
+		SVProgressHUD.show()
+
+		guard let data = viewModel.outputFestivalData.value?.response.body.items?.item?[sender.tag] else {
+			return }
+
+
+		if viewModel.repository.isBookmarked(contentId: data.contentid) {
+			viewModel.repository.deleteBookmark(data: data)
+
+			SVProgressHUD.dismiss(withDelay: 0.2)
+			bottomCollectionView.reloadData()
+
+		} else {
+
+			viewModel.repository.addBookmark(id: data.contentid) { success in
+
+				DispatchQueue.main.async {
+					if success {
+						SVProgressHUD.dismiss()
+					} else {
+						SVProgressHUD.showError(withStatus: "서버 오류")
+
+					}
+
+					self.bottomCollectionView.reloadData()
+				}
+			}
+		}
+	}
 }
+
 
 
 
@@ -385,11 +467,3 @@ extension TotalResultTableViewCell: UICollectionViewDelegateFlowLayout {
 
 	}
 }
-
-//
-//extension TotalResultTableViewCell: CalendarDateSelectionDelegate {
-//	func didSelectDate(date: Date) {
-//		viewModel.inputDate.value = date
-//
-//	}
-//}

@@ -7,11 +7,12 @@
 
 import UIKit
 
-class TopCollectionViewCell: BaseCollectionViewCell {
+final class TopCollectionViewCell: BaseCollectionViewCell {
 
 	let imageView = UIImageView(frame: .zero)
 	let titleLabel = UILabel()
 	let addressLabel = UILabel()
+	let bookmarkButton = UIButton()
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -21,6 +22,7 @@ class TopCollectionViewCell: BaseCollectionViewCell {
 		contentView.addSubview(imageView)
 		contentView.addSubview(titleLabel)
 		contentView.addSubview(addressLabel)
+		contentView.addSubview(bookmarkButton)
 	}
 
 	override func configureLayout() {
@@ -40,6 +42,10 @@ class TopCollectionViewCell: BaseCollectionViewCell {
 			make.horizontalEdges.equalToSuperview()
 			make.height.lessThanOrEqualTo(24)
 		}
+		bookmarkButton.snp.makeConstraints { make in
+			make.bottom.trailing.equalTo(imageView).inset(8)
+			make.size.equalTo(16)
+		}
 	}
 
 	override func configureCell() {
@@ -54,6 +60,8 @@ class TopCollectionViewCell: BaseCollectionViewCell {
 		addressLabel.font = .systemFont(ofSize: 10)
 		addressLabel.numberOfLines = 0
 
+
+		bookmarkButton.tintColor = .white
 		
 	}
 

@@ -7,8 +7,9 @@
 
 import Foundation
 
-class DetailContentInfoViewModel {
+final class DetailContentInfoViewModel {
 
+	let repository = BookmarkRepository()
 
 	var inputContentId: Observable<String?> = Observable(nil)
 
@@ -20,11 +21,12 @@ class DetailContentInfoViewModel {
 	var onProgress: Observable<Bool> = Observable(true)
 	var noMoreRetryAttempts: Observable<Bool> = Observable(false)
 
+
+
 	init() {
 
 
 		inputContentId.apiBind { id in
-			print(id)
 			self.callAPIDataRequest(api: .detailCommon(contentId: id ?? ""))
 		}
 	}
@@ -50,4 +52,6 @@ class DetailContentInfoViewModel {
 
 		}
 	}
+
+
 }

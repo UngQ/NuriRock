@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class SearchHistoryRepository{
+final class SearchHistoryRepository {
 
 	private var realm: Realm?
 

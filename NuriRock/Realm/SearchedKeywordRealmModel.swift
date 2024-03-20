@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 
-class SearchedKeyword: Object {
+final class SearchedKeyword: Object {
 	@Persisted var date: Date = Date()
 	@Persisted(primaryKey: true) var keyword: String
 

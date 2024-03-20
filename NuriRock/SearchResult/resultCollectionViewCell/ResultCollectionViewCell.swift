@@ -8,7 +8,7 @@
 import UIKit
 
 
-class ResultCollectionViewCell: UICollectionViewCell {
+final class ResultCollectionViewCell: UICollectionViewCell {
 
 	 let mainImageView = {
 		 let view = UIImageView(frame: .zero)
@@ -25,6 +25,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
 //		 view.text = "테스트"
 		 view.textColor = .black
 		 view.font = .boldSystemFont(ofSize: 14)
+		 view.numberOfLines = 0
 		 return view
 	 }()
 
@@ -42,6 +43,12 @@ class ResultCollectionViewCell: UICollectionViewCell {
 		return view
 	}()
 
+	let bookmarkButton = {
+		let view = UIButton()
+		view.backgroundColor = .green
+		return view
+	}()
+
 	var searchKeyword: String = ""
 
 	 override init(frame: CGRect) {
@@ -51,6 +58,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
 		 contentView.addSubview(lineView)
 		 contentView.addSubview(mainLabel)
 		 contentView.addSubview(addrLabel)
+		 contentView.addSubview(bookmarkButton)
 
 		 mainImageView.snp.makeConstraints { make in
 			 make.size.equalTo(72)
@@ -65,14 +73,23 @@ class ResultCollectionViewCell: UICollectionViewCell {
 			 make.height.equalTo(1)
 		 }
 
-		 mainLabel.snp.makeConstraints { make in
-			 make.leading.equalTo(mainImageView.snp.trailing).offset(4)
-			 make.bottom.equalTo(lineView.snp.top).offset(4)
-			 make.height.greaterThanOrEqualTo(0)
-			 make.top.equalToSuperview()
 
+
+		 bookmarkButton.snp.makeConstraints { make in
+			 make.top.equalToSuperview()
+			 make.trailing.equalTo(self.safeAreaLayoutGuide).offset(-4)
+			 make.bottom.equalTo(lineView.snp.top).offset(-2)
+			 make.width.equalTo(bookmarkButton.snp.height)
 		 }
 
+		 mainLabel.snp.makeConstraints { make in
+			 make.leading.equalTo(mainImageView.snp.trailing).offset(4)
+			 make.trailing.equalTo(bookmarkButton.snp.leading).offset(-4)
+			 make.bottom.equalTo(lineView.snp.top).offset(-2)
+			 make.height.greaterThanOrEqualTo(0)
+//			 make.top.equalToSuperview()
+
+		 }
 		 addrLabel.snp.makeConstraints { make in
 			 make.top.equalTo(lineView.snp.bottom).offset(2)
 			 make.leading.equalTo(mainImageView.snp.trailing).offset(4)
