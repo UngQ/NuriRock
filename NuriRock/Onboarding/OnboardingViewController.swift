@@ -65,7 +65,7 @@ final class OnboardingViewController: BaseViewController {
 		choiceLabel.text = NSLocalizedString(LocalString.LanguageSetting.rawValue, comment: "")
 		choiceLabel.textAlignment = .center
 		countryCollectionView.backgroundColor = .darkGray
-		okButton.backgroundColor = .black
+		okButton.backgroundColor = .text
 
 		countryCollectionView.delegate = self
 		countryCollectionView.dataSource = self

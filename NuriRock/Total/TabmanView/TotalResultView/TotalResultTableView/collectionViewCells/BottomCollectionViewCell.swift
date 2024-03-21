@@ -73,14 +73,23 @@ final class BottomCollectionViewCell: BaseCollectionViewCell {
 		}
 
 		bookmarkButton.snp.makeConstraints { make in
-			make.top.trailing.equalTo(posterImageView).inset(8)
-			make.size.equalTo(16)
+			make.top.trailing.equalTo(posterImageView).inset(12)
+			make.size.equalTo(20)
 		}
 
 	}
 
 	override func configureCell() {
-		
+		backgroundColor = .background
+		layer.shadowColor = UIColor.lightGray.cgColor
+		 layer.shadowOpacity = 0.2
+		 layer.shadowRadius = 2
+		layer.shadowOffset = CGSize(width: 2, height: 2)
+		layer.cornerRadius = 20
+		layer.masksToBounds = false
+
+		contentView.layer.cornerRadius = 10
+		contentView.layer.masksToBounds = true
 
 		posterImageView.clipsToBounds = true
 		posterImageView.layer.cornerRadius = 20
@@ -91,6 +100,7 @@ final class BottomCollectionViewCell: BaseCollectionViewCell {
 		emptyLabel.numberOfLines = 0
 		emptyLabel.text = "이 날은 행사가 없습니다. 다른 날짜를 선택해보세요."
 		emptyLabel.isHidden = true
+		emptyLabel.textColor = .text
 
 
 		detailView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
@@ -112,7 +122,7 @@ final class BottomCollectionViewCell: BaseCollectionViewCell {
 		dateLabel.textAlignment = .center
 		dateLabel.font = .systemFont(ofSize: 10)
 
-		bookmarkButton.backgroundColor = .green
+		bookmarkButton.tintColor = .point
 
 	}
 

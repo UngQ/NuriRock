@@ -62,17 +62,17 @@ final class TabManViewController: TabmanViewController {
 
 		bar.layout.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
 
-		bar.backgroundColor = .systemBlue
+		bar.backgroundColor = .point
 
 		bar.buttons.customize { (button) in
 			button.tintColor = .systemGray
-			button.selectedTintColor = .black
+			button.selectedTintColor = .text
 			button.font = .systemFont(ofSize: 12)
 			button.selectedFont = .boldSystemFont(ofSize: 12)
 		}
 
 		bar.indicator.weight = .custom(value: 2)
-		bar.indicator.tintColor = .black
+		bar.indicator.tintColor = .text
 		bar.indicator.overscrollBehavior = .none
 
 		addBar(bar, dataSource: self, at: .custom(view: baseView, layout: nil))
@@ -83,6 +83,7 @@ final class TabManViewController: TabmanViewController {
 	func itemSelected(at index: Int) {
 		if let totalResultVC = viewControllers.first as? TotalResultViewController {
 			totalResultVC.selectedItemIndex = index
+			
 			totalResultVC.updateUIBasedOnSelection()
 		}
 

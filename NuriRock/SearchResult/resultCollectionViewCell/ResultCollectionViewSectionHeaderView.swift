@@ -12,7 +12,7 @@ final class ResultCollectionViewSectionHeaderView: UICollectionReusableView {
 
 	let titleLabel: UILabel = {
 		let label = UILabel()
-		label.textColor = .black
+		label.textColor = .text
 		label.font = UIFont.boldSystemFont(ofSize: 16)
 		return label
 	}()

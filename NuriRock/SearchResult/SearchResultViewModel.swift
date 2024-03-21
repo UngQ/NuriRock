@@ -9,6 +9,8 @@ import Foundation
 
 final class SearchResultViewModel {
 
+	let repository = BookmarkRepository()
+
 	var inputKeyword: Observable<String> = Observable("")
 
 	var outputTourData: Observable<Test?> = Observable(nil)
@@ -21,7 +23,7 @@ final class SearchResultViewModel {
 	var onProgress: Observable<Bool> = Observable(true)
 	var noMoreRetryAttempts: Observable<Bool> = Observable(false)
 
-
+    var apiCallNumber = 6
 
 	init() {
 
@@ -33,7 +35,7 @@ final class SearchResultViewModel {
 			//
 			//			self.callAPIDataRequest(api: .areaBasedList(contentType: .tour, areaCode: .daegu, numOfRows: 3, pageNo: 1))
 			//			self.callAPIDataRequest(api: .areaBasedList(contentType: .tour, areaCode: .daejeon, numOfRows: 3, pageNo: 1))
-
+			self.apiCallNumber = 6
 			self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .tour, numOfRows: 3, pageNo: 1))
 			self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .culture, numOfRows: 3, pageNo: 1))
 			self.callAPIDataRequest(api: .searchKeyword(keyword: keyword, contentType: .festival, numOfRows: 3, pageNo: 1))
@@ -53,6 +55,7 @@ final class SearchResultViewModel {
 
 		APIService.shared.request(type: Test.self, api: api) { response, error in
 			if let response = response {
+				self.apiCallNumber -= 1
 				switch api {
 				case .searchKeyword(_, let contentType, _, _):
 					switch contentType {

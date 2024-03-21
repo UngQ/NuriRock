@@ -20,7 +20,7 @@ class SettingViewController: UIViewController {
 
 		imageView.contentMode = .scaleAspectFit
 		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .white
+		navigationController?.navigationBar.backgroundColor = .background
     }
     
 

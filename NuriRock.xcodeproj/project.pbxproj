@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A5048B212BAB3262004D9516 /* IndexedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B202BAB3262004D9516 /* IndexedButton.swift */; };
+		A5048B232BAB377B004D9516 /* attributedStringFromHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B222BAB377B004D9516 /* attributedStringFromHTML.swift */; };
+		A5048B252BAB4198004D9516 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B242BAB4198004D9516 /* BookmarkViewModel.swift */; };
+		A5048B272BABEF27004D9516 /* setViewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B262BABEF27004D9516 /* setViewShadow.swift */; };
 		A50F40F62B9F5DE10097466D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F40F52B9F5DE10097466D /* API.swift */; };
 		A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = A556411C2B9C3FCC000A1F27 /* Tabman */; };
 		A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */; };
@@ -72,6 +76,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A5048B202BAB3262004D9516 /* IndexedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedButton.swift; sourceTree = "<group>"; };
+		A5048B222BAB377B004D9516 /* attributedStringFromHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = attributedStringFromHTML.swift; sourceTree = "<group>"; };
+		A5048B242BAB4198004D9516 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
+		A5048B262BABEF27004D9516 /* setViewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setViewShadow.swift; sourceTree = "<group>"; };
 		A50F40F52B9F5DE10097466D /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabmanViewController.swift; sourceTree = "<group>"; };
 		A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +302,8 @@
 			children = (
 				A5D5DD652B9E7D76007F9935 /* DateFormatter.swift */,
 				A563B0432BA56840005A4F37 /* StringHighlight.swift */,
+				A5048B222BAB377B004D9516 /* attributedStringFromHTML.swift */,
+				A5048B262BABEF27004D9516 /* setViewShadow.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -370,6 +380,7 @@
 				A5ED2EC42B99945F00BB0E9C /* BaseViewController.swift */,
 				A5ED2EE22B9B2A4000BB0E9C /* BaseCollectionViewCell.swift */,
 				A55641262B9C6EAF000A1F27 /* BaseTableViewCell.swift */,
+				A5048B202BAB3262004D9516 /* IndexedButton.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -424,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				A5EFCD7F2BAA5DB9002894D2 /* BookmarkViewController.swift */,
+				A5048B242BAB4198004D9516 /* BookmarkViewModel.swift */,
 			);
 			path = Bookmark;
 			sourceTree = "<group>";
@@ -536,6 +548,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5EFCD802BAA5DB9002894D2 /* BookmarkViewController.swift in Sources */,
+				A5048B212BAB3262004D9516 /* IndexedButton.swift in Sources */,
 				A563B0442BA56840005A4F37 /* StringHighlight.swift in Sources */,
 				A5D5DD662B9E7D76007F9935 /* DateFormatter.swift in Sources */,
 				A5EFCD882BAABEE2002894D2 /* BookmarkRealmModel.swift in Sources */,
@@ -560,6 +573,8 @@
 				A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */,
 				A563B0282BA0BC6E005A4F37 /* SearchedKeywordRealmModel.swift in Sources */,
 				A563B0502BA7B1F8005A4F37 /* DetailContentInfoViewController.swift in Sources */,
+				A5048B252BAB4198004D9516 /* BookmarkViewModel.swift in Sources */,
+				A5048B232BAB377B004D9516 /* attributedStringFromHTML.swift in Sources */,
 				A5ED2EE12B9B2A3200BB0E9C /* CityCollectionViewCell.swift in Sources */,
 				A5EFCD862BAABE7F002894D2 /* BookmarkRepository.swift in Sources */,
 				A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */,
@@ -568,6 +583,7 @@
 				A563B0382BA305B9005A4F37 /* SearchResultViewController.swift in Sources */,
 				A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */,
 				A5ED2E8F2B99837800BB0E9C /* SceneDelegate.swift in Sources */,
+				A5048B272BABEF27004D9516 /* setViewShadow.swift in Sources */,
 				A5D5DD5E2B9DACB8007F9935 /* ContentType.swift in Sources */,
 				A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */,
 				A55641272B9C6EAF000A1F27 /* BaseTableViewCell.swift in Sources */,
@@ -755,6 +771,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -789,6 +806,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

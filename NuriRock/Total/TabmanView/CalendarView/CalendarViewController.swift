@@ -48,12 +48,13 @@ final class CalendarViewController: BaseViewController {
 		calendar.appearance.subtitleFont = .boldSystemFont(ofSize: 14)
 
 
-		calendar.appearance.weekdayTextColor = .black
-		calendar.appearance.headerTitleColor = .black
+		calendar.appearance.weekdayTextColor = .text
+		calendar.appearance.headerTitleColor = .text
 		calendar.appearance.titleWeekendColor = .red
 //		calendar.scrollDirection = .horizontal
 //		calendar.appearance.eventDefaultColor = .green
-		calendar.appearance.todayColor = .systemBlue
+		calendar.appearance.todayColor = .point
+		calendar.appearance.titleDefaultColor = .text
 	}
 
 	

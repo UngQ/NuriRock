@@ -81,7 +81,8 @@ final class TotalResultTableViewCell: BaseTableViewCell {
 		viewModel.onProgress.bind { _ in
 			if self.viewModel.onProgress.value {
 				SVProgressHUD.show()
-			} else {
+			} else if self.viewModel.mainAPICallNumber == 0 {
+
 				SVProgressHUD.dismiss()
 			}
 		}
@@ -159,7 +160,7 @@ final class TotalResultTableViewCell: BaseTableViewCell {
 	override func configureCell() {
 
 		seeMoreButton.setTitle(NSLocalizedString(LocalString.seemore.rawValue, comment: ""), for: .normal)
-		seeMoreButton.backgroundColor = .systemBlue
+		seeMoreButton.backgroundColor = .point
 		seeMoreButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
 		seeMoreButton.layer.cornerRadius = 8
 		seeMoreButton.titleLabel?.font = .boldSystemFont(ofSize: 12)
@@ -171,6 +172,7 @@ final class TotalResultTableViewCell: BaseTableViewCell {
 		dateLabel.font = .boldSystemFont(ofSize: 14)
 
 		calendarButton.setBackgroundImage(UIImage(systemName: "calendar"), for: .normal)
+		calendarButton.tintColor = .point
 		calendarButton.addTarget(self, action: #selector(calendarButtonClicked), for: .touchUpInside)
 
 		configureSegmentedController()
@@ -187,14 +189,14 @@ final class TotalResultTableViewCell: BaseTableViewCell {
 
 	private func configureSegmentedController() {
 		segmentedController.selectedSegmentIndex = 0
-		let normalFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.white]
-		let selectedFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.black]
+		let normalFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.background]
+		let selectedFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.text]
 
 		// Apply the attributes to the segmented control
 		segmentedController.setTitleTextAttributes(normalFontAttributes, for: .normal)
 		segmentedController.setTitleTextAttributes(selectedFontAttributes, for: .selected)
 
-		segmentedController.backgroundColor = .systemBlue
+		segmentedController.backgroundColor = .point
 
 		segmentedController.addTarget(self, action: #selector(segmentedValueChanged), for: .valueChanged)
 
@@ -348,6 +350,7 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 
 			if viewModel.repository.isBookmarked(contentId: data[indexPath.item].contentid) {
 				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+
 
 			} else if !viewModel.repository.isBookmarked(contentId: data[indexPath.item].contentid) {
 				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)

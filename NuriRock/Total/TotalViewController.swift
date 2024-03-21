@@ -44,7 +44,7 @@ final class TotalViewController: BaseViewController {
 
 		imageView.contentMode = .scaleAspectFit
 		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .white
+		navigationController?.navigationBar.backgroundColor = .background
 
 
 		tabManVC.viewControllers.forEach {
@@ -98,7 +98,7 @@ final class TotalViewController: BaseViewController {
 
 
 
-		cityCollectionView.backgroundColor = .white
+		cityCollectionView.backgroundColor = .background
 
 		cityCollectionView.delegate = self
 		cityCollectionView.dataSource = self
@@ -200,7 +200,7 @@ extension TotalViewController: UICollectionViewDelegate, UICollectionViewDataSou
 		cell.cityLabel.text = NSLocalizedString(CityCode.allCases[indexPath.row].name, comment: "")
 
 		if selectedCellIndex == indexPath.item {
-			cell.imageView.layer.borderColor = UIColor.systemBlue.cgColor
+			cell.imageView.layer.borderColor = UIColor.point.cgColor
 			cell.imageView.layer.borderWidth = 4
 		}
 

@@ -16,7 +16,7 @@ final class ResultCollectionViewSectionFooterView: UICollectionReusableView {
 		label.layer.cornerRadius = 8
 		label.layer.masksToBounds = true
 		label.titleLabel?.font = .boldSystemFont(ofSize: 12)
-		label.backgroundColor = .systemBlue
+		label.backgroundColor = .point
 		return label
 	}()
 

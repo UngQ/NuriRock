@@ -26,7 +26,9 @@ final class SearchResultViewController: BaseViewController {
 
 		imageView.contentMode = .scaleAspectFit
 		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .white
+		navigationController?.navigationBar.backgroundColor = .background
+
+		navigationController?.navigationItem.leftBarButtonItem?.title = ""
 
 
 		configureDataSource()
@@ -76,7 +78,7 @@ final class SearchResultViewController: BaseViewController {
 		viewModel.onProgress.bind { _ in
 			if self.viewModel.onProgress.value {
 				SVProgressHUD.show()
-			} else {
+			} else if self.viewModel.apiCallNumber == 0 {
 				SVProgressHUD.dismiss()
 			}
 		}
@@ -91,6 +93,8 @@ final class SearchResultViewController: BaseViewController {
 
 	private func updateSnapshot() {
 		var snapshot = NSDiffableDataSourceSnapshot<ContentType, Item>()
+		
+
 		snapshot.appendSections(ContentType.allCases)
 
 		snapshot.appendItems(viewModel.outputTourData.value?.response.body.items?.item ?? [], toSection: .tour)
@@ -148,8 +152,38 @@ extension SearchResultViewController {
 			//			cell.mainLabel.text = "\(indexPath.section),\(indexPath.item)"
 			cell.searchKeyword = self.viewModel.inputKeyword.value
 			cell.updateUI(identifier)
-			cell.bookmarkButton.tag = indexPath.item
+
+			cell.bookmarkButton.indexPath = indexPath
 			cell.bookmarkButton.addTarget(self, action: #selector(self.bookmarkButtonClicked), for: .touchUpInside)
+
+
+			var data: [Item]?
+
+			if let section = ContentType(rawValue: indexPath.section) {
+				switch section {
+				case .tour:
+					data = self.viewModel.outputTourData.value?.response.body.items?.item
+				case .culture:
+					data = self.viewModel.outputCultureData.value?.response.body.items?.item
+				case .festival:
+					data = self.viewModel.outputFestivalData.value?.response.body.items?.item
+				case .hotel:
+					data = self.viewModel.outputHotelData.value?.response.body.items?.item
+				case .shopping:
+					data = self.viewModel.outputShoppingData.value?.response.body.items?.item
+				case .restaurant:
+					data = self.viewModel.outputRestaurantData.value?.response.body.items?.item
+				}
+			}
+
+			guard let data = data?[indexPath.item] else { return }
+
+			if self.viewModel.repository.isBookmarked(contentId: data.contentid) {
+				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+
+			} else if !self.viewModel.repository.isBookmarked(contentId: data.contentid) {
+				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+			}
 
 		}
 
@@ -198,45 +232,34 @@ extension SearchResultViewController {
 		}
 	}
 
-	@objc func bookmarkButtonClicked(_ sender: UIButton) {
+	@objc func bookmarkButtonClicked(_ sender: IndexedButton) {
 		SVProgressHUD.show()
+		guard let indexPath = sender.indexPath else { return }
+
+		var data: [Item]?
 
 		if let section = ContentType(rawValue: indexPath.section) {
 			switch section {
 			case .tour:
-				print(section)
-				let vc = DetailContentInfoViewController()
-				vc.viewModel.inputContentId.value = viewModel.outputTourData.value?.response.body.items?.item?[indexPath.item].contentid
-				navigationController?.pushViewController(vc, animated: true)
+				data = viewModel.outputTourData.value?.response.body.items?.item
 			case .culture:
-				print(section)
-				let vc = DetailContentInfoViewController()
-				vc.viewModel.inputContentId.value = viewModel.outputCultureData.value?.response.body.items?.item?[indexPath.item].contentid
-				navigationController?.pushViewController(vc, animated: true)
+				data = viewModel.outputCultureData.value?.response.body.items?.item
 			case .festival:
-				let vc = DetailContentInfoViewController()
-				vc.viewModel.inputContentId.value = viewModel.outputFestivalData.value?.response.body.items?.item?[indexPath.item].contentid
-				navigationController?.pushViewController(vc, animated: true)
+				data = viewModel.outputFestivalData.value?.response.body.items?.item
 			case .hotel:
-				let vc = DetailContentInfoViewController()
-				vc.viewModel.inputContentId.value = viewModel.outputHotelData.value?.response.body.items?.item?[indexPath.item].contentid
-				navigationController?.pushViewController(vc, animated: true)
+				data = viewModel.outputHotelData.value?.response.body.items?.item
 			case .shopping:
-				let vc = DetailContentInfoViewController()
-				vc.viewModel.inputContentId.value = viewModel.outputShoppingData.value?.response.body.items?.item?[indexPath.item].contentid
-				navigationController?.pushViewController(vc, animated: true)
+				data = viewModel.outputShoppingData.value?.response.body.items?.item
 			case .restaurant:
-				let vc = DetailContentInfoViewController()
-				vc.viewModel.inputContentId.value = viewModel.outputRestaurantData.value?.response.body.items?.item?[indexPath.item].contentid
-				navigationController?.pushViewController(vc, animated: true)
+				data = viewModel.outputRestaurantData.value?.response.body.items?.item
 			}
+		}
 
-
-
+		guard let data = data?[indexPath.item] else { return }
 
 		if viewModel.repository.isBookmarked(contentId: data.contentid) {
 			viewModel.repository.deleteBookmark(data: data)
-
+			sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
 			SVProgressHUD.dismiss(withDelay: 0.2)
 			updateSnapshot()
 		} else {
@@ -245,6 +268,7 @@ extension SearchResultViewController {
 
 				DispatchQueue.main.async {
 					if success {
+						sender.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
 						SVProgressHUD.dismiss()
 					} else {
 						SVProgressHUD.showError(withStatus: "서버 오류")

@@ -11,10 +11,14 @@ import Kingfisher
 
 final class ContentViewController: BaseViewController {
 
+	enum Section {
+		case main
+	}
+
 	static let sectionHeaderElementKind = "section-header-element-kind"
 	static let sectionFooterElementKind = "section-footer-element-kind"
 
-	var dataSource: UICollectionViewDiffableDataSource<ContentType, Item>! = nil
+	var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
 	lazy var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
 
 	let viewModel = ContentViewModel()
@@ -22,25 +26,12 @@ final class ContentViewController: BaseViewController {
 	weak var scrollDelegate: TotalResultViewControllerDelegate?
 	weak var didSelectDelegate: TotalResultTableViewCellDelegate?
 
-
-//	lazy var scrollViewHeight = self.collectionView.contentSize.height {
-//		didSet {
-//			if viewModel.isAreaOrKeyword {
-//				viewModel.isAreaChange = false
-//				viewModel.inputPageNo.value += 1
-//			} else {
-//				viewModel.inputPageNo.value += 1
-//			}
-//		}
-//	}
-
-
+	
 
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-//		viewModel.outputItemList.value = []
 		if let _ = viewModel.outputItemList.value {
 
 		} else {
@@ -161,10 +152,10 @@ final class ContentViewController: BaseViewController {
 
 
 	private func updateSnapshot() {
-		var snapshot = NSDiffableDataSourceSnapshot<ContentType, Item>()
-		snapshot.appendSections([.tour])
+		var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+		snapshot.appendSections([.main])
 
-		snapshot.appendItems(viewModel.outputItemList.value ?? [], toSection: .tour)
+		snapshot.appendItems(viewModel.outputItemList.value ?? [], toSection: .main)
 
 		dataSource.apply(snapshot, animatingDifferences: true) //reloadData
 
@@ -216,6 +207,13 @@ extension ContentViewController {
 			cell.updateUI(identifier)
 			cell.bookmarkButton.tag = indexPath.item
 			cell.bookmarkButton.addTarget(self, action: #selector(self.bookmarkButtonClicked), for: .touchUpInside)
+
+			if self.viewModel.repository.isBookmarked(contentId: self.viewModel.outputItemList.value?[indexPath.item].contentid ?? "") {
+				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+
+			} else if !self.viewModel.repository.isBookmarked(contentId: self.viewModel.outputItemList.value?[indexPath.item].contentid ?? "") {
+				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+			}
 		}
 
 		let headerRegistration = UICollectionView.SupplementaryRegistration
@@ -238,7 +236,7 @@ extension ContentViewController {
 			//			supplementaryView.layer.borderWidth = 1.0
 		}
 
-		dataSource = UICollectionViewDiffableDataSource<ContentType, Item>(collectionView: collectionView) {
+		dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) {
 			(collectionView: UICollectionView, indexPath: IndexPath, identifier: Item) -> UICollectionViewCell? in
 			return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
 		}
@@ -268,7 +266,7 @@ extension ContentViewController {
 
 		if viewModel.repository.isBookmarked(contentId: data.contentid) {
 			viewModel.repository.deleteBookmark(data: data)
-
+			sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
 			SVProgressHUD.dismiss(withDelay: 0.2)
 			updateSnapshot()
 		} else {
@@ -277,6 +275,7 @@ extension ContentViewController {
 
 				DispatchQueue.main.async {
 					if success {
+						sender.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
 						SVProgressHUD.dismiss()
 					} else {
 						SVProgressHUD.showError(withStatus: "서버 오류")

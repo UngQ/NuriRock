@@ -67,9 +67,11 @@ final class BookmarkRepository {
 		}
 	}
 
-	func fetchHistory() -> [BookmarkRealmModel] {
+	
+
+	func fetchBookmark() -> [BookmarkRealmModel] {
 		guard let realm = realm else { return [] }
-		let result = realm.objects(BookmarkRealmModel.self).sorted(byKeyPath: "date", ascending: false)
+		let result = realm.objects(BookmarkRealmModel.self) //.sorted(byKeyPath: "date", ascending: false)
 		return Array(result)
 	}
 
@@ -93,6 +95,7 @@ final class BookmarkRepository {
 										  title: data.title,
 										  addr1: data.addr1,
 										  addr2: data.addr2,
+										  areacode: data.areacode ?? "",
 										  firstimage: data.firstimage,
 										  overview: data.overview ?? "",
 										  mapx: data.mapx ?? "",
@@ -125,6 +128,7 @@ final class BookmarkRepository {
 									  title: data.title,
 									  addr1: data.addr1,
 									  addr2: data.addr2,
+									  areacode: data.areacode ?? "",
 									  firstimage: data.firstimage,
 									  overview: data.overview ?? "",
 									  mapx: data.mapx ?? "",
@@ -141,6 +145,24 @@ final class BookmarkRepository {
 	}
 
 	func deleteBookmark(data: Item) {
+
+		guard let realm = realm else { return }
+
+
+
+		guard let object = realm.object(ofType: BookmarkRealmModel.self, forPrimaryKey: data.contentid) else { return }
+
+		do {
+			try realm.write {
+				realm.delete(object)
+			}
+		} catch {
+			print("delete Error")
+		}
+
+	}
+
+	func deleteBookmarkInBookmarkView(data: BookmarkRealmModel) {
 
 		guard let realm = realm else { return }
 

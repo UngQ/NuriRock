@@ -39,12 +39,14 @@ final class TotalResultTableViewModel {
 
 	var onDateChanged: ((String) -> Void)?
 
+	var mainAPICallNumber = 3
 
 
 	init() {
 
 		inputAreaCode.bind { areaCode in
 			print(areaCode.rawValue)
+			self.mainAPICallNumber = 3
 			self.callAPIDataRequest(api: .areaBasedList(contentType: .tour, areaCode: areaCode, numOfRows: 10, pageNo: 1))
 			self.callAPIDataRequest(api: .areaBasedList(contentType: .restaurant, areaCode: areaCode, numOfRows: 10, pageNo: 1))
 			self.callAPIDataRequest(api: .searchFestival(eventStartDate: self.inputDate.value.toYYYYMMDD(), areaCode: areaCode, numOfRows: 10, pageNo: 1))
@@ -52,6 +54,7 @@ final class TotalResultTableViewModel {
 		}
 
 		inputDate.apiBind { date in
+			self.mainAPICallNumber = 1
 			self.callAPIDataRequest(api: .searchFestival(eventStartDate: date.toYYYYMMDD(), areaCode: self.inputAreaCode.value, numOfRows: 10, pageNo: 1))
 			self.onDateChanged?(date.formatDateBasedOnLocale())
 		}
@@ -63,7 +66,7 @@ final class TotalResultTableViewModel {
 
 		APIService.shared.request(type: Test.self, api: api) { response, error in
 			if let response = response {
-
+				self.mainAPICallNumber -= 1
 				switch api {
 				case .areaBasedList(let contentType, _, _, _):
 					switch contentType {

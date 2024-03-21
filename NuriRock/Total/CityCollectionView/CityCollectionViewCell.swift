@@ -36,6 +36,9 @@ final class CityCollectionViewCell: BaseCollectionViewCell {
 	}
 
 	override func configureCell() {
+
+		
+
 		imageView.backgroundColor = .clear
 
 		imageView.layer.cornerRadius = (UIScreen.main.bounds.width - 24) / 12

@@ -12,12 +12,13 @@ final class MainTabbarController: UITabBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		view.backgroundColor = .white
+		view.backgroundColor = .background
 
-		self.tabBar.tintColor = .systemBlue
-		self.tabBar.barTintColor = .black
+		self.tabBar.tintColor = .point
+		self.tabBar.barTintColor = .background
 		self.tabBar.isTranslucent = false
-		self.tabBar.unselectedItemTintColor = .black
+		self.tabBar.unselectedItemTintColor = .text
+		self.tabBar.backgroundColor = .background
 
 
 

@@ -56,7 +56,7 @@ final class TotalResultViewController: BaseViewController {
 	}
 
 	override func configureView() {
-		mainTableView.backgroundColor = .white
+		mainTableView.backgroundColor = .background
 
 		mainTableView.delegate = self
 		mainTableView.dataSource = self

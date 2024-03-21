@@ -60,13 +60,19 @@ final class DetailContentInfoViewController: BaseViewController {
 
 	let lineView = {
 		let view = UIView()
-		view.backgroundColor = .systemBlue
+		view.backgroundColor = .point
 		return view
 	}()
 
 	let secondLineView = {
 		let view = UIView()
-		view.backgroundColor = .systemBlue
+		view.backgroundColor = .point
+		return view
+	}()
+
+	let moreInfoButton = {
+		let view = UIButton()
+		view.backgroundColor = .green
 		return view
 	}()
 
@@ -87,6 +93,7 @@ final class DetailContentInfoViewController: BaseViewController {
 
 		contentView.addSubview(lineView)
 		contentView.addSubview(secondLineView)
+		contentView.addSubview(moreInfoButton)
 	}
 
 	override func configureLayout() {
@@ -104,8 +111,14 @@ final class DetailContentInfoViewController: BaseViewController {
 			make.height.equalTo(288)
 		}
 
-		mapView.snp.makeConstraints { make in
+		moreInfoButton.snp.makeConstraints { make in
 			make.bottom.horizontalEdges.equalTo(contentView).inset(8)
+			make.height.equalTo(40)
+		}
+
+		mapView.snp.makeConstraints { make in
+			make.bottom.equalTo(moreInfoButton.snp.top).offset(-8)
+			make.horizontalEdges.equalTo(contentView).inset(8)
 			make.height.equalTo(288)
 		}
 
@@ -146,7 +159,7 @@ final class DetailContentInfoViewController: BaseViewController {
 		let imageView = UIImageView(image: logo)
 		imageView.contentMode = .scaleAspectFit
 		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .white
+		navigationController?.navigationBar.backgroundColor = .background
 
 
 
@@ -201,10 +214,11 @@ final class DetailContentInfoViewController: BaseViewController {
 				self.titleLabel.text = data.title
 
 				//주소 바인드
-				self.addrLabel.text = data.addr1
+				self.addrLabel.text = data.addr1 + data.addr2
+				
 
 				//오버뷰 바인드
-				self.overViewLabel.text = data.overview
+				self.overViewLabel.attributedText = data.overview?.attributedStringFromHTML()
 
 				//맵뷰 바인드
 				if let latString = data.mapy,

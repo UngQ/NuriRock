@@ -103,11 +103,11 @@ final class SearchViewController: BaseViewController {
 
 		currentSearchLabel.text = " 최근 검색 기록"
 		currentSearchLabel.font = .boldSystemFont(ofSize: 15)
-		currentSearchLabel.textColor = .black
+		currentSearchLabel.textColor = .text
 		currentSearchLabel.textAlignment = .left
 
 		allDeleteButton.setTitle("모두 지우기", for: .normal)
-		allDeleteButton.setTitleColor(.black, for: .normal)
+		allDeleteButton.setTitleColor(.text, for: .normal)
 		allDeleteButton.titleLabel?.font = .boldSystemFont(ofSize: 13)
 		allDeleteButton.titleLabel?.textAlignment = .right
 
@@ -121,7 +121,7 @@ final class SearchViewController: BaseViewController {
 
 		emptyLabel.text = "최근 검색 기록이 없어요."
 		emptyLabel.font = .boldSystemFont(ofSize: 16)
-		emptyLabel.textColor = .black
+		emptyLabel.textColor = .text
 		emptyLabel.textAlignment = .center
 
 //		searchHistoryCollectionView.isHidden = true
@@ -145,8 +145,8 @@ final class SearchViewController: BaseViewController {
 
 		var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
 		configuration.showsSeparators = true
-		configuration.separatorConfiguration.color = .white
-		configuration.backgroundColor = .white
+		configuration.separatorConfiguration.color = .background
+		configuration.backgroundColor = .background
 
 
 		return UICollectionViewCompositionalLayout.list(using: configuration)
@@ -161,7 +161,7 @@ final class SearchViewController: BaseViewController {
 
 			var content = UIListContentConfiguration.subtitleCell()
 			content.text = itemIdentifier.keyword
-			content.textProperties.color = .white
+			content.textProperties.color = .background
 			content.textProperties.font = .boldSystemFont(ofSize: 14)
 			content.textProperties.alignment = .center
 			cell.contentConfiguration = content
@@ -169,7 +169,7 @@ final class SearchViewController: BaseViewController {
 
 
 			var background = UIBackgroundConfiguration.listPlainCell()
-			background.backgroundColor = .systemBlue
+			background.backgroundColor = .point
 
 			cell.backgroundConfiguration = background
 		}

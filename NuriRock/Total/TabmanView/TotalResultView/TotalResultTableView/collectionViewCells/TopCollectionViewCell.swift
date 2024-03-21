@@ -9,6 +9,7 @@ import UIKit
 
 final class TopCollectionViewCell: BaseCollectionViewCell {
 
+
 	let imageView = UIImageView(frame: .zero)
 	let titleLabel = UILabel()
 	let addressLabel = UILabel()
@@ -19,6 +20,7 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 	}
 
 	override func configureHierarchy() {
+
 		contentView.addSubview(imageView)
 		contentView.addSubview(titleLabel)
 		contentView.addSubview(addressLabel)
@@ -26,20 +28,25 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 	}
 
 	override func configureLayout() {
+
+//		view.snp.makeConstraints { make in
+//			make.edges.equalToSuperview()
+//		}
+
 		imageView.snp.makeConstraints { make in
 			make.top.horizontalEdges.equalToSuperview()
 			make.height.equalTo(144) //192 - 24 - 24
 		}
 
 		titleLabel.snp.makeConstraints { make in
-			make.top.equalTo(imageView.snp.bottom)
-			make.horizontalEdges.equalToSuperview()
-			make.height.equalTo(24)
+			make.top.equalTo(imageView.snp.bottom).offset(4)
+			make.horizontalEdges.equalToSuperview().inset(4)
+			make.height.greaterThanOrEqualTo(0)
 		}
 
 		addressLabel.snp.makeConstraints { make in
 			make.top.equalTo(titleLabel.snp.bottom)
-			make.horizontalEdges.equalToSuperview()
+			make.horizontalEdges.equalToSuperview().inset(4)
 			make.height.lessThanOrEqualTo(24)
 		}
 		bookmarkButton.snp.makeConstraints { make in
@@ -49,8 +56,21 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 	}
 
 	override func configureCell() {
-		imageView.clipsToBounds = true
-		imageView.layer.cornerRadius = 20
+		backgroundColor = .background
+		layer.shadowColor = UIColor.lightGray.cgColor
+		 layer.shadowOpacity = 0.2
+		 layer.shadowRadius = 2
+		layer.shadowOffset = CGSize(width: 2, height: 2)
+		layer.cornerRadius = 10
+		layer.masksToBounds = false
+
+		contentView.layer.cornerRadius = 10
+		contentView.layer.masksToBounds = true
+
+//		view.setViewShadow(backView: view)
+
+//		imageView.clipsToBounds = true
+//		imageView.layer.cornerRadius = 10
 		imageView.contentMode = .scaleAspectFill
 
 
@@ -58,10 +78,13 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 
 
 		addressLabel.font = .systemFont(ofSize: 10)
-		addressLabel.numberOfLines = 0
+		addressLabel.textColor = .lightGray
+		addressLabel.numberOfLines = 2
+		addressLabel.layer.cornerRadius = 10
 
 
-		bookmarkButton.tintColor = .white
+
+		bookmarkButton.tintColor = .point
 		
 	}
 

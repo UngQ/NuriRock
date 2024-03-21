@@ -73,6 +73,7 @@ enum API {
 			params["addrinfoYN"] = "Y"
 			params["mapinfoYN"] = "Y"
 			params["overviewYN"] = "Y"
+			params["areacodeYN"] = "Y"
 //			params["numOfRows"] = 10
 //			params["pageNo"] = 1
 		}
