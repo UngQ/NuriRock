@@ -58,6 +58,8 @@ import RealmSwift
 final class BookmarkRepository {
 
 	private var realm: Realm?
+	
+
 
 	init() {
 		do {

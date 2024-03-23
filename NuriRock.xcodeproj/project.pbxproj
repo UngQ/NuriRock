@@ -11,6 +11,12 @@
 		A5048B232BAB377B004D9516 /* attributedStringFromHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B222BAB377B004D9516 /* attributedStringFromHTML.swift */; };
 		A5048B252BAB4198004D9516 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B242BAB4198004D9516 /* BookmarkViewModel.swift */; };
 		A5048B272BABEF27004D9516 /* setViewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B262BABEF27004D9516 /* setViewShadow.swift */; };
+		A5048B292BAC985F004D9516 /* DoubleFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B282BAC985F004D9516 /* DoubleFormatter.swift */; };
+		A5048B2B2BAC9F64004D9516 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5048B2A2BAC9F64004D9516 /* GoogleService-Info.plist */; };
+		A5048B342BACA6E8004D9516 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = A5048B332BACA6E8004D9516 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		A5048B362BACA6E8004D9516 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = A5048B352BACA6E8004D9516 /* FirebaseCrashlytics */; };
+		A5048B382BACA6E8004D9516 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = A5048B372BACA6E8004D9516 /* FirebaseMessaging */; };
+		A5048B3B2BACAC95004D9516 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B3A2BACAC95004D9516 /* LaunchScreenViewController.swift */; };
 		A50F40F62B9F5DE10097466D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F40F52B9F5DE10097466D /* API.swift */; };
 		A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = A556411C2B9C3FCC000A1F27 /* Tabman */; };
 		A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */; };
@@ -80,6 +86,10 @@
 		A5048B222BAB377B004D9516 /* attributedStringFromHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = attributedStringFromHTML.swift; sourceTree = "<group>"; };
 		A5048B242BAB4198004D9516 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 		A5048B262BABEF27004D9516 /* setViewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setViewShadow.swift; sourceTree = "<group>"; };
+		A5048B282BAC985F004D9516 /* DoubleFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleFormatter.swift; sourceTree = "<group>"; };
+		A5048B2A2BAC9F64004D9516 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A5048B3A2BACAC95004D9516 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		A5048B3C2BAD0CB7004D9516 /* NuriRock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NuriRock.entitlements; sourceTree = "<group>"; };
 		A50F40F52B9F5DE10097466D /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabmanViewController.swift; sourceTree = "<group>"; };
 		A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultViewController.swift; sourceTree = "<group>"; };
@@ -152,10 +162,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5048B382BACA6E8004D9516 /* FirebaseMessaging in Frameworks */,
 				A563B0242BA0BBDE005A4F37 /* Realm in Frameworks */,
+				A5048B342BACA6E8004D9516 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				A556413C2B9D5041000A1F27 /* Kingfisher in Frameworks */,
 				A563B0262BA0BBDE005A4F37 /* RealmSwift in Frameworks */,
 				A563B03D2BA35EED005A4F37 /* Toast in Frameworks */,
+				A5048B362BACA6E8004D9516 /* FirebaseCrashlytics in Frameworks */,
 				A55641302B9CB549000A1F27 /* Alamofire in Frameworks */,
 				A563B0332BA2846B005A4F37 /* SVProgressHUD in Frameworks */,
 				A5ED2ECD2B9994F900BB0E9C /* SnapKit in Frameworks */,
@@ -167,6 +180,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A5048B392BACAC7E004D9516 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				A5048B3A2BACAC95004D9516 /* LaunchScreenViewController.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
 		A556411E2B9C4019000A1F27 /* TabmanView */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +325,7 @@
 				A563B0432BA56840005A4F37 /* StringHighlight.swift */,
 				A5048B222BAB377B004D9516 /* attributedStringFromHTML.swift */,
 				A5048B262BABEF27004D9516 /* setViewShadow.swift */,
+				A5048B282BAC985F004D9516 /* DoubleFormatter.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -336,6 +358,8 @@
 		A5ED2E8B2B99837800BB0E9C /* NuriRock */ = {
 			isa = PBXGroup;
 			children = (
+				A5048B3C2BAD0CB7004D9516 /* NuriRock.entitlements */,
+				A5048B392BACAC7E004D9516 /* Launch */,
 				A5ED2EC32B99945500BB0E9C /* Base */,
 				A5D5DD642B9E7D61007F9935 /* Extension */,
 				A5ED2ECE2B99980800BB0E9C /* Enum */,
@@ -361,6 +385,7 @@
 				A5ED2EA22B998B3300BB0E9C /* APIKey.swift */,
 				A5ED2EBC2B9991F500BB0E9C /* Localizable.xcstrings */,
 				A5ED2EBE2B99927600BB0E9C /* InfoPlist.strings */,
+				A5048B2A2BAC9F64004D9516 /* GoogleService-Info.plist */,
 			);
 			path = NuriRock;
 			sourceTree = "<group>";
@@ -474,6 +499,9 @@
 				A563B0252BA0BBDE005A4F37 /* RealmSwift */,
 				A563B0322BA2846B005A4F37 /* SVProgressHUD */,
 				A563B03C2BA35EED005A4F37 /* Toast */,
+				A5048B332BACA6E8004D9516 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				A5048B352BACA6E8004D9516 /* FirebaseCrashlytics */,
+				A5048B372BACA6E8004D9516 /* FirebaseMessaging */,
 			);
 			productName = NuriRock;
 			productReference = A5ED2E892B99837800BB0E9C /* NuriRock.app */;
@@ -516,6 +544,7 @@
 				A563B0222BA0BBDE005A4F37 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				A563B0312BA2846B005A4F37 /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
 				A563B03B2BA35EED005A4F37 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				A5048B322BACA6E8004D9516 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = A5ED2E8A2B99837800BB0E9C /* Products */;
 			projectDirPath = "";
@@ -537,6 +566,7 @@
 				A5ED2E992B99837900BB0E9C /* LaunchScreen.storyboard in Resources */,
 				A5ED2E962B99837900BB0E9C /* Assets.xcassets in Resources */,
 				A5ED2E942B99837800BB0E9C /* Main.storyboard in Resources */,
+				A5048B2B2BAC9F64004D9516 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,11 +604,13 @@
 				A563B0282BA0BC6E005A4F37 /* SearchedKeywordRealmModel.swift in Sources */,
 				A563B0502BA7B1F8005A4F37 /* DetailContentInfoViewController.swift in Sources */,
 				A5048B252BAB4198004D9516 /* BookmarkViewModel.swift in Sources */,
+				A5048B292BAC985F004D9516 /* DoubleFormatter.swift in Sources */,
 				A5048B232BAB377B004D9516 /* attributedStringFromHTML.swift in Sources */,
 				A5ED2EE12B9B2A3200BB0E9C /* CityCollectionViewCell.swift in Sources */,
 				A5EFCD862BAABE7F002894D2 /* BookmarkRepository.swift in Sources */,
 				A5ED2ED52B999FCB00BB0E9C /* CountryCollectionViewCell.swift in Sources */,
 				A5ED2EC22B9993E400BB0E9C /* OnboardingViewController.swift in Sources */,
+				A5048B3B2BACAC95004D9516 /* LaunchScreenViewController.swift in Sources */,
 				A5ED2EA32B998B3300BB0E9C /* APIKey.swift in Sources */,
 				A563B0382BA305B9005A4F37 /* SearchResultViewController.swift in Sources */,
 				A5D5DD612B9DB32F007F9935 /* Delegate.swift in Sources */,
@@ -759,6 +791,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NuriRock/NuriRock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VRPU7TR7JK;
@@ -766,6 +799,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NuriRock/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NuriRock;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "북마크에 추가한 관광지와 사용자의 위치를 같이 보여주기 위해 위치 정보를 사용하고자 합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -776,7 +810,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ungQ.NuriRock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -794,6 +828,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NuriRock/NuriRock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VRPU7TR7JK;
@@ -801,6 +836,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NuriRock/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NuriRock;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "북마크에 추가한 관광지와 사용자의 위치를 같이 보여주기 위해 위치 정보를 사용하고자 합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -811,7 +847,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ungQ.NuriRock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -848,6 +884,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A5048B322BACA6E8004D9516 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.23.0;
+			};
+		};
 		A556411B2B9C3FCC000A1F27 /* XCRemoteSwiftPackageReference "Tabman" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/uias/Tabman.git";
@@ -915,6 +959,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A5048B332BACA6E8004D9516 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5048B322BACA6E8004D9516 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		A5048B352BACA6E8004D9516 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5048B322BACA6E8004D9516 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		A5048B372BACA6E8004D9516 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5048B322BACA6E8004D9516 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		A556411C2B9C3FCC000A1F27 /* Tabman */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A556411B2B9C3FCC000A1F27 /* XCRemoteSwiftPackageReference "Tabman" */;

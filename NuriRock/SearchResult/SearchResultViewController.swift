@@ -28,7 +28,6 @@ final class SearchResultViewController: BaseViewController {
 		navigationItem.titleView = imageView
 		navigationController?.navigationBar.backgroundColor = .background
 
-		navigationController?.navigationItem.leftBarButtonItem?.title = ""
 
 
 		configureDataSource()

@@ -36,6 +36,17 @@ final class TotalResultViewController: BaseViewController {
 
 	var selectedItemIndex: Int?
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+
+		guard let tableview = mainTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? TotalResultTableViewCell else { return }
+
+		print("asdg")
+		tableview.topCollectionView.reloadData()
+		print("asdgadfadf")
+	}
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +88,7 @@ extension TotalResultViewController: UITableViewDelegate, UITableViewDataSource 
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "TotalResultTableViewCell", for: indexPath) as! TotalResultTableViewCell
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: "TotalResultTableViewCell", for: indexPath) as? TotalResultTableViewCell else { return UITableViewCell() }
 		cell.delegate = self
 		cell.didSelectDelegate = self
 		cell.noMoreaTryDelegate = self

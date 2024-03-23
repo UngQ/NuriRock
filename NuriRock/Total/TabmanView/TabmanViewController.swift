@@ -62,6 +62,7 @@ final class TabManViewController: TabmanViewController {
 
 		bar.layout.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
 
+
 		bar.backgroundColor = .point
 
 		bar.buttons.customize { (button) in

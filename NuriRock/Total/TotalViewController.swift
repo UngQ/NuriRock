@@ -24,6 +24,7 @@ final class TotalViewController: BaseViewController {
 	var isInSearchView = false
 
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 		

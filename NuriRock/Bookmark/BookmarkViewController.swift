@@ -7,7 +7,10 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 import SVProgressHUD
+
+import RealmSwift
 
 final class BookmarkViewController: BaseViewController {
 
@@ -16,31 +19,41 @@ final class BookmarkViewController: BaseViewController {
 	}
 
 	let viewModel = BookmarkViewModel()
+	let locationManager = CLLocationManager()
 
 	let mapView = MKMapView()
+
+	let distanceLabel = UILabel()
 
 	lazy var bookmarkCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
 	var dataSource: UICollectionViewDiffableDataSource<Section, BookmarkRealmModel>! = nil
 
+	let realm = try! Realm()
+	var users: Results<BookmarkRealmModel>?
+	var notificationToken: NotificationToken?
+
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-			viewModel.dataReloadTrigger.value = ()
 
+
+		checkDeviceLocationAuthorization()
 
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
-		viewModel.outputBookmarks.value = nil
+//		viewModel.outputBookmarks.value = nil
 
 	}
 
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
+		viewModel.dataReloadTrigger.value = ()
 
 		let logo = UIImage(resource: .title)
 		let imageView = UIImageView(image: logo)
@@ -52,9 +65,34 @@ final class BookmarkViewController: BaseViewController {
 
 
 		bookmarkCollectionView.delegate = self
+		mapView.delegate = self
 		configureDataSource()
 		bind()
 		updateSnapshot()
+
+		users = realm.objects(BookmarkRealmModel.self)    // 1
+
+		// 2
+		notificationToken = users?.observe { [unowned self] changes in
+		  switch changes {
+
+		  case .initial:
+			  print("처음")
+		  // 3
+		  case  .update:
+			print("리로드")
+			  viewModel.outputBookmarks.value = nil
+			  viewModel.dataReloadTrigger.value = ()
+			  self.updateSnapshot()
+			  
+
+		  // 4
+
+		  case .error(let error):
+			fatalError("\(error)")
+		  }
+		}
+
 	}
 
 
@@ -65,6 +103,7 @@ final class BookmarkViewController: BaseViewController {
 
 		view.addSubview(mapView)
 		view.addSubview(bookmarkCollectionView)
+		view.addSubview(distanceLabel)
 	}
 
 	override func configureLayout() {
@@ -72,6 +111,11 @@ final class BookmarkViewController: BaseViewController {
 		mapView.snp.makeConstraints { make in
 			make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
 			make.height.equalTo(288)
+		}
+
+		distanceLabel.snp.makeConstraints { make in
+			make.centerX.equalToSuperview()
+			make.bottom.equalTo(mapView.snp.bottom)
 		}
 
 		bookmarkCollectionView.snp.makeConstraints { make in
@@ -82,10 +126,14 @@ final class BookmarkViewController: BaseViewController {
 	}
 
 	override func configureView() {
+		locationManager.delegate = self
 
 		mapView.layer.cornerRadius = 12
 		mapView.layer.masksToBounds = true
 //		mapView.
+
+		distanceLabel.font = .boldSystemFont(ofSize: 12)
+		distanceLabel.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
 	}
 
 	func bind() {
@@ -100,6 +148,14 @@ final class BookmarkViewController: BaseViewController {
 
 
 	func updateMapView(with bookmarks: [BookmarkRealmModel]) {
+
+		if let myLocation = viewModel.inputMyLocation.value {
+			let annontation = MKPointAnnotation()
+			annontation.coordinate = myLocation
+			annontation.title = "내 위치"
+			mapView.addAnnotation(annontation)
+		}
+
 		for bookmark in bookmarks {
 			guard let latitude = Double(bookmark.mapy),
 				  let longitude = Double(bookmark.mapx) else {
@@ -113,6 +169,12 @@ final class BookmarkViewController: BaseViewController {
 //			annotation.subtitle = bookmark.contenttypeid  // Store contenttypeid for later reference in viewForAnnotation
 
 			mapView.addAnnotation(annotation)
+
+			if let myLocation = viewModel.inputMyLocation.value {
+				let annontation = MKPointAnnotation()
+				annontation.coordinate = myLocation
+				mapView.addAnnotation(annontation)
+			}
 		}
 
 		// Assuming you want to show all annotations within the map's visible region
@@ -185,6 +247,8 @@ final class BookmarkViewController: BaseViewController {
 		viewModel.outputBookmarks.value = []
 		viewModel.dataReloadTrigger.value = ()
 		updateSnapshot()
+		mapView.removeAnnotations(self.mapView.annotations)
+		self.updateMapView(with: self.viewModel.outputBookmarks.value ?? [])
 
 		SVProgressHUD.dismiss(withDelay: 0.2)
 	}
@@ -208,7 +272,20 @@ final class BookmarkViewController: BaseViewController {
 
 				self.view.layoutIfNeeded()
 			}
+
+			guard let data = viewModel.inputMyLocation.value else { return }
+			let myLocation = CLLocation(latitude: data.latitude, longitude: data.longitude)
+			let distance = CLLocation(latitude: latitude, longitude: longitude).distance(from: myLocation)
+
+			distanceLabel.text = "현재 위치로 부터 약 \(formatToDecimalString(distance/1000)) km"
+
 		}
+
+
+
+
+
+
 	}
 }
 
@@ -248,4 +325,126 @@ extension BookmarkViewController: UICollectionViewDelegate {
 
 	  }
 
+}
+
+
+extension BookmarkViewController {
+
+	func checkDeviceLocationAuthorization() {
+
+		DispatchQueue.global().async {
+
+			if CLLocationManager.locationServicesEnabled() {
+				let authorization: CLAuthorizationStatus
+
+				if #available(iOS 14.0, *) {
+					authorization = self.locationManager.authorizationStatus
+				} else {
+					authorization = CLLocationManager.authorizationStatus()
+				}
+
+				DispatchQueue.main.async {
+
+					self.checkCurrentLocationAuthorization(status: authorization)
+				}
+			}
+			else {
+					print("??")
+				}
+			}
+		}
+
+
+	func checkCurrentLocationAuthorization(status: CLAuthorizationStatus) {
+
+		switch status {
+		case .notDetermined:
+
+			locationManager.desiredAccuracy = kCLLocationAccuracyBest
+			locationManager.requestWhenInUseAuthorization()
+
+		case .denied:
+
+//			showLocationSettingAlert()
+			locationManager.startUpdatingLocation()
+
+		case .authorizedWhenInUse:
+
+			locationManager.startUpdatingLocation()
+
+		default:
+			print("checkCurrentLocationAuthorization default")
+		}
+	}
+
+
+
+	func setRegionAndAnnontation(center: CLLocationCoordinate2D) {
+
+		let region = MKCoordinateRegion(center: center, latitudinalMeters: 30000, longitudinalMeters: 30000)
+		mapView.setRegion(region, animated: true)
+
+	}
+}
+
+
+extension BookmarkViewController: CLLocationManagerDelegate {
+
+	
+
+	func addAnnotation(coordinate: CLLocationCoordinate2D) {
+		let annontation = MKPointAnnotation()
+		annontation.coordinate = coordinate
+		annontation.title = "내 위치"
+
+			self.mapView.addAnnotation(annontation)
+	}
+
+	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		if let location = locations.last?.coordinate {
+
+			viewModel.inputMyLocation.value = location
+
+			setRegionAndAnnontation(center: location)
+
+			addAnnotation(coordinate: location)
+
+		}
+
+		locationManager.stopUpdatingLocation()
+
+	}
+
+	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+		//37.654165, 127.049696 씨드큐브 창동
+
+//		guard let coordinate = viewModel.inputMyLocation.value else { return }
+//		setRegionAndAnnontation(center: coordinate)
+//		addAnnotation(coordinate: coordinate)
+
+	}
+
+	func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+		checkDeviceLocationAuthorization()
+	}
+
+	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+		checkDeviceLocationAuthorization()
+	}
+
+
+
+}
+
+
+extension BookmarkViewController: MKMapViewDelegate {
+	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+		guard let viewData = view.annotation?.coordinate else { return }
+		guard let data = viewModel.inputMyLocation.value else { return }
+		let myLocation = CLLocation(latitude: data.latitude, longitude: data.longitude)
+		let distance = CLLocation(latitude: viewData.latitude, longitude: viewData.longitude).distance(from: myLocation)
+
+		distanceLabel.text = "현재 위치로 부터 약 \(formatToDecimalString(distance/1000)) km"
+
+	}
 }

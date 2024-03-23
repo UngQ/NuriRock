@@ -69,9 +69,10 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 
 //		view.setViewShadow(backView: view)
 
-//		imageView.clipsToBounds = true
+		imageView.clipsToBounds = true
 //		imageView.layer.cornerRadius = 10
 		imageView.contentMode = .scaleAspectFill
+
 
 
 		titleLabel.font = .boldSystemFont(ofSize: 14)

@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import CoreLocation
 
 
 class BookmarkViewModel {
 
 	let repository = BookmarkRepository()
+
+	let inputMyLocation: Observable<CLLocationCoordinate2D?> = Observable(nil)
 
 	let dataReloadTrigger: Observable<Void?> = Observable(nil)
 	var outputBookmarks: Observable<[BookmarkRealmModel]?> = Observable(nil)
