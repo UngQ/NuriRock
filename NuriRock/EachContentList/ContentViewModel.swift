@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class ContentViewModel {
 
 	let repository = BookmarkRepository()
+	var bookmarks: Results<BookmarkRealmModel>?
+	var observationToken: NotificationToken?
+
 
 	var inputViewWillAppearTrigger: Observable<Void?> = Observable(nil)
 
@@ -37,6 +41,7 @@ final class ContentViewModel {
 	var isLoading = false
 
 	init() {
+		bookmarks = repository.realm?.objects(BookmarkRealmModel.self)
 
 //		inputContentType.apiBind { _ in
 //			self.callAPIDataRequest(api: .areaBasedList(contentType: self.inputContentType.value, areaCode: self.inputAreaCode.value, numOfRows: 20, pageNo: 1))

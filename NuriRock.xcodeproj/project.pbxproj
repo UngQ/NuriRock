@@ -17,6 +17,8 @@
 		A5048B362BACA6E8004D9516 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = A5048B352BACA6E8004D9516 /* FirebaseCrashlytics */; };
 		A5048B382BACA6E8004D9516 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = A5048B372BACA6E8004D9516 /* FirebaseMessaging */; };
 		A5048B3B2BACAC95004D9516 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B3A2BACAC95004D9516 /* LaunchScreenViewController.swift */; };
+		A5048B402BB070B9004D9516 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B3F2BB070B9004D9516 /* MapViewController.swift */; };
+		A5048B422BB075A9004D9516 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5048B412BB075A9004D9516 /* MapViewModel.swift */; };
 		A50F40F62B9F5DE10097466D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F40F52B9F5DE10097466D /* API.swift */; };
 		A556411D2B9C3FCC000A1F27 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = A556411C2B9C3FCC000A1F27 /* Tabman */; };
 		A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */; };
@@ -90,6 +92,8 @@
 		A5048B2A2BAC9F64004D9516 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A5048B3A2BACAC95004D9516 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		A5048B3C2BAD0CB7004D9516 /* NuriRock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NuriRock.entitlements; sourceTree = "<group>"; };
+		A5048B3F2BB070B9004D9516 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		A5048B412BB075A9004D9516 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		A50F40F52B9F5DE10097466D /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A556411F2B9C40F4000A1F27 /* TabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabmanViewController.swift; sourceTree = "<group>"; };
 		A55641212B9C6B5B000A1F27 /* TotalResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +190,15 @@
 				A5048B3A2BACAC95004D9516 /* LaunchScreenViewController.swift */,
 			);
 			path = Launch;
+			sourceTree = "<group>";
+		};
+		A5048B3E2BB0708D004D9516 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				A5048B3F2BB070B9004D9516 /* MapViewController.swift */,
+				A5048B412BB075A9004D9516 /* MapViewModel.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		A556411E2B9C4019000A1F27 /* TabmanView */ = {
@@ -372,6 +385,7 @@
 				A5ED2ED62B99A87400BB0E9C /* Total */,
 				A563B0362BA30501005A4F37 /* SearchResult */,
 				A563B0472BA57A01005A4F37 /* EachContentList */,
+				A5048B3E2BB0708D004D9516 /* Map */,
 				A563B04E2BA7B1C4005A4F37 /* DetailContentInfo */,
 				A5EFCD7E2BAA5D80002894D2 /* Bookmark */,
 				A5EFCD812BAA5F97002894D2 /* Setting */,
@@ -583,6 +597,7 @@
 				A5D5DD662B9E7D76007F9935 /* DateFormatter.swift in Sources */,
 				A5EFCD882BAABEE2002894D2 /* BookmarkRealmModel.swift in Sources */,
 				A563B04D2BA68D91005A4F37 /* ContentViewFooterView.swift in Sources */,
+				A5048B422BB075A9004D9516 /* MapViewModel.swift in Sources */,
 				A563B0422BA3D084005A4F37 /* ResultCollectionViewSectionHeaderView.swift in Sources */,
 				A5EFCD832BAA5FA9002894D2 /* SettingViewController.swift in Sources */,
 				A563B02E2BA12DA8005A4F37 /* MainTabbarController.swift in Sources */,
@@ -626,6 +641,7 @@
 				A563B0202BA08C91005A4F37 /* CalendarViewController.swift in Sources */,
 				A5ED2EC52B99945F00BB0E9C /* BaseViewController.swift in Sources */,
 				A55641202B9C40F4000A1F27 /* TabmanViewController.swift in Sources */,
+				A5048B402BB070B9004D9516 /* MapViewController.swift in Sources */,
 				A5D5DD6B2B9F38EF007F9935 /* CityCode.swift in Sources */,
 				A55641392B9D4CC7000A1F27 /* TotalResultTableViewModel.swift in Sources */,
 				A55641252B9C6E89000A1F27 /* TotalResultTableViewCell.swift in Sources */,

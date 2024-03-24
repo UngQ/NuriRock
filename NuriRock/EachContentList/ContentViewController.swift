@@ -67,6 +67,18 @@ final class ContentViewController: BaseViewController {
 
 //		viewModel.inputViewWillAppearTrigger.value = ()
 
+		viewModel.observationToken = viewModel.bookmarks?.observe { changes in
+			switch changes {
+			case .initial:
+				print("init")
+			case .update:
+				self.collectionView.reloadData()
+			case .error:
+				print("error")
+			}
+
+		}
+
 	}
 
 

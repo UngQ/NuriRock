@@ -80,6 +80,26 @@ final class DetailContentInfoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		bind()
+
+
+		viewModel.observationToken = viewModel.bookmarks?.observe { changes in
+			switch changes {
+			case .initial:
+				print("init")
+			case .update:
+				print("update")
+				if self.viewModel.repository.isBookmarked(contentId: self.viewModel.inputContentId.value ?? "") {
+					let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .plain, target: self, action: #selector(self.rightBarButtonClicked))
+					self.navigationItem.rightBarButtonItem = rightBarButton
+				} else {
+					let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(self.rightBarButtonClicked))
+					self.navigationItem.rightBarButtonItem = rightBarButton
+				}
+			case .error:
+				print("error")
+			}
+
+		}
     }
 
 	override func configureHierarchy() {
@@ -241,6 +261,12 @@ final class DetailContentInfoViewController: BaseViewController {
 			}
 			SVProgressHUD.dismiss()
 		}
+	}
+
+	private func updateBookmarkButton(isBookmarked: Bool) {
+		let buttonImage = UIImage(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
+		let rightBarButton = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(rightBarButtonClicked))
+		self.navigationItem.rightBarButtonItem = rightBarButton
 	}
 
 

@@ -57,7 +57,7 @@ import RealmSwift
 
 final class BookmarkRepository {
 
-	private var realm: Realm?
+	var realm: Realm?
 	
 
 
@@ -187,6 +187,22 @@ final class BookmarkRepository {
 
 
 		return realm.object(ofType: BookmarkRealmModel.self, forPrimaryKey: contentId) != nil
+	}
+
+
+	func observeBookmarks(completion: @escaping ([BookmarkRealmModel]) -> Void) -> NotificationToken {
+		guard let realm = realm else { fatalError("Realm not initialized") }
+
+		let bookmarks = realm.objects(BookmarkRealmModel.self)
+		return bookmarks.observe { changes in
+			switch changes {
+			case .initial(let results), .update(let results, deletions: _, insertions: _, modifications: _):
+				// Call completion with current bookmarks
+				completion(Array(results))
+			case .error(let error):
+				fatalError("Realm observation error: \(error)")
+			}
+		}
 	}
 
 }

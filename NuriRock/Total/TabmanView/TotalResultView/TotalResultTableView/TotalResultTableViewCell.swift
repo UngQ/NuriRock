@@ -52,6 +52,18 @@ final class TotalResultTableViewCell: BaseTableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		bind()
 
+		viewModel.observationToken = viewModel.bookmarks?.observe { changes in
+			switch changes {
+			case .initial:
+				print("init")
+			case .update:
+				self.topCollectionView.reloadData()
+				self.bottomCollectionView.reloadData()
+			case .error:
+				print("error")
+			}
+
+		}
 
 
 	

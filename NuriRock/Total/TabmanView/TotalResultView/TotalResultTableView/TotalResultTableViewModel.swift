@@ -7,11 +7,15 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 
 final class TotalResultTableViewModel {
 
 	let repository = BookmarkRepository()
+	var bookmarks: Results<BookmarkRealmModel>?
+	var observationToken: NotificationToken?
+
 
 	var currentData: [Item] = []
 
@@ -43,6 +47,7 @@ final class TotalResultTableViewModel {
 
 
 	init() {
+		bookmarks = repository.realm?.objects(BookmarkRealmModel.self)
 
 		inputAreaCode.bind { areaCode in
 			print(areaCode.rawValue)

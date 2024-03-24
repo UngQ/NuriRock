@@ -33,6 +33,20 @@ final class SearchResultViewController: BaseViewController {
 		configureDataSource()
 		bindViewModel()
 		updateSnapshot()
+
+
+		viewModel.observationToken = viewModel.bookmarks?.observe { changes in
+			switch changes {
+			case .initial:
+				print("init")
+			case .update:
+				self.collectionView.reloadData()
+			case .error:
+				print("error")
+			}
+
+		}
+
 	}
 
 	override func configureHierarchy() {
@@ -184,6 +198,8 @@ extension SearchResultViewController {
 				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
 			}
 
+			cell.mapButton.addTarget(self, action: #selector(self.mapButtonClicked), for: .touchUpInside)
+
 		}
 
 		let headerRegistration = UICollectionView.SupplementaryRegistration
@@ -204,7 +220,9 @@ extension SearchResultViewController {
 
 			supplementaryView.seeMoreButton.tag = indexPath.section
 
-			supplementaryView.seeMoreButton.addTarget(self, action: #selector(self.test), for: .touchUpInside)
+			supplementaryView.seeMoreButton.addTarget(self, action: #selector(self.seemoreButtonClicked), for: .touchUpInside)
+
+
 			//			supplementaryView.backgroundColor = .lightGray
 			//			supplementaryView.layer.borderColor = UIColor.black.cgColor
 			//			supplementaryView.layer.borderWidth = 1.0
@@ -229,6 +247,13 @@ extension SearchResultViewController {
 				return nil
 			}
 		}
+	}
+
+	@objc func mapButtonClicked(_ sender: IndexedButton) {
+		let vc = MapViewController()
+
+		present(vc, animated: true)
+
 	}
 
 	@objc func bookmarkButtonClicked(_ sender: IndexedButton) {
@@ -280,7 +305,7 @@ extension SearchResultViewController {
 		}
 	}
 
-	@objc func test(_ sender: UIButton) {
+	@objc func seemoreButtonClicked(_ sender: UIButton) {
 		let vc = ContentViewController()
 		vc.navigationItem.title = ContentType.allCases[sender.tag].title
 		vc.viewModel.isAreaOrKeyword = false

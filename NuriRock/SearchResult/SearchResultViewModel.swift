@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class SearchResultViewModel {
 
 	let repository = BookmarkRepository()
+	var bookmarks: Results<BookmarkRealmModel>?
+	var observationToken: NotificationToken?
+
 
 	var inputKeyword: Observable<String> = Observable("")
 
@@ -26,6 +30,7 @@ final class SearchResultViewModel {
     var apiCallNumber = 6
 
 	init() {
+		bookmarks = repository.realm?.objects(BookmarkRealmModel.self)
 
 		inputKeyword.apiBind { keyword in
 			//			self.callAPIDataRequest(api: .areaBasedList(contentType: .tour, areaCode: .busan, numOfRows: 3, pageNo: 1))

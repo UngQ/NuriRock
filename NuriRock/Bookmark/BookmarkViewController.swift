@@ -10,8 +10,6 @@ import MapKit
 import CoreLocation
 import SVProgressHUD
 
-import RealmSwift
-
 final class BookmarkViewController: BaseViewController {
 
 	enum Section {
@@ -28,15 +26,13 @@ final class BookmarkViewController: BaseViewController {
 	lazy var bookmarkCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
 	var dataSource: UICollectionViewDiffableDataSource<Section, BookmarkRealmModel>! = nil
 
-	let realm = try! Realm()
-	var users: Results<BookmarkRealmModel>?
-	var notificationToken: NotificationToken?
 
+	
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-
+			viewModel.dataReloadTrigger.value = ()
 
 		checkDeviceLocationAuthorization()
 
@@ -45,15 +41,14 @@ final class BookmarkViewController: BaseViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
-//		viewModel.outputBookmarks.value = nil
+		viewModel.outputBookmarks.value = nil
 
 	}
 
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		viewModel.dataReloadTrigger.value = ()
+
 
 		let logo = UIImage(resource: .title)
 		let imageView = UIImageView(image: logo)
@@ -69,30 +64,6 @@ final class BookmarkViewController: BaseViewController {
 		configureDataSource()
 		bind()
 		updateSnapshot()
-
-		users = realm.objects(BookmarkRealmModel.self)    // 1
-
-		// 2
-		notificationToken = users?.observe { [unowned self] changes in
-		  switch changes {
-
-		  case .initial:
-			  print("처음")
-		  // 3
-		  case  .update:
-			print("리로드")
-			  viewModel.outputBookmarks.value = nil
-			  viewModel.dataReloadTrigger.value = ()
-			  self.updateSnapshot()
-			  
-
-		  // 4
-
-		  case .error(let error):
-			fatalError("\(error)")
-		  }
-		}
-
 	}
 
 

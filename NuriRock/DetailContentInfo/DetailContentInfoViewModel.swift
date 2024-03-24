@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class DetailContentInfoViewModel {
 
 	let repository = BookmarkRepository()
+	var bookmarks: Results<BookmarkRealmModel>?
+	var observationToken: NotificationToken? 
 
 	var inputContentId: Observable<String?> = Observable(nil)
 
@@ -24,6 +27,7 @@ final class DetailContentInfoViewModel {
 
 
 	init() {
+		bookmarks = repository.realm?.objects(BookmarkRealmModel.self)
 
 
 		inputContentId.apiBind { id in
