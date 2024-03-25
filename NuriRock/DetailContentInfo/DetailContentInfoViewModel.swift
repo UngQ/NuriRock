@@ -41,7 +41,7 @@ final class DetailContentInfoViewModel {
 		self.onProgress.value = true
 		self.noMoreRetryAttempts.value = false
 
-		APIService.shared.request(type: Test.self, api: api) { response, error in
+		APIService.shared.request(type: KorTour.self, api: api) { response, error in
 			if let response = response {
 				print(response)
 				self.outputContentInfo.value = response.response.body.items?.item

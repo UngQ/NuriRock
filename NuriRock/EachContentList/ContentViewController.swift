@@ -11,23 +11,20 @@ import Kingfisher
 
 final class ContentViewController: BaseViewController {
 
-	enum Section {
+	private enum Section {
 		case main
 	}
 
-	static let sectionHeaderElementKind = "section-header-element-kind"
-	static let sectionFooterElementKind = "section-footer-element-kind"
+	private static let sectionHeaderElementKind = "section-header-element-kind"
+	private static let sectionFooterElementKind = "section-footer-element-kind"
 
-	var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
-	lazy var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+	private var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
+	private lazy var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
 
 	let viewModel = ContentViewModel()
 
 	weak var scrollDelegate: TotalResultViewControllerDelegate?
 	weak var didSelectDelegate: TotalResultTableViewCellDelegate?
-
-	
-
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -60,13 +57,14 @@ final class ContentViewController: BaseViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		configureHierarchy()
 		configureDataSource()
 		bindViewModel()
 		updateSnapshot()
+		makeRealmObserve()
 
-//		viewModel.inputViewWillAppearTrigger.value = ()
+	}
 
+	private func makeRealmObserve() {
 		viewModel.observationToken = viewModel.bookmarks?.observe { changes in
 			switch changes {
 			case .initial:
@@ -78,7 +76,6 @@ final class ContentViewController: BaseViewController {
 			}
 
 		}
-
 	}
 
 
@@ -122,7 +119,7 @@ final class ContentViewController: BaseViewController {
 
 		viewModel.noMoreRetryAttempts.apiBind { _ in
 			if self.viewModel.noMoreRetryAttempts.value {
-				self.view.makeToast("잠시 후 다시 시도해주세요.", position: .center)
+				self.view.makeToast(NSLocalizedString(LocalString.tryLater.rawValue, comment: ""), position: .center)
 			}
 		}
 
@@ -144,22 +141,8 @@ final class ContentViewController: BaseViewController {
 		}
 
 		viewModel.isLastPage.apiBind { _ in
-			self.view.makeToast("더 이상 목록이 없습니다")
+			self.view.makeToast(NSLocalizedString(LocalString.nomoreList.rawValue, comment: ""))
 		}
-
-//		viewModel.onProgress.bind { _ in
-//			if self.viewModel.onProgress.value {
-//				SVProgressHUD.show()
-//			} else {
-//				SVProgressHUD.dismiss()
-//			}
-//		}
-//
-//		viewModel.noMoreRetryAttempts.apiBind { _ in
-//			if self.viewModel.noMoreRetryAttempts.value {
-//				self.view.makeToast("잠시 후 다시 시도해주세요.", position: .center)
-//			}
-//		}
 	}
 
 
@@ -210,7 +193,7 @@ extension ContentViewController {
 
 
 	/// - Tag: SupplementaryRegistration
-	func configureDataSource() {
+	private func configureDataSource() {
 
 		let cellRegistration = UICollectionView.CellRegistration<ResultCollectionViewCell, Item> { (cell, indexPath, identifier) in
 			// Populate the cell with our item description.
@@ -226,6 +209,9 @@ extension ContentViewController {
 			} else if !self.viewModel.repository.isBookmarked(contentId: self.viewModel.outputItemList.value?[indexPath.item].contentid ?? "") {
 				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
 			}
+
+			cell.mapButton.tag = indexPath.item
+			cell.mapButton.addTarget(self, action: #selector(self.mapButtonClicked), for: .touchUpInside)
 		}
 
 		let headerRegistration = UICollectionView.SupplementaryRegistration
@@ -242,10 +228,9 @@ extension ContentViewController {
 		<ResultCollectionViewSectionFooterView>(elementKind: SearchResultViewController.sectionFooterElementKind) {
 			(supplementaryView, string, indexPath) in
 
-//			supplementaryView.seeMoreButton.addTarget(self, action: #selector(self.test), for: .touchUpInside)
 			supplementaryView.backgroundColor = .lightGray
-			//			supplementaryView.layer.borderColor = UIColor.black.cgColor
-			//			supplementaryView.layer.borderWidth = 1.0
+
+
 		}
 
 		dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) {
@@ -269,7 +254,18 @@ extension ContentViewController {
 		}
 	}
 
-	@objc func bookmarkButtonClicked(_ sender: UIButton) {
+	@objc private func mapButtonClicked(_ sender: UIButton) {
+		guard let data = viewModel.outputItemList.value?[sender.tag] else {
+			return }
+		let vc = MapViewController()
+		vc.viewModel.outputContentInfo.value = data
+
+
+		present(vc, animated: true)
+
+	}
+
+	@objc private func bookmarkButtonClicked(_ sender: UIButton) {
 		SVProgressHUD.show()
 
 		guard let data = viewModel.outputItemList.value?[sender.tag] else {
@@ -298,10 +294,6 @@ extension ContentViewController {
 				}
 			}
 		}
-	}
-
-	@objc func test() {
-		print("test")
 	}
 }
 

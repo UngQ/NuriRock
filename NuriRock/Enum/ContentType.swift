@@ -18,17 +18,17 @@ enum ContentType: Int, CaseIterable {
 	var title: String {
 		switch self {
 		case .tour:
-			"Tour"
+			NSLocalizedString(LocalString.touristAttraction.rawValue, comment: "")
 		case .culture:
-			"Culture"
+			NSLocalizedString(LocalString.culturalFacilities.rawValue, comment: "")
 		case .festival:
-			"Festival"
+			NSLocalizedString(LocalString.events.rawValue, comment: "")
 		case .hotel:
-			"Hotel"
+			NSLocalizedString(LocalString.hotel.rawValue, comment: "")
 		case .shopping:
-			"Shopping"
+			NSLocalizedString(LocalString.shopping.rawValue, comment: "")
 		case .restaurant:
-			"Restaurant"
+			NSLocalizedString(LocalString.restaurant.rawValue, comment: "")
 		}
 	}
 

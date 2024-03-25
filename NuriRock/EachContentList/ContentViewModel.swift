@@ -27,7 +27,7 @@ final class ContentViewModel {
 
 
 
-	var outputContentData: Observable<Test?> = Observable(nil)
+	var outputContentData: Observable<KorTour?> = Observable(nil)
 	var outputItemList: Observable<[Item]?> = Observable(nil)
 
 
@@ -84,7 +84,7 @@ final class ContentViewModel {
 
 		if inputPageNo.value != lastPageNo.value {
 
-			APIService.shared.request(type: Test.self, api: api) { response, error in
+			APIService.shared.request(type: KorTour.self, api: api) { response, error in
 				if let response = response {
 
 					if self.inputPageNo.value == 1 {

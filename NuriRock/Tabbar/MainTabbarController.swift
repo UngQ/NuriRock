@@ -11,9 +11,9 @@ final class MainTabbarController: UITabBarController {
 
 
 
-	let firstVC = UINavigationController(rootViewController: TotalViewController())
-	let secondVC = UINavigationController(rootViewController: BookmarkViewController())
-	let thirdVC = UINavigationController(rootViewController: SettingViewController())
+	private let firstVC = UINavigationController(rootViewController: TotalViewController())
+	private let secondVC = UINavigationController(rootViewController: BookmarkViewController())
+	private let thirdVC = UINavigationController(rootViewController: SettingViewController())
 
 
 	override func viewDidLoad() {
@@ -27,40 +27,16 @@ final class MainTabbarController: UITabBarController {
 		self.tabBar.unselectedItemTintColor = .text
 		self.tabBar.backgroundColor = .background
 
-
-
 		firstVC.tabBarItem.title = ""
 		firstVC.tabBarItem.image = UIImage(systemName: "house.fill")
-
 
 		secondVC.tabBarItem.title = ""
 		secondVC.tabBarItem.image = UIImage(systemName: "bookmark.fill")
 
-
-
 		thirdVC.tabBarItem.title = ""
 		thirdVC.tabBarItem.image = UIImage(systemName: "gearshape.fill")
 
-
-
-
 		viewControllers = [firstVC, secondVC, thirdVC]
 
-		delegate = self
-	}
-
-
-
-}
-
-
-extension MainTabbarController: UITabBarControllerDelegate {
-	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-		print("asdf")
-
-		if viewController == firstVC {
-			firstVC.viewWillAppear(true)
-			print(viewController)
-		}
 	}
 }

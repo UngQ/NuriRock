@@ -13,16 +13,16 @@ final class DetailContentInfoViewController: BaseViewController {
 
 	let viewModel = DetailContentInfoViewModel()
 
-	lazy var scrollView = {
+	private lazy var scrollView = {
 		let view = UIScrollView()
-		view.delegate = self
+//		view.delegate = self
 		view.isScrollEnabled = true
 		return view
 	}()
 
-	let contentView = UIView()
+	private let contentView = UIView()
 
-	let mainImageView = {
+	private let mainImageView = {
 		let view = UIImageView(frame: .zero)
 		view.contentMode = .scaleAspectFill
 		view.clipsToBounds = true
@@ -30,47 +30,47 @@ final class DetailContentInfoViewController: BaseViewController {
 		return view
 	}()
 
-	let titleLabel = {
+	private let titleLabel = {
 		let view = UILabel()
 		view.numberOfLines = 0
 		view.font = .boldSystemFont(ofSize: 14)
 		return view
 	}()
 
-	let addrLabel = {
+	private let addrLabel = {
 		let view = UILabel()
 		view.numberOfLines = 0
 		view.font = .boldSystemFont(ofSize: 12)
 		return view
 	}()
 
-	let mapView = {
+	private let mapView = {
 		let view = MKMapView()
 		view.layer.cornerRadius = 12
 		view.layer.masksToBounds = true
 		return view
 	}()
 
-	let overViewLabel = {
+	private let overViewLabel = {
 		let view = UILabel()
 		view.numberOfLines = 0
 		view.font = .boldSystemFont(ofSize: 12)
 		return view
 	}()
 
-	let lineView = {
+	private let lineView = {
 		let view = UIView()
 		view.backgroundColor = .point
 		return view
 	}()
 
-	let secondLineView = {
+	private let secondLineView = {
 		let view = UIView()
 		view.backgroundColor = .point
 		return view
 	}()
 
-	let moreInfoButton = {
+	private let moreInfoButton = {
 		let view = UIButton()
 		view.backgroundColor = .green
 		return view
@@ -80,8 +80,12 @@ final class DetailContentInfoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		bind()
+		configureNavigationBar()
+		makeRealmObserve()
 
+    }
 
+	private func makeRealmObserve() {
 		viewModel.observationToken = viewModel.bookmarks?.observe { changes in
 			switch changes {
 			case .initial:
@@ -100,7 +104,7 @@ final class DetailContentInfoViewController: BaseViewController {
 			}
 
 		}
-    }
+	}
 
 	override func configureHierarchy() {
 		view.addSubview(scrollView)
@@ -174,19 +178,33 @@ final class DetailContentInfoViewController: BaseViewController {
 	}
 
 	override func configureView() {
-
-		let logo = UIImage(resource: .title)
-		let imageView = UIImageView(image: logo)
-		imageView.contentMode = .scaleAspectFit
-		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .background
-
-
-
+		moreInfoButton.isHidden = true
 	}
 
-	@objc func rightBarButtonClicked(_ sender: UIBarButtonItem) {
-		print(#function)
+	private func configureNavigationBar() {
+		let logo = UIImage(resource: .title)
+		let imageView = UIImageView(image: logo)
+
+		imageView.contentMode = .scaleAspectFit
+
+		let titleView = UIView()
+		  titleView.addSubview(imageView)
+
+		imageView.snp.makeConstraints { make in
+			make.centerX.centerY.equalTo(titleView)
+			make.height.width.equalTo(44)
+		}
+
+		  self.navigationItem.titleView = titleView
+
+		  titleView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width / 2, height: 44)
+
+
+		navigationController?.navigationBar.backgroundColor = .background
+	}
+
+	@objc private func rightBarButtonClicked(_ sender: UIBarButtonItem) {
+
 		SVProgressHUD.show()
 		guard let data = viewModel.outputContentInfo.value?[0] else { return }
 
@@ -206,7 +224,7 @@ final class DetailContentInfoViewController: BaseViewController {
 
 	}
 
-	func bind() {
+	private func bind() {
 
 		SVProgressHUD.show()
 
@@ -238,7 +256,8 @@ final class DetailContentInfoViewController: BaseViewController {
 				
 
 				//오버뷰 바인드
-				self.overViewLabel.attributedText = data.overview?.attributedStringFromHTML()
+				
+				self.overViewLabel.attributedText = data.overview?.attributedStringFromHTML(withFont: .boldSystemFont(ofSize: 12), color: .text)
 
 				//맵뷰 바인드
 				if let latString = data.mapy,
@@ -267,14 +286,5 @@ final class DetailContentInfoViewController: BaseViewController {
 		let buttonImage = UIImage(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
 		let rightBarButton = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(rightBarButtonClicked))
 		self.navigationItem.rightBarButtonItem = rightBarButton
-	}
-
-
-
-}
-
-extension DetailContentInfoViewController: UIScrollViewDelegate {
-	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
 	}
 }

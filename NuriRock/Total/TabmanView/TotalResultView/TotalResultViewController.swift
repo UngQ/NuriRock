@@ -29,7 +29,7 @@ final class TotalResultViewController: BaseViewController {
 
 	let mainTableView = UITableView()
 
-	let segmentedControl = UISegmentedControl()
+	private let segmentedControl = UISegmentedControl()
 
 	weak var seeMoreDelegate: SeeMoreButtonClickedDelegate?
 	weak var scrollDelegate: TotalResultViewControllerDelegate?
@@ -139,8 +139,9 @@ extension TotalResultViewController: UIScrollViewDelegate {
 
 extension TotalResultViewController: NoMoreTryDelegate {
 	func noMoreAlert() {
-		let alert = UIAlertController(title: "서버 통신 오류", message: "나중에 재시도 해주세요", preferredStyle: .alert)
-		let okButton = UIAlertAction(title: "확인", style: .default)
+		let alert = UIAlertController(title: NSLocalizedString(LocalString.serverError.rawValue, comment: ""),
+									  message: NSLocalizedString(LocalString.tryLater.rawValue, comment: ""), preferredStyle: .alert)
+		let okButton = UIAlertAction(title: NSLocalizedString(LocalString.okay.rawValue, comment: ""), style: .default)
 
 		alert.addAction(okButton)
 

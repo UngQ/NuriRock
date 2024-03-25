@@ -12,20 +12,20 @@ import Pageboy
 final class TabManViewController: TabmanViewController {
 
 
-	let baseView = UIView()
+	private let baseView = UIView()
 
 	var localCollectionViewRow = 0
 
 	var viewControllers: [UIViewController] = []
 
-	let totalResultVC = TotalResultViewController()
+	private let totalResultVC = TotalResultViewController()
 
-	let tourVC = ContentViewController()
-	let cultureVC = ContentViewController()
-	let festivalVC = ContentViewController()
-	let hotelVC = ContentViewController()
-	let shoppingVC = ContentViewController()
-	let restaurantVC = ContentViewController()
+	private let tourVC = ContentViewController()
+	private let cultureVC = ContentViewController()
+	private let festivalVC = ContentViewController()
+	private let hotelVC = ContentViewController()
+	private let shoppingVC = ContentViewController()
+	private let restaurantVC = ContentViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,17 +127,17 @@ extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource
 			return TMBarItem(title: title)
 
 		case 3:
-			let title = "축제공연행사"
+			let title = NSLocalizedString(LocalString.events.rawValue, comment: "")
 			return TMBarItem(title: title)
 		case 4:
-			let title = "숙박"
+			let title = NSLocalizedString(LocalString.hotel.rawValue, comment: "")
 			return TMBarItem(title: title)
 		case 5:
 			let title = NSLocalizedString(LocalString.shopping.rawValue, comment: "")
 			return TMBarItem(title: title)
 
 		case 6:
-			let title = "맛집"
+			let title = NSLocalizedString(LocalString.restaurant.rawValue, comment: "")
 			return TMBarItem(title: title)
 		default:
 			return TMBarItem(title: "")

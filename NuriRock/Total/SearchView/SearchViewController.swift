@@ -13,28 +13,28 @@ protocol SearchViewControllerDelegate: AnyObject {
 
 final class SearchViewController: BaseViewController {
 
-	enum Section: CaseIterable {
+	private enum Section: CaseIterable {
 		case history
 	}
 
 	weak var delegate: SearchViewControllerDelegate?
 
-	let emptyMainLabel = UILabel()
-	let emptyLabel = UILabel()
+	private let emptyMainLabel = UILabel()
+	private let emptyLabel = UILabel()
 
-	var currentSearchLabel = UILabel()
+	private var currentSearchLabel = UILabel()
 
-	var allDeleteButton = UIButton()
+	private var allDeleteButton = UIButton()
 
-	lazy var searchHistoryCollectionView = {
+	private lazy var searchHistoryCollectionView = {
 		let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
 		view.delegate = self
 		return view
 	}()
 
-	var dataSource: UICollectionViewDiffableDataSource<Section, SearchedKeyword>!
+	private var dataSource: UICollectionViewDiffableDataSource<Section, SearchedKeyword>!
 
-	let repository = SearchHistoryRepository()
+	private let repository = SearchHistoryRepository()
 	var list: [SearchedKeyword] = []
 
 	override func viewDidLoad() {
@@ -101,12 +101,12 @@ final class SearchViewController: BaseViewController {
 
 	override func configureView() {
 
-		currentSearchLabel.text = " 최근 검색 기록"
+		currentSearchLabel.text = NSLocalizedString(LocalString.recentSearchHistory.rawValue, comment: "")
 		currentSearchLabel.font = .boldSystemFont(ofSize: 15)
 		currentSearchLabel.textColor = .text
 		currentSearchLabel.textAlignment = .left
 
-		allDeleteButton.setTitle("모두 지우기", for: .normal)
+		allDeleteButton.setTitle(NSLocalizedString(LocalString.clearAll.rawValue, comment: ""), for: .normal)
 		allDeleteButton.setTitleColor(.text, for: .normal)
 		allDeleteButton.titleLabel?.font = .boldSystemFont(ofSize: 13)
 		allDeleteButton.titleLabel?.textAlignment = .right
@@ -119,21 +119,10 @@ final class SearchViewController: BaseViewController {
 		emptyMainLabel.font = .boldSystemFont(ofSize: 50)
 		emptyMainLabel.textAlignment = .center
 
-		emptyLabel.text = "최근 검색 기록이 없어요."
+		emptyLabel.text = NSLocalizedString(LocalString.noHistory.rawValue, comment: "")
 		emptyLabel.font = .boldSystemFont(ofSize: 16)
 		emptyLabel.textColor = .text
 		emptyLabel.textAlignment = .center
-
-//		searchHistoryCollectionView.isHidden = true
-//		if searchHistory == [] {
-//			mainView.currentSearchLabel.isHidden = true
-//			mainView.allDeleteButton.isHidden = true
-//		} else {
-//			mainView.emptyImageView.isHidden = true
-//			mainView.emptyLabel.isHidden = true
-//		}
-
-
 	}
 
 	@objc private func clearHistory() {

@@ -17,12 +17,12 @@ final class SearchResultViewModel {
 
 	var inputKeyword: Observable<String> = Observable("")
 
-	var outputTourData: Observable<Test?> = Observable(nil)
-	var outputCultureData: Observable<Test?> = Observable(nil)
-	var outputFestivalData: Observable<Test?> = Observable(nil)
-	var outputHotelData: Observable<Test?> = Observable(nil)
-	var outputShoppingData: Observable<Test?> = Observable(nil)
-	var outputRestaurantData: Observable<Test?> = Observable(nil)
+	var outputTourData: Observable<KorTour?> = Observable(nil)
+	var outputCultureData: Observable<KorTour?> = Observable(nil)
+	var outputFestivalData: Observable<KorTour?> = Observable(nil)
+	var outputHotelData: Observable<KorTour?> = Observable(nil)
+	var outputShoppingData: Observable<KorTour?> = Observable(nil)
+	var outputRestaurantData: Observable<KorTour?> = Observable(nil)
 
 	var onProgress: Observable<Bool> = Observable(true)
 	var noMoreRetryAttempts: Observable<Bool> = Observable(false)
@@ -58,7 +58,7 @@ final class SearchResultViewModel {
 		self.noMoreRetryAttempts.value = false
 
 
-		APIService.shared.request(type: Test.self, api: api) { response, error in
+		APIService.shared.request(type: KorTour.self, api: api) { response, error in
 			if let response = response {
 				self.apiCallNumber -= 1
 				switch api {

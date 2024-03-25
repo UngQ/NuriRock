@@ -85,7 +85,7 @@ final class BookmarkRepository {
 		print(realm.configuration.fileURL)
 		var item = BookmarkRealmModel()
 		
-		APIService.shared.request(type: Test.self, api: .detailCommon(contentId: id)) { response, error in
+		APIService.shared.request(type: KorTour.self, api: .detailCommon(contentId: id)) { response, error in
 			if let response = response {
 				guard let data = response.response.body.items?.item?[0] else {
 					completionHandler(false)

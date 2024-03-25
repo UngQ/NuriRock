@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 
-class BookmarkViewModel {
+final class BookmarkViewModel {
 
 	let repository = BookmarkRepository()
 

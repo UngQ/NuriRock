@@ -41,5 +41,21 @@ enum LocalString: String, CaseIterable {
 	case shopping = "Shopping"
 
 	case events = "Events"
+	case hotel = "Hotel"
+	case restaurant = "Restaurant"
 	case seemore = "Seemore"
+
+	case tryLater = "TryLater"
+	case serverError = "ServerError"
+	case okay = "Okay"
+	case withoutSpaces = "WithoutSpaces"
+	case nomoreList = "NomoreList"
+
+	case myLocation = "MyLocation"
+	case noBookmarks = "NoBookmarks"
+
+	case recentSearchHistory = "RecentSearchHistory"
+	case clearAll = "ClearAll"
+	case noHistory = "NoHistory"
+	case awayLocation = "AwayLocation"
 }

@@ -17,6 +17,7 @@ final class BottomCollectionViewCell: BaseCollectionViewCell {
 	let addrLabel = UILabel()
 	let dateLabel = UILabel()
 
+	let bookmarkButtonBackView = UIView()
 	let bookmarkButton = UIButton()
 
 	override init(frame: CGRect) {
@@ -37,7 +38,8 @@ final class BottomCollectionViewCell: BaseCollectionViewCell {
 		detailView.addSubview(addrLabel)
 		detailView.addSubview(dateLabel)
 
-		contentView.addSubview(bookmarkButton)
+		contentView.addSubview(bookmarkButtonBackView)
+		bookmarkButtonBackView.addSubview(bookmarkButton)
 	}
 
 	override func configureLayout() {
@@ -72,9 +74,14 @@ final class BottomCollectionViewCell: BaseCollectionViewCell {
 			make.height.equalTo(20)
 		}
 
+		bookmarkButtonBackView.snp.makeConstraints { make in
+			make.top.trailing.equalTo(posterImageView).inset(8)
+			make.size.equalTo(24)
+		}
+
 		bookmarkButton.snp.makeConstraints { make in
-			make.top.trailing.equalTo(posterImageView).inset(12)
-			make.size.equalTo(20)
+			make.centerX.centerY.equalToSuperview()
+			make.size.equalTo(16)
 		}
 
 	}
@@ -122,6 +129,11 @@ final class BottomCollectionViewCell: BaseCollectionViewCell {
 		dateLabel.textAlignment = .center
 		dateLabel.font = .systemFont(ofSize: 10)
 
+
+		bookmarkButtonBackView.layer.cornerRadius = 12
+		bookmarkButtonBackView.backgroundColor = .background
+
+		
 		bookmarkButton.tintColor = .point
 
 	}

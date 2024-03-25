@@ -7,31 +7,31 @@
 
 import UIKit
 
-class LaunchScreenViewController: UIViewController {
+final class LaunchScreenViewController: UIViewController {
 
-		var imageView: UIImageView!
+	private var imageView: UIImageView!
 
-		override func viewDidLoad() {
-			super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
-			view.backgroundColor = .point
+		view.backgroundColor = .point
 
-			imageView = UIImageView(frame: CGRect(x: self.view.center.x - 100, y: self.view.center.y - 100, width: 200, height: 200))
-			imageView.image = UIImage(resource: .title) // Replace with your image name
-			imageView.contentMode = .scaleAspectFit
-			self.view.addSubview(imageView)
+		imageView = UIImageView(frame: CGRect(x: self.view.center.x - 100, y: self.view.center.y - 100, width: 200, height: 200))
+		imageView.image = UIImage(resource: .title) // Replace with your image name
+		imageView.contentMode = .scaleAspectFit
+		self.view.addSubview(imageView)
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		animateImageView()
+
+		// Transition after 3 seconds
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+			self.transitionToMainViewController()
 		}
-
-		override func viewDidAppear(_ animated: Bool) {
-			super.viewDidAppear(animated)
-
-			animateImageView()
-
-			// Transition after 3 seconds
-			DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-				self.transitionToMainViewController()
-			}
-		}
+	}
 
 	private func animateImageView() {
 		// Determine the final position y-coordinate near the navigation bar
@@ -40,7 +40,7 @@ class LaunchScreenViewController: UIViewController {
 
 		UIView.animate(withDuration: 1.5) {
 			// Change the size to 40x40 and move it up
-			self.imageView.frame = CGRect(x: self.view.center.x - 20,  // Adjust x to keep it centered
+			self.imageView.frame = CGRect(x: self.view.center.x - 22,  // Adjust x to keep it centered
 										  y: targetY,                 // Move it up toward the navigation bar
 										  width: 44,                  // New width
 										  height: 44)                 // New height
@@ -52,18 +52,18 @@ class LaunchScreenViewController: UIViewController {
 
 
 		if #available(iOS 13.0, *), let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-			 statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 0
-		 }
+			statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 0
+		}
 
 		print(statusBarHeight)
 		return statusBarHeight
 	}
 
 	private func transitionToMainViewController() {
-			let mainViewController = MainTabbarController() // Initialize your main view controller
-			mainViewController.modalPresentationStyle = .fullScreen
+		let mainViewController = MainTabbarController() // Initialize your main view controller
+		mainViewController.modalPresentationStyle = .fullScreen
 		mainViewController.modalTransitionStyle = .coverVertical
-				self.present(mainViewController, animated: false)
-			}
-		}
+		self.present(mainViewController, animated: false)
+	}
+}
 

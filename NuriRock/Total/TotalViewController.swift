@@ -12,26 +12,36 @@ import Toast
 
 final class TotalViewController: BaseViewController {
 
-	lazy var cityCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionView())
-	var selectedCellIndex = 0
+	private lazy var cityCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionView())
+	private var selectedCellIndex = 0
 
-	var containerView = UIView()
-	let searchVC = SearchViewController()
-	let tabManVC = TabManViewController()
+	private var containerView = UIView()
+	private let searchVC = SearchViewController()
+	private let tabManVC = TabManViewController()
 
-	let repository = SearchHistoryRepository()
+	private let repository = SearchHistoryRepository()
 
-	var isInSearchView = false
-
-
+	private var isInSearchView = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		
+		configureNavigationBar()
 
 
+		tabManVC.viewControllers.forEach {
+			if let contentVC = $0 as? ContentViewController {
+				contentVC.scrollDelegate = self
+				contentVC.didSelectDelegate = self
+			} else if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
+				totalResultVC.scrollDelegate = self
+		 }
+		}
+
+    }
+
+	private func configureNavigationBar() {
 		let searchController = UISearchController(searchResultsController: nil)
-		searchController.searchBar.placeholder = "입력해봐"
+		searchController.searchBar.placeholder = ""
 		searchController.searchBar.showsScopeBar = true
 		searchController.searchBar.delegate = self
 
@@ -42,22 +52,21 @@ final class TotalViewController: BaseViewController {
 		let logo = UIImage(resource: .title)
 		let imageView = UIImageView(image: logo)
 
-
 		imageView.contentMode = .scaleAspectFit
-		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .background
 
+		let titleView = UIView()
+		  titleView.addSubview(imageView)
 
-		tabManVC.viewControllers.forEach {
-			if let contentVC = $0 as? ContentViewController {
-				contentVC.scrollDelegate = self
-				contentVC.didSelectDelegate = self
-			} else		if let totalResultVC = tabManVC.viewControllers.first as? TotalResultViewController {
-				totalResultVC.scrollDelegate = self
-		 }
+		imageView.snp.makeConstraints { make in
+			make.centerX.centerY.equalTo(titleView)
+			make.height.width.equalTo(44)
 		}
 
-    }
+		  self.navigationItem.titleView = titleView
+
+		  titleView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width / 2, height: 44)
+		navigationController?.navigationBar.backgroundColor = .background
+	}
 
 	override func configureHierarchy() {
 
@@ -166,7 +175,7 @@ extension TotalViewController: UISearchBarDelegate {
 
 		guard let searchText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines), !searchText.isEmpty else {
 
-			view.makeToast("공백 없이 입력해주세요", position: .center)
+			view.makeToast(NSLocalizedString(LocalString.withoutSpaces.rawValue, comment: ""), position: .center)
 			return
 		}
 

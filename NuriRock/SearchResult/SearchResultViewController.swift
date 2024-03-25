@@ -13,27 +13,23 @@ final class SearchResultViewController: BaseViewController {
 	static let sectionHeaderElementKind = "section-header-element-kind"
 	static let sectionFooterElementKind = "section-footer-element-kind"
 
-	var dataSource: UICollectionViewDiffableDataSource<ContentType, Item>! = nil
-	var collectionView: UICollectionView! = nil
+	private var dataSource: UICollectionViewDiffableDataSource<ContentType, Item>! = nil
+	private var collectionView: UICollectionView! = nil
 
 	let viewModel = SearchResultViewModel()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		let logo = UIImage(resource: .title)
-		let imageView = UIImageView(image: logo)
 
-
-		imageView.contentMode = .scaleAspectFit
-		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .background
-
-
-
+		configureNavigationBar()
 		configureDataSource()
 		bindViewModel()
 		updateSnapshot()
+		makeRealmObserve()
 
+	}
+
+	private func makeRealmObserve() {
 
 		viewModel.observationToken = viewModel.bookmarks?.observe { changes in
 			switch changes {
@@ -46,8 +42,31 @@ final class SearchResultViewController: BaseViewController {
 			}
 
 		}
-
 	}
+
+
+
+	private func configureNavigationBar() {
+		let logo = UIImage(resource: .title)
+		let imageView = UIImageView(image: logo)
+
+		imageView.contentMode = .scaleAspectFit
+
+		let titleView = UIView()
+		  titleView.addSubview(imageView)
+
+		imageView.snp.makeConstraints { make in
+			make.centerX.centerY.equalTo(titleView)
+			make.height.width.equalTo(44)
+		}
+
+		  self.navigationItem.titleView = titleView
+
+		  titleView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width / 2, height: 44)
+
+		navigationController?.navigationBar.backgroundColor = .background
+	}
+
 
 	override func configureHierarchy() {
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -98,7 +117,7 @@ final class SearchResultViewController: BaseViewController {
 
 		viewModel.noMoreRetryAttempts.apiBind { _ in
 			if self.viewModel.noMoreRetryAttempts.value {
-				self.view.makeToast("잠시 후 다시 시도해주세요.", position: .center)
+				self.view.makeToast(NSLocalizedString(LocalString.tryLater.rawValue, comment: ""), position: .center)
 			}
 		}
 	}
@@ -126,7 +145,7 @@ final class SearchResultViewController: BaseViewController {
 
 extension SearchResultViewController {
 	/// - Tag: HeaderFooter
-	func createLayout() -> UICollectionViewLayout {
+	private func createLayout() -> UICollectionViewLayout {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
 											  heightDimension: .fractionalHeight(1.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -157,7 +176,7 @@ extension SearchResultViewController {
 extension SearchResultViewController {
 
 	/// - Tag: SupplementaryRegistration
-	func configureDataSource() {
+	private func configureDataSource() {
 
 
 		let cellRegistration = UICollectionView.CellRegistration<ResultCollectionViewCell, Item> { (cell, indexPath, identifier) in
@@ -198,6 +217,7 @@ extension SearchResultViewController {
 				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
 			}
 
+			cell.mapButton.indexPath = indexPath
 			cell.mapButton.addTarget(self, action: #selector(self.mapButtonClicked), for: .touchUpInside)
 
 		}
@@ -249,14 +269,38 @@ extension SearchResultViewController {
 		}
 	}
 
-	@objc func mapButtonClicked(_ sender: IndexedButton) {
+	@objc private func mapButtonClicked(_ sender: IndexedButton) {
 		let vc = MapViewController()
 
+		guard let indexPath = sender.indexPath else { return }
+
+		var data: [Item]?
+
+		if let section = ContentType(rawValue: indexPath.section) {
+			switch section {
+			case .tour:
+				data = viewModel.outputTourData.value?.response.body.items?.item
+			case .culture:
+				data = viewModel.outputCultureData.value?.response.body.items?.item
+			case .festival:
+				data = viewModel.outputFestivalData.value?.response.body.items?.item
+			case .hotel:
+				data = viewModel.outputHotelData.value?.response.body.items?.item
+			case .shopping:
+				data = viewModel.outputShoppingData.value?.response.body.items?.item
+			case .restaurant:
+				data = viewModel.outputRestaurantData.value?.response.body.items?.item
+			}
+		}
+
+		guard let data = data?[indexPath.item] else { return }
+
+		vc.viewModel.outputContentInfo.value = data
 		present(vc, animated: true)
 
 	}
 
-	@objc func bookmarkButtonClicked(_ sender: IndexedButton) {
+	@objc private func bookmarkButtonClicked(_ sender: IndexedButton) {
 		SVProgressHUD.show()
 		guard let indexPath = sender.indexPath else { return }
 
@@ -305,7 +349,7 @@ extension SearchResultViewController {
 		}
 	}
 
-	@objc func seemoreButtonClicked(_ sender: UIButton) {
+	@objc private func seemoreButtonClicked(_ sender: UIButton) {
 		let vc = ContentViewController()
 		vc.navigationItem.title = ContentType.allCases[sender.tag].title
 		vc.viewModel.isAreaOrKeyword = false

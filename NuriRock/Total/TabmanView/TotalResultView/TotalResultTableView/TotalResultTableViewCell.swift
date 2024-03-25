@@ -8,7 +8,6 @@
 import UIKit
 import Kingfisher
 import FSCalendar
-
 import SVProgressHUD
 
 protocol CalendarDateDelegate: AnyObject {
@@ -37,13 +36,13 @@ final class TotalResultTableViewCell: BaseTableViewCell {
 	var seeMoreButtonAction: ((_ segmentIndex: Int) -> Void)?
 	private var currentSegmentIndex: Int = 0
 
-	let segmentedController = UISegmentedControl(items: [NSLocalizedString(LocalString.popularTouristAtraction.rawValue, comment: ""),
+	private let segmentedController = UISegmentedControl(items: [NSLocalizedString(LocalString.popularTouristAtraction.rawValue, comment: ""),
 														 NSLocalizedString(LocalString.popularRestaurant.rawValue, comment: "")])
 
-	let seeMoreButton = UIButton()
-	let concertLabel = UILabel()
-	let dateLabel = UILabel()
-	let calendarButton = UIButton()
+	private let seeMoreButton = UIButton()
+	private let concertLabel = UILabel()
+	private let dateLabel = UILabel()
+	private let calendarButton = UIButton()
 
 	lazy var topCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureTopCollectionViewFlowLayout())
 	lazy var bottomCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureBottomCollectionViewFlowLayout())
@@ -193,7 +192,7 @@ final class TotalResultTableViewCell: BaseTableViewCell {
 	}
 
 
-	@objc func calendarButtonClicked() {
+	@objc private func calendarButtonClicked() {
 		delegate?.calendarButtonClicked()
 
 	}
@@ -276,7 +275,7 @@ final class TotalResultTableViewCell: BaseTableViewCell {
 	}
 
 	func configureWithIndex(index: Int) {
-		
+
 		segmentedController.selectedSegmentIndex = 0
 		segmentedValueChanged(segmentedController)
 		viewModel.inputAreaCode.value = CityCode.allCases[index]
@@ -328,10 +327,10 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 			cell.addressLabel.text = viewModel.currentData[indexPath.item].addr1
 
 			if viewModel.repository.isBookmarked(contentId: viewModel.currentData[indexPath.item].contentid) {
-				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
 
 			} else if !viewModel.repository.isBookmarked(contentId: viewModel.currentData[indexPath.item].contentid) {
-				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
 			}
 
 			cell.bookmarkButton.tag = indexPath.item
@@ -361,11 +360,11 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 
 
 			if viewModel.repository.isBookmarked(contentId: data[indexPath.item].contentid) {
-				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
 
 
 			} else if !viewModel.repository.isBookmarked(contentId: data[indexPath.item].contentid) {
-				cell.bookmarkButton.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+				cell.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
 			}
 
 			cell.bookmarkButton.tag = indexPath.item
@@ -398,7 +397,7 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 	}
 
 
-	@objc func bookmarkButtonClickedInTopCV(_ sender: UIButton) {
+	@objc private func bookmarkButtonClickedInTopCV(_ sender: UIButton) {
 
 		SVProgressHUD.show()
 
@@ -425,7 +424,7 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 		}
 	}
 
-	@objc func bookmarkButtonClickedInBottomCV(_ sender: UIButton) {
+	@objc private func bookmarkButtonClickedInBottomCV(_ sender: UIButton) {
 		SVProgressHUD.show()
 
 		guard let data = viewModel.outputFestivalData.value?.response.body.items?.item?[sender.tag] else {

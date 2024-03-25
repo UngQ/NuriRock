@@ -13,6 +13,8 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 	let imageView = UIImageView(frame: .zero)
 	let titleLabel = UILabel()
 	let addressLabel = UILabel()
+
+	let bookmarkButtonBackView = UIView()
 	let bookmarkButton = UIButton()
 
 	override init(frame: CGRect) {
@@ -24,7 +26,8 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 		contentView.addSubview(imageView)
 		contentView.addSubview(titleLabel)
 		contentView.addSubview(addressLabel)
-		contentView.addSubview(bookmarkButton)
+		contentView.addSubview(bookmarkButtonBackView)
+		bookmarkButtonBackView.addSubview(bookmarkButton)
 	}
 
 	override func configureLayout() {
@@ -49,8 +52,12 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 			make.horizontalEdges.equalToSuperview().inset(4)
 			make.height.lessThanOrEqualTo(24)
 		}
+		bookmarkButtonBackView.snp.makeConstraints { make in
+			make.bottom.trailing.equalTo(imageView).inset(4)
+			make.size.equalTo(24)
+		}
 		bookmarkButton.snp.makeConstraints { make in
-			make.bottom.trailing.equalTo(imageView).inset(8)
+			make.centerX.centerY.equalToSuperview()
 			make.size.equalTo(16)
 		}
 	}
@@ -84,9 +91,12 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 		addressLabel.layer.cornerRadius = 10
 
 
+		bookmarkButtonBackView.layer.cornerRadius = 12
+		bookmarkButtonBackView.backgroundColor = .background
 
 		bookmarkButton.tintColor = .point
-		
+
+
 	}
 
 

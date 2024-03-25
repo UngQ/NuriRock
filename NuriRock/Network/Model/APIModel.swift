@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Test: Decodable {
+struct KorTour: Decodable {
 	let response: Response
 }
 

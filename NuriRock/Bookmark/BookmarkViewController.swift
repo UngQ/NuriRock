@@ -12,22 +12,29 @@ import SVProgressHUD
 
 final class BookmarkViewController: BaseViewController {
 
-	enum Section {
+	private enum Section {
 		case main
 	}
 
 	let viewModel = BookmarkViewModel()
-	let locationManager = CLLocationManager()
+	private let locationManager = CLLocationManager()
 
-	let mapView = MKMapView()
+	private let mapView = MKMapView()
 
-	let distanceLabel = UILabel()
+	private let distanceLabel = UILabel()
 
-	lazy var bookmarkCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-	var dataSource: UICollectionViewDiffableDataSource<Section, BookmarkRealmModel>! = nil
+	private lazy var bookmarkCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+	private var dataSource: UICollectionViewDiffableDataSource<Section, BookmarkRealmModel>! = nil
 
 
-	
+	private let noBookmarksLabel: UILabel = {
+		  let label = UILabel()
+		  label.text = NSLocalizedString(LocalString.noBookmarks.rawValue, comment: "")
+		  label.textAlignment = .center
+		  label.isHidden = true
+		  return label
+	  }()
+
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -49,24 +56,33 @@ final class BookmarkViewController: BaseViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-
-		let logo = UIImage(resource: .title)
-		let imageView = UIImageView(image: logo)
-
-
-		imageView.contentMode = .scaleAspectFit
-		navigationItem.titleView = imageView
-		navigationController?.navigationBar.backgroundColor = .background
-
-
-		bookmarkCollectionView.delegate = self
-		mapView.delegate = self
+		configureNavigationBar()
 		configureDataSource()
 		bind()
 		updateSnapshot()
 	}
 
+	private func configureNavigationBar() {
+		let logo = UIImage(resource: .title)
+		let imageView = UIImageView(image: logo)
 
+		imageView.contentMode = .scaleAspectFit
+
+		let titleView = UIView()
+		  titleView.addSubview(imageView)
+
+		imageView.snp.makeConstraints { make in
+			make.centerX.centerY.equalTo(titleView)
+			make.height.width.equalTo(44)
+		}
+
+		  self.navigationItem.titleView = titleView
+
+		  titleView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width / 2, height: 44)
+
+
+		navigationController?.navigationBar.backgroundColor = .background
+	}
 
 
 
@@ -75,6 +91,8 @@ final class BookmarkViewController: BaseViewController {
 		view.addSubview(mapView)
 		view.addSubview(bookmarkCollectionView)
 		view.addSubview(distanceLabel)
+
+		view.addSubview(noBookmarksLabel)
 	}
 
 	override func configureLayout() {
@@ -94,20 +112,26 @@ final class BookmarkViewController: BaseViewController {
 			make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 			make.bottom.equalTo(view.safeAreaLayoutGuide)
 		}
+
+		noBookmarksLabel.snp.makeConstraints { make in
+			make.center.equalTo(bookmarkCollectionView)
+			 
+		 }
 	}
 
 	override func configureView() {
 		locationManager.delegate = self
+		bookmarkCollectionView.delegate = self
+		mapView.delegate = self
 
 		mapView.layer.cornerRadius = 12
 		mapView.layer.masksToBounds = true
-//		mapView.
 
 		distanceLabel.font = .boldSystemFont(ofSize: 12)
 		distanceLabel.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
 	}
 
-	func bind() {
+	private func bind() {
 		viewModel.outputBookmarks.apiBind { _ in
 			self.updateMapView(with: self.viewModel.outputBookmarks.value ?? [])
 
@@ -118,12 +142,12 @@ final class BookmarkViewController: BaseViewController {
 
 
 
-	func updateMapView(with bookmarks: [BookmarkRealmModel]) {
+	private func updateMapView(with bookmarks: [BookmarkRealmModel]) {
 
 		if let myLocation = viewModel.inputMyLocation.value {
 			let annontation = MKPointAnnotation()
 			annontation.coordinate = myLocation
-			annontation.title = "내 위치"
+			annontation.title = NSLocalizedString(LocalString.myLocation.rawValue, comment: "")
 			mapView.addAnnotation(annontation)
 		}
 
@@ -152,7 +176,7 @@ final class BookmarkViewController: BaseViewController {
 		mapView.showAnnotations(mapView.annotations, animated: true)
 	}
 
-	func createLayout() -> UICollectionViewLayout {
+	private func createLayout() -> UICollectionViewLayout {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
 											  heightDimension: .fractionalHeight(1.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -170,7 +194,7 @@ final class BookmarkViewController: BaseViewController {
 		return layout
 	}
 
-	func configureDataSource() {
+	private func configureDataSource() {
 
 		let cellRegistration = UICollectionView.CellRegistration<ResultCollectionViewCell, BookmarkRealmModel> { (cell, indexPath, identifier) in
 			// Populate the cell with our item description.
@@ -199,16 +223,21 @@ final class BookmarkViewController: BaseViewController {
 		var snapshot = NSDiffableDataSourceSnapshot<Section, BookmarkRealmModel>()
 		snapshot.appendSections([.main])
 
-		snapshot.appendItems(viewModel.outputBookmarks.value ?? [], toSection: .main)
+
+		let bookmarks = viewModel.outputBookmarks.value ?? []
+		snapshot.appendItems(bookmarks, toSection: .main)
 
 		dataSource.apply(snapshot, animatingDifferences: true) //reloadData
 
 		//realm과 결합할 때, 삭제 할때 스냅샷이 안먹힐때
 //				dataSource.applySnapshotUsingReloadData(snapshot)
+
+		noBookmarksLabel.isHidden = !bookmarks.isEmpty
+		  bookmarkCollectionView.isHidden = bookmarks.isEmpty
 	}
 
 
-	@objc func bookmarkButtonClicked(_ sender: UIButton) {
+	@objc private func bookmarkButtonClicked(_ sender: UIButton) {
 		SVProgressHUD.show()
 
 		guard let data = viewModel.outputBookmarks.value?[sender.tag] else {
@@ -224,7 +253,7 @@ final class BookmarkViewController: BaseViewController {
 		SVProgressHUD.dismiss(withDelay: 0.2)
 	}
 
-	@objc func mapButtonClicked(_ sender: UIButton) {
+	@objc private func mapButtonClicked(_ sender: UIButton) {
 		guard let bookmark = viewModel.outputBookmarks.value?[sender.tag] else { return }
 
 		// Optionally, zoom in on the map view when a bookmark is selected
@@ -294,6 +323,11 @@ extension BookmarkViewController: UIScrollViewDelegate {
 extension BookmarkViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
+		let vc = DetailContentInfoViewController()
+		vc.viewModel.inputContentId.value = viewModel.outputBookmarks.value?[indexPath.item].contentid
+		navigationController?.pushViewController(vc, animated: true)
+
+		
 	  }
 
 }
@@ -366,7 +400,7 @@ extension BookmarkViewController: CLLocationManagerDelegate {
 	func addAnnotation(coordinate: CLLocationCoordinate2D) {
 		let annontation = MKPointAnnotation()
 		annontation.coordinate = coordinate
-		annontation.title = "내 위치"
+		annontation.title = NSLocalizedString(LocalString.myLocation.rawValue, comment: "")
 
 			self.mapView.addAnnotation(annontation)
 	}
@@ -415,7 +449,8 @@ extension BookmarkViewController: MKMapViewDelegate {
 		let myLocation = CLLocation(latitude: data.latitude, longitude: data.longitude)
 		let distance = CLLocation(latitude: viewData.latitude, longitude: viewData.longitude).distance(from: myLocation)
 
-		distanceLabel.text = "현재 위치로 부터 약 \(formatToDecimalString(distance/1000)) km"
+		distanceLabel.text = NSLocalizedString(LocalString.awayLocation.rawValue, comment: "") + (formatToDecimalString(distance/1000)) + "km"
 
 	}
 }
+

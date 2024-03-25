@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "AwayLocation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Away from the current location, approximately "
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "현재 위치로 부터 약 "
+          }
+        }
+      }
+    },
     "Busan" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -30,6 +47,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "충남"
+          }
+        }
+      }
+    },
+    "ClearAll" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear All"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모두 지우기"
           }
         }
       }
@@ -84,7 +118,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "축제·공연·행사"
           }
         }
@@ -141,6 +175,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "경남"
+          }
+        }
+      }
+    },
+    "Hotel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "숙박"
           }
         }
       }
@@ -212,6 +257,85 @@
         }
       }
     },
+    "MyLocation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Location"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "내 위치"
+          }
+        }
+      }
+    },
+    "NoBookmarks" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no registered bookmarks."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "등록된 북마크가 없습니다."
+          }
+        }
+      }
+    },
+    "NoHistory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is no recent search history."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "최근 검색 기록이 없습니다."
+          }
+        }
+      }
+    },
+    "NomoreList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no more list"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "더 이상 목록이 없습니다."
+          }
+        }
+      }
+    },
+    "Okay" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인"
+          }
+        }
+      }
+    },
     "PopularRestaurant" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -223,7 +347,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "추천 맛집"
           }
         }
@@ -242,6 +366,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "추천 관광지"
+          }
+        }
+      }
+    },
+    "RecentSearchHistory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Search History"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최근 검색 기록"
           }
         }
       }
@@ -268,7 +409,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "더 보기"
           }
         }
@@ -292,6 +433,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "서울"
+          }
+        }
+      }
+    },
+    "ServerError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Error"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "서버 오류"
           }
         }
       }
@@ -345,6 +503,23 @@
         }
       }
     },
+    "TryLater" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please try again later."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "나중에 다시 시도해주세요."
+          }
+        }
+      }
+    },
     "Ulsan" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -352,6 +527,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "울산"
+          }
+        }
+      }
+    },
+    "WithoutSpaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter without spaces."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "공백 없이 입력 해주세요."
           }
         }
       }
