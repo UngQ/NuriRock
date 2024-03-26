@@ -246,6 +246,7 @@ final class DetailContentInfoViewController: BaseViewController {
 
 				//이미지 바인드
 				let url = URL(string: data.firstimage)
+				self.mainImageView.kf.indicatorType = .activity
 				self.mainImageView.kf.setImage(with: url)
 
 				//타이틀 바인드

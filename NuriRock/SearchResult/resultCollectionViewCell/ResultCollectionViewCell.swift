@@ -142,6 +142,7 @@ final class ResultCollectionViewCell: UICollectionViewCell {
 		 mainLabel.attributedText = searchKeyword
 
 		 let url = URL(string: itemIdentifier.firstimage)
+		 mainImageView.kf.indicatorType = .activity
 		 mainImageView.kf.setImage(with: url)
 
 
@@ -158,6 +159,7 @@ final class ResultCollectionViewCell: UICollectionViewCell {
 		mainLabel.attributedText = searchKeyword
 
 		let url = URL(string: itemIdentifier.firstimage)
+		mainImageView.kf.indicatorType = .activity
 		mainImageView.kf.setImage(with: url)
 
 

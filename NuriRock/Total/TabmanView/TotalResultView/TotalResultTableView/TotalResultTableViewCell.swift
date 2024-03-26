@@ -290,8 +290,12 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
 		if collectionView == self.topCollectionView {
+			
 			// topCollectionView에 대한 아이템 수 반환
-			return 4
+
+
+
+				return 4
 
 
 		} else if collectionView == self.bottomCollectionView {
@@ -322,6 +326,7 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 
 			// topCollectionView에 대한 셀 구성
 			let url = URL(string: viewModel.currentData[indexPath.item].firstimage)
+			cell.imageView.kf.indicatorType = .activity
 			cell.imageView.kf.setImage(with: url)
 			cell.titleLabel.text = viewModel.currentData[indexPath.item].title
 			cell.addressLabel.text = viewModel.currentData[indexPath.item].addr1
@@ -350,6 +355,7 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 				return cell }
 
 			let url = URL(string: data[indexPath.item].firstimage)
+			cell.posterImageView.kf.indicatorType = .activity
 			cell.posterImageView.kf.setImage(with: url)
 			cell.titleLabel.text = data[indexPath.item].title
 			cell.addrLabel.text = data[indexPath.item].addr1

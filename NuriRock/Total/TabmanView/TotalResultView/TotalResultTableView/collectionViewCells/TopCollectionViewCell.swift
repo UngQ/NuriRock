@@ -21,6 +21,12 @@ final class TopCollectionViewCell: BaseCollectionViewCell {
 		super.init(frame: frame)
 	}
 
+	override func prepareForReuse() {
+		imageView.image = nil
+		titleLabel.text = ""
+		addressLabel.text = ""
+	}
+
 	override func configureHierarchy() {
 
 		contentView.addSubview(imageView)

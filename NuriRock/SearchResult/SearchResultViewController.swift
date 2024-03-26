@@ -110,6 +110,7 @@ final class SearchResultViewController: BaseViewController {
 		viewModel.onProgress.bind { _ in
 			if self.viewModel.onProgress.value {
 				SVProgressHUD.show()
+				
 			} else if self.viewModel.apiCallNumber == 0 {
 				SVProgressHUD.dismiss()
 			}
@@ -302,6 +303,7 @@ extension SearchResultViewController {
 
 	@objc private func bookmarkButtonClicked(_ sender: IndexedButton) {
 		SVProgressHUD.show()
+
 		guard let indexPath = sender.indexPath else { return }
 
 		var data: [Item]?
