@@ -9,6 +9,10 @@ import UIKit
 import MapKit
 import CoreLocation
 import SVProgressHUD
+import RealmSwift
+
+//cell.cityLabel.text = NSLocalizedString(CityCode.allCases[indexPath.row].name, comment: "")
+
 
 final class BookmarkViewController: BaseViewController {
 
@@ -22,6 +26,11 @@ final class BookmarkViewController: BaseViewController {
 	private let mapView = MKMapView()
 
 	private let distanceLabel = UILabel()
+
+	private let cityScrollView = UIScrollView()
+	private let cityStackView = UIStackView()
+	private weak var selectedButton: UIButton?
+	private var lastSelectedIndex: Int?
 
 	private lazy var bookmarkCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
 	private var dataSource: UICollectionViewDiffableDataSource<Section, BookmarkRealmModel>! = nil
@@ -39,27 +48,61 @@ final class BookmarkViewController: BaseViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-			viewModel.dataReloadTrigger.value = ()
-
-		checkDeviceLocationAuthorization()
-
+		guard let index = lastSelectedIndex else { return }
+		guard let button = cityStackView.arrangedSubviews[index] as? UIButton else { return }
+				 cityStackViewClicked(button)
 	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-
-		viewModel.outputBookmarks.value = nil
-
-	}
-
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		checkDeviceLocationAuthorization()
 		configureNavigationBar()
+		configureStackView()
 		configureDataSource()
 		bind()
-		updateSnapshot()
+		makeRealmObserve()
+
+
+	}
+
+
+	private func makeRealmObserve() {
+		viewModel.observationToken = viewModel.totalBookmarks?.observe { changes in
+			switch changes {
+			case .initial:
+				self.viewModel.outputBookmarks.value = Array(self.viewModel.totalBookmarks)
+
+				self.updateSnapshot()
+
+				if let firstButton = self.cityStackView.arrangedSubviews.first as? UIButton {
+					print(firstButton.tag)
+					self.cityStackViewClicked(firstButton)
+				}
+
+			case .update(let boomarks, let deletions, let insertions, let modifications):
+
+				self.viewModel.outputBookmarks.value = Array(self.viewModel.totalBookmarks)
+
+				if deletions.count > 0 {
+					print("delete")
+					self.updateSnapshot()
+				} else {
+					print("update")
+					self.updateSnapshot()
+				}
+
+				guard let selectedIndex = self.lastSelectedIndex,
+					  let button = self.cityStackView.arrangedSubviews[selectedIndex] as? UIButton else { return }
+				self.cityStackViewClicked(button)
+
+
+
+
+			case .error:
+				print("error")
+			}
+
+		}
 	}
 
 	private func configureNavigationBar() {
@@ -89,10 +132,15 @@ final class BookmarkViewController: BaseViewController {
 	override func configureHierarchy() {
 
 		view.addSubview(mapView)
+
 		view.addSubview(bookmarkCollectionView)
 		view.addSubview(distanceLabel)
 
 		view.addSubview(noBookmarksLabel)
+
+		view.addSubview(cityScrollView)
+		cityScrollView.addSubview(cityStackView)
+
 	}
 
 	override func configureLayout() {
@@ -107,8 +155,19 @@ final class BookmarkViewController: BaseViewController {
 			make.bottom.equalTo(mapView.snp.bottom)
 		}
 
-		bookmarkCollectionView.snp.makeConstraints { make in
+		cityScrollView.snp.makeConstraints { make in
 			make.top.equalTo(mapView.snp.bottom).offset(4)
+			make.horizontalEdges.equalToSuperview().inset(8)
+			make.height.equalTo(24)
+		}
+
+		cityStackView.snp.makeConstraints { make in
+			make.height.equalTo(24)
+			make.edges.equalTo(cityScrollView)
+		}
+
+		bookmarkCollectionView.snp.makeConstraints { make in
+			make.top.equalTo(cityScrollView.snp.bottom).offset(4)
 			make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 			make.bottom.equalTo(view.safeAreaLayoutGuide)
 		}
@@ -129,17 +188,72 @@ final class BookmarkViewController: BaseViewController {
 
 		distanceLabel.font = .boldSystemFont(ofSize: 12)
 		distanceLabel.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+
+		cityStackView.spacing = 5
 	}
 
 	private func bind() {
-		viewModel.outputBookmarks.apiBind { _ in
-			self.updateMapView(with: self.viewModel.outputBookmarks.value ?? [])
-
-			self.updateSnapshot()
-		}
+//		viewModel.outputBookmarks.apiBind { data in
+////			self.updateMapView(with: data ?? [])
+//
+//			self.updateSnapshot()
+//		}
 
 	}
 
+	private func configureStackView() {
+
+		let button = UIButton()
+		button.setTitle(" \(NSLocalizedString(LocalString.total.rawValue, comment: "")) ", for: .normal)
+		button.setTitleColor(.text, for: .normal)
+		button.titleLabel?.font = .boldSystemFont(ofSize: 12)
+		button.layer.borderColor = UIColor.black.cgColor
+		button.layer.borderWidth = 1
+		button.layer.cornerRadius = 4
+		button.tag = 0
+		cityStackView.addArrangedSubview(button)
+
+		button.addTarget(self, action: #selector(cityStackViewClicked), for: .touchUpInside)
+
+		var cityTag = 1
+		for cityCode in CityCode.allCases {
+			let button = UIButton()
+			button.tag = cityTag
+			cityTag += 1
+
+			button.setTitle(" \(NSLocalizedString(cityCode.name, comment: "")) ", for: .normal)
+			button.setTitleColor(.text, for: .normal)
+			button.titleLabel?.font = .boldSystemFont(ofSize: 12)
+			button.layer.borderColor = UIColor.black.cgColor
+			button.layer.borderWidth = 1
+			button.layer.cornerRadius = 4
+
+			cityStackView.addArrangedSubview(button)
+
+			button.addTarget(self, action: #selector(cityStackViewClicked), for: .touchUpInside)
+		 }
+	}
+
+	@objc private  func cityStackViewClicked(_ sender: UIButton) {
+		mapView.removeAnnotations(mapView.annotations)
+
+		selectedButton?.backgroundColor = .clear
+		selectedButton?.setTitleColor(.text, for: .normal)
+		sender.backgroundColor = .point
+		sender.setTitleColor(.background, for: .normal)
+		selectedButton = sender
+		lastSelectedIndex = sender.tag
+		checkDeviceLocationAuthorization()
+		if sender.tag == 0 {
+			viewModel.outputBookmarks.value = Array(viewModel.totalBookmarks)
+		} else {
+
+			viewModel.filterBookmarks(by: CityCode.allCases[sender.tag - 1])
+		}
+
+		updateSnapshot()
+
+	}
 
 
 	private func updateMapView(with bookmarks: [BookmarkRealmModel]) {
@@ -153,27 +267,15 @@ final class BookmarkViewController: BaseViewController {
 
 		for bookmark in bookmarks {
 			guard let latitude = Double(bookmark.mapy),
-				  let longitude = Double(bookmark.mapx) else {
-				print("Invalid coordinates for bookmark \(bookmark.title)")
-				continue
-			}
+				  let longitude = Double(bookmark.mapx) else { return }
 
 			let annotation = MKPointAnnotation()
 			annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
 			annotation.title = bookmark.title
-//			annotation.subtitle = bookmark.contenttypeid  // Store contenttypeid for later reference in viewForAnnotation
 
 			mapView.addAnnotation(annotation)
-
-			if let myLocation = viewModel.inputMyLocation.value {
-				let annontation = MKPointAnnotation()
-				annontation.coordinate = myLocation
-				mapView.addAnnotation(annontation)
-			}
+			mapView.showAnnotations(mapView.annotations, animated: true)
 		}
-
-		// Assuming you want to show all annotations within the map's visible region
-		mapView.showAnnotations(mapView.annotations, animated: true)
 	}
 
 	private func createLayout() -> UICollectionViewLayout {
@@ -197,10 +299,6 @@ final class BookmarkViewController: BaseViewController {
 	private func configureDataSource() {
 
 		let cellRegistration = UICollectionView.CellRegistration<ResultCollectionViewCell, BookmarkRealmModel> { (cell, indexPath, identifier) in
-			// Populate the cell with our item description.
-			//			cell.mainLabel.text = "\(indexPath.section),\(indexPath.item)"
-//			cell.searchKeyword = self.viewModel.inputKeyword.value
-//			cell.updateUI(identifier)
 			cell.updateUIInBookmarkVC(identifier)
 
 			cell.bookmarkButton.tag = indexPath.item
@@ -221,13 +319,21 @@ final class BookmarkViewController: BaseViewController {
 
 	private func updateSnapshot() {
 		var snapshot = NSDiffableDataSourceSnapshot<Section, BookmarkRealmModel>()
+		
+		if dataSource != nil {
+			snapshot.deleteAllItems()
+		}
+
+		dataSource.apply(snapshot, animatingDifferences: true)
+
 		snapshot.appendSections([.main])
 
-
 		let bookmarks = viewModel.outputBookmarks.value ?? []
+
 		snapshot.appendItems(bookmarks, toSection: .main)
 
 		dataSource.apply(snapshot, animatingDifferences: true) //reloadData
+		self.updateMapView(with: bookmarks)
 
 		//realm과 결합할 때, 삭제 할때 스냅샷이 안먹힐때
 //				dataSource.applySnapshotUsingReloadData(snapshot)
@@ -240,15 +346,14 @@ final class BookmarkViewController: BaseViewController {
 	@objc private func bookmarkButtonClicked(_ sender: UIButton) {
 		SVProgressHUD.show()
 
-		guard let data = viewModel.outputBookmarks.value?[sender.tag] else {
-			return }
 
-		viewModel.repository.deleteBookmarkInBookmarkView(data: data)
-		viewModel.outputBookmarks.value = []
-		viewModel.dataReloadTrigger.value = ()
-		updateSnapshot()
-		mapView.removeAnnotations(self.mapView.annotations)
-		self.updateMapView(with: self.viewModel.outputBookmarks.value ?? [])
+//		print(Array(viewModel.outputBookmarks.value ?? [])[sender.tag])
+
+		viewModel.repository.deleteBookmarkInBookmarkView(data: Array(viewModel.outputBookmarks.value ?? [])[sender.tag])
+
+
+
+
 
 		SVProgressHUD.dismiss(withDelay: 0.2)
 	}
@@ -256,7 +361,6 @@ final class BookmarkViewController: BaseViewController {
 	@objc private func mapButtonClicked(_ sender: UIButton) {
 		guard let bookmark = viewModel.outputBookmarks.value?[sender.tag] else { return }
 
-		// Optionally, zoom in on the map view when a bookmark is selected
 		if let latitude = Double(bookmark.mapy),
 		   let longitude = Double(bookmark.mapx) {
 			let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -277,7 +381,7 @@ final class BookmarkViewController: BaseViewController {
 			let myLocation = CLLocation(latitude: data.latitude, longitude: data.longitude)
 			let distance = CLLocation(latitude: latitude, longitude: longitude).distance(from: myLocation)
 
-			distanceLabel.text = "현재 위치로 부터 약 \(formatToDecimalString(distance/1000)) km"
+			distanceLabel.text = NSLocalizedString(LocalString.awayLocation.rawValue, comment: "") + (formatToDecimalString(distance/1000)) + "km"
 
 		}
 
@@ -446,6 +550,10 @@ extension BookmarkViewController: MKMapViewDelegate {
 	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 		guard let viewData = view.annotation?.coordinate else { return }
 		guard let data = viewModel.inputMyLocation.value else { return }
+
+		let region = MKCoordinateRegion(center: viewData, latitudinalMeters: 10000, longitudinalMeters: 10000)
+		mapView.setRegion(region, animated: true)
+
 		let myLocation = CLLocation(latitude: data.latitude, longitude: data.longitude)
 		let distance = CLLocation(latitude: viewData.latitude, longitude: viewData.longitude).distance(from: myLocation)
 
