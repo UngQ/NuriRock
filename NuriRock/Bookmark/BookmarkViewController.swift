@@ -156,7 +156,7 @@ final class BookmarkViewController: BaseViewController {
 		}
 
 		cityScrollView.snp.makeConstraints { make in
-			make.top.equalTo(mapView.snp.bottom).offset(4)
+			make.top.equalTo(mapView.snp.bottom).offset(8)
 			make.horizontalEdges.equalToSuperview().inset(8)
 			make.height.equalTo(24)
 		}
@@ -167,7 +167,7 @@ final class BookmarkViewController: BaseViewController {
 		}
 
 		bookmarkCollectionView.snp.makeConstraints { make in
-			make.top.equalTo(cityScrollView.snp.bottom).offset(4)
+			make.top.equalTo(cityScrollView.snp.bottom).offset(8)
 			make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
 			make.bottom.equalTo(view.safeAreaLayoutGuide)
 		}
@@ -189,7 +189,7 @@ final class BookmarkViewController: BaseViewController {
 		distanceLabel.font = .boldSystemFont(ofSize: 12)
 		distanceLabel.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
 
-		cityStackView.spacing = 5
+		cityStackView.spacing = 8
 	}
 
 	private func bind() {
@@ -207,9 +207,9 @@ final class BookmarkViewController: BaseViewController {
 		button.setTitle(" \(NSLocalizedString(LocalString.total.rawValue, comment: "")) ", for: .normal)
 		button.setTitleColor(.text, for: .normal)
 		button.titleLabel?.font = .boldSystemFont(ofSize: 12)
-		button.layer.borderColor = UIColor.black.cgColor
-		button.layer.borderWidth = 1
-		button.layer.cornerRadius = 4
+//		button.layer.borderColor = UIColor.black.cgColor
+//		button.layer.borderWidth = 1
+//		button.layer.cornerRadius = 4
 		button.tag = 0
 		cityStackView.addArrangedSubview(button)
 
@@ -222,11 +222,11 @@ final class BookmarkViewController: BaseViewController {
 			cityTag += 1
 
 			button.setTitle(" \(NSLocalizedString(cityCode.name, comment: "")) ", for: .normal)
-			button.setTitleColor(.text, for: .normal)
+			button.setTitleColor(.lightGray, for: .normal)
 			button.titleLabel?.font = .boldSystemFont(ofSize: 12)
-			button.layer.borderColor = UIColor.black.cgColor
-			button.layer.borderWidth = 1
-			button.layer.cornerRadius = 4
+//			button.layer.borderColor = UIColor.black.cgColor
+//			button.layer.borderWidth = 1
+//			button.layer.cornerRadius = 4
 
 			cityStackView.addArrangedSubview(button)
 
@@ -238,9 +238,9 @@ final class BookmarkViewController: BaseViewController {
 		mapView.removeAnnotations(mapView.annotations)
 
 		selectedButton?.backgroundColor = .clear
-		selectedButton?.setTitleColor(.text, for: .normal)
-		sender.backgroundColor = .point
-		sender.setTitleColor(.background, for: .normal)
+		selectedButton?.setTitleColor(.lightGray, for: .normal)
+//		sender.backgroundColor = .point
+		sender.setTitleColor(.text, for: .normal)
 		selectedButton = sender
 		lastSelectedIndex = sender.tag
 		checkDeviceLocationAuthorization()
@@ -322,9 +322,8 @@ final class BookmarkViewController: BaseViewController {
 		
 		if dataSource != nil {
 			snapshot.deleteAllItems()
+			dataSource.apply(snapshot, animatingDifferences: true)
 		}
-
-		dataSource.apply(snapshot, animatingDifferences: true)
 
 		snapshot.appendSections([.main])
 

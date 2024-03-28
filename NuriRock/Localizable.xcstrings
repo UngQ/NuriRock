@@ -12,7 +12,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "현재 위치로 부터 약 "
           }
         }
@@ -243,12 +243,6 @@
             "value" : "Select Language"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "와따시와"
-          }
-        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -268,7 +262,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "내 위치"
           }
         }
@@ -285,7 +279,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "등록된 북마크가 없습니다."
           }
         }
@@ -302,7 +296,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "최근 검색 기록이 없습니다."
           }
         }
@@ -514,7 +508,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "나중에 다시 시도해주세요."
           }
         }
@@ -542,7 +536,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "공백 없이 입력 해주세요."
           }
         }
