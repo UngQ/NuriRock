@@ -205,20 +205,20 @@ final class DetailContentInfoViewController: BaseViewController {
 
 	@objc private func rightBarButtonClicked(_ sender: UIBarButtonItem) {
 
-		SVProgressHUD.show()
+
 		guard let data = viewModel.outputContentInfo.value?[0] else { return }
 
 		if viewModel.repository.isBookmarked(contentId: data.contentid) {
 			sender.image = UIImage(systemName: "bookmark")
 			viewModel.repository.deleteBookmark(data: data)
 
-			SVProgressHUD.dismiss(withDelay: 0.2)
+
 
 		} else {
 			sender.image = UIImage(systemName: "bookmark.fill")
 			viewModel.repository.addBookmarkInDetailView(data: data)
 
-			SVProgressHUD.dismiss(withDelay: 0.2)
+
 		}
 
 

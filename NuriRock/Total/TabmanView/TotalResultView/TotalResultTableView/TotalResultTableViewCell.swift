@@ -405,64 +405,59 @@ extension TotalResultTableViewCell: UICollectionViewDelegate, UICollectionViewDa
 
 	@objc private func bookmarkButtonClickedInTopCV(_ sender: UIButton) {
 
-		SVProgressHUD.show()
-
 		let data = viewModel.currentData[sender.tag]
 
-		if viewModel.repository.isBookmarked(contentId: data.contentid) {
+		// 북마크 상태 확인
+		let isBookmarked = viewModel.repository.isBookmarked(contentId: data.contentid)
+
+		// Optimistic UI 업데이트
+		sender.setImage(UIImage(systemName: isBookmarked ? "bookmark" : "bookmark.fill"), for: .normal)
+
+		// 북마크 상태에 따라 북마크 추가 또는 삭제
+		if isBookmarked {
 			viewModel.repository.deleteBookmark(data: data)
-
-			SVProgressHUD.dismiss(withDelay: 0.2)
-			topCollectionView.reloadData()
-
+			// 삭제 후 UI 업데이트 필요 없음
 		} else {
-			
 			viewModel.repository.addBookmark(id: data.contentid) { success in
 				DispatchQueue.main.async {
-					if success {
-						SVProgressHUD.dismiss()
-					} else {
-						SVProgressHUD.showError(withStatus: "서버 오류")
+					if !success {
+						// 요청 실패 시 UI 되돌리기
+						sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
+						// 실패 피드백 제공
 					}
-					self.topCollectionView.reloadData()
 				}
 			}
 		}
 	}
 
 	@objc private func bookmarkButtonClickedInBottomCV(_ sender: UIButton) {
-		SVProgressHUD.show()
+
 
 		guard let data = viewModel.outputFestivalData.value?.response.body.items?.item?[sender.tag] else {
 			return }
+		// 북마크 상태 확인
+		let isBookmarked = viewModel.repository.isBookmarked(contentId: data.contentid)
 
+		// Optimistic UI 업데이트
+		sender.setImage(UIImage(systemName: isBookmarked ? "bookmark" : "bookmark.fill"), for: .normal)
 
-		if viewModel.repository.isBookmarked(contentId: data.contentid) {
+		// 북마크 상태에 따라 북마크 추가 또는 삭제
+		if isBookmarked {
 			viewModel.repository.deleteBookmark(data: data)
-
-			SVProgressHUD.dismiss(withDelay: 0.2)
-			bottomCollectionView.reloadData()
-
+			// 삭제 후 UI 업데이트 필요 없음
 		} else {
-
 			viewModel.repository.addBookmark(id: data.contentid) { success in
-
 				DispatchQueue.main.async {
-					if success {
-						SVProgressHUD.dismiss()
-					} else {
-						SVProgressHUD.showError(withStatus: "서버 오류")
-
+					if !success {
+						// 요청 실패 시 UI 되돌리기
+						sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
+						// 실패 피드백 제공
 					}
-
-					self.bottomCollectionView.reloadData()
 				}
 			}
 		}
 	}
 }
-
-
 
 
 extension TotalResultTableViewCell: UICollectionViewDelegateFlowLayout {

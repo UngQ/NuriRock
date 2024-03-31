@@ -302,7 +302,6 @@ extension SearchResultViewController {
 	}
 
 	@objc private func bookmarkButtonClicked(_ sender: IndexedButton) {
-		SVProgressHUD.show()
 
 		guard let indexPath = sender.indexPath else { return }
 
@@ -327,25 +326,18 @@ extension SearchResultViewController {
 
 		guard let data = data?[indexPath.item] else { return }
 
-		if viewModel.repository.isBookmarked(contentId: data.contentid) {
+		let isBookmarked = viewModel.repository.isBookmarked(contentId: data.contentid)
+
+		sender.setImage(UIImage(systemName: isBookmarked ? "bookmark" : "bookmark.fill"), for: .normal)
+
+		if isBookmarked {
 			viewModel.repository.deleteBookmark(data: data)
-			sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
-			SVProgressHUD.dismiss(withDelay: 0.2)
-			updateSnapshot()
 		} else {
-
 			viewModel.repository.addBookmark(id: data.contentid) { success in
-
 				DispatchQueue.main.async {
-					if success {
-						sender.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-						SVProgressHUD.dismiss()
-					} else {
-						SVProgressHUD.showError(withStatus: "서버 오류")
-
+					if !success {
+						sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
 					}
-
-					self.updateSnapshot()
 				}
 			}
 		}

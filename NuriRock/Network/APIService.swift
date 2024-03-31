@@ -18,7 +18,12 @@ final class APIService {
 
 	func request<T: Decodable>(type: T.Type, api: API, retryCount: Int = 2, completionHandler: @escaping (T?, AFError?) -> Void) {
 
-		AF.request(api.endPoint,
+		let sessionManager = Session.default
+		sessionManager.sessionConfiguration.timeoutIntervalForRequest = 2 // 요청에 대한 타임아웃을 2초로 설정
+		sessionManager.sessionConfiguration.timeoutIntervalForResource = 2 // 리소스를 받는 데 대한 타임아웃을 2초로 설정
+
+
+		sessionManager.request(api.endPoint,
 				   method: api.method,
 				   parameters: api.parameter,
 				   encoding: api.encoding).responseDecodable(of: T.self) { response in
