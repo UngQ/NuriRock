@@ -69,7 +69,11 @@ final class BookmarkRepository {
 		}
 	}
 
-	
+	func fetchBookmark2() -> Results<BookmarkRealmModel> {
+		let result = realm!.objects(BookmarkRealmModel.self) //.sorted(byKeyPath: "date", ascending: false)
+		return result
+	}
+
 
 	func fetchBookmark() -> [BookmarkRealmModel] {
 		guard let realm = realm else { return [] }

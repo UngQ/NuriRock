@@ -37,3 +37,22 @@ final class BookmarkRealmModel: Object {
 
 
 }
+
+struct Bookmark: Hashable {
+	let contentid: String
+	let contenttypeid: String
+	let title: String
+	let addr1: String
+	let addr2: String
+	let areacode: String
+	let firstimage: String
+	let overview: String
+	let mapx: String
+	let mapy: String
+}
+
+extension BookmarkRealmModel {
+	func toStruct() -> Bookmark {
+		return Bookmark(contentid: self.contentid, contenttypeid: self.contenttypeid, title: self.title, addr1: self.addr1, addr2: self.addr2, areacode: self.areacode, firstimage: self.firstimage, overview: self.overview, mapx: self.mapx, mapy: self.mapy)
+	}
+}

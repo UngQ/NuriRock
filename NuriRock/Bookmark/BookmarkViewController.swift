@@ -33,7 +33,7 @@ final class BookmarkViewController: BaseViewController {
 	private var lastSelectedIndex: Int?
 
 	private lazy var bookmarkCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-	private var dataSource: UICollectionViewDiffableDataSource<Section, BookmarkRealmModel>! = nil
+	private var dataSource: UICollectionViewDiffableDataSource<Section, Bookmark>! = nil
 
 
 	private let noBookmarksLabel: UILabel = {
@@ -298,7 +298,7 @@ final class BookmarkViewController: BaseViewController {
 
 	private func configureDataSource() {
 
-		let cellRegistration = UICollectionView.CellRegistration<ResultCollectionViewCell, BookmarkRealmModel> { (cell, indexPath, identifier) in
+		let cellRegistration = UICollectionView.CellRegistration<ResultCollectionViewCell, Bookmark> { (cell, indexPath, identifier) in
 			cell.updateUIInBookmarkVC(identifier)
 
 			cell.bookmarkButton.tag = indexPath.item
@@ -310,29 +310,30 @@ final class BookmarkViewController: BaseViewController {
 
 		}
 
-		dataSource = UICollectionViewDiffableDataSource<Section, BookmarkRealmModel>(collectionView: bookmarkCollectionView) {
-			(collectionView: UICollectionView, indexPath: IndexPath, identifier: BookmarkRealmModel) -> UICollectionViewCell? in
+		dataSource = UICollectionViewDiffableDataSource<Section, Bookmark>(collectionView: bookmarkCollectionView) {
+			(collectionView: UICollectionView, indexPath: IndexPath, identifier: Bookmark) -> UICollectionViewCell? in
 			return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
 		}
 
 	}
 
 	private func updateSnapshot() {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, BookmarkRealmModel>()
-		
-		if dataSource != nil {
-			snapshot.deleteAllItems()
-			dataSource.apply(snapshot, animatingDifferences: true)
-		}
+		var snapshot = NSDiffableDataSourceSnapshot<Section, Bookmark>()
+
+//		if dataSource != nil {
+//			snapshot.deleteAllItems()
+//			dataSource.apply(snapshot, animatingDifferences: true)
+//		}
 
 		snapshot.appendSections([.main])
+		let bookmarks = Array(viewModel.repository.fetchBookmark2()).map { $0.toStruct() }
 
-		let bookmarks = viewModel.outputBookmarks.value ?? []
+//		let bookmarks = viewModel.outputBookmarks.value.map { $0.tost} ?? []
 
 		snapshot.appendItems(bookmarks, toSection: .main)
 
 		dataSource.apply(snapshot, animatingDifferences: true) //reloadData
-		self.updateMapView(with: bookmarks)
+//		self.updateMapView(with: bookmarks)
 
 		//realm과 결합할 때, 삭제 할때 스냅샷이 안먹힐때
 //				dataSource.applySnapshotUsingReloadData(snapshot)

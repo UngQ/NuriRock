@@ -149,7 +149,7 @@ final class ResultCollectionViewCell: UICollectionViewCell {
 		 addrLabel.text = itemIdentifier.addr1
 	 }
 
-	func updateUIInBookmarkVC(_ itemIdentifier: BookmarkRealmModel) {
+	func updateUIInBookmarkVC(_ itemIdentifier: Bookmark) {
 		//이전에 cellForItemAt 부분
 
 		let fullTitle = itemIdentifier.title
