@@ -16,13 +16,15 @@ final class BookmarkViewModel {
 	let inputMyLocation: Observable<CLLocationCoordinate2D?> = Observable(nil)
 
 	let dataReloadTrigger: Observable<Void?> = Observable(nil)
-	var outputBookmarks: Observable<[BookmarkRealmModel]?> = Observable(nil)
+	var outputBookmarks: Observable<[Bookmark]?> = Observable(nil)
 
-	lazy var list = repository.fetchBookmark()
+//	lazy var list = repository.fetchBookmark()
 
 	var totalBookmarks: Results<BookmarkRealmModel>!
-	var filterBookmarks: [BookmarkRealmModel]?
+	var filterBookmarks: [Bookmark]?
 	var observationToken: NotificationToken?
+
+	var test: [Bookmark]?
 
 	init() {
 		totalBookmarks = repository.realm?.objects(BookmarkRealmModel.self)
@@ -40,9 +42,12 @@ final class BookmarkViewModel {
 	}
 
 	func filterBookmarks(by city: CityCode) {
-		// Assuming you have a way to filter your Realm objects by city or another property
-		// This is a simplistic filter. Adjust according to your data model's actual structure.
-		filterBookmarks = totalBookmarks.filter { $0.areacode == city.rawValue }
+
+
+//		let book = test?.filter { $0.areacode == city.rawValue }
+//		viewModel.outputBookmarks.value = Array(viewModel.repository.fetchBookmark2()).map { $0.toStruct() }
+
+		filterBookmarks = Array(totalBookmarks).map { $0.toStruct() }.filter { $0.areacode == city.rawValue }
 		outputBookmarks.value = filterBookmarks
 	}
 

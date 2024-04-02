@@ -48,9 +48,9 @@ final class BookmarkViewController: BaseViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		guard let index = lastSelectedIndex else { return }
-		guard let button = cityStackView.arrangedSubviews[index] as? UIButton else { return }
-				 cityStackViewClicked(button)
+//		guard let index = lastSelectedIndex else { return }
+//		guard let button = cityStackView.arrangedSubviews[index] as? UIButton else { return }
+//				 cityStackViewClicked(button)
 	}
 
 	override func viewDidLoad() {
@@ -70,9 +70,11 @@ final class BookmarkViewController: BaseViewController {
 		viewModel.observationToken = viewModel.totalBookmarks?.observe { changes in
 			switch changes {
 			case .initial:
-				self.viewModel.outputBookmarks.value = Array(self.viewModel.totalBookmarks)
+				print("initial")
 
-				self.updateSnapshot()
+				guard let data = self.viewModel.repository.fetchBookmark() else { return }
+				self.viewModel.outputBookmarks.value = Array(data).map { $0.toStruct() }
+
 
 				if let firstButton = self.cityStackView.arrangedSubviews.first as? UIButton {
 					print(firstButton.tag)
@@ -81,18 +83,11 @@ final class BookmarkViewController: BaseViewController {
 
 			case .update(let boomarks, let deletions, let insertions, let modifications):
 
-				self.viewModel.outputBookmarks.value = Array(self.viewModel.totalBookmarks)
 
-				if deletions.count > 0 {
-					print("delete")
-					self.updateSnapshot()
-				} else {
-					print("update")
-					self.updateSnapshot()
-				}
-
+		print("update")
 				guard let selectedIndex = self.lastSelectedIndex,
-					  let button = self.cityStackView.arrangedSubviews[selectedIndex] as? UIButton else { return }
+					  let button = self.cityStackView.arrangedSubviews[selectedIndex] as? UIButton else { 	self.updateSnapshot()
+					return }
 				self.cityStackViewClicked(button)
 
 
@@ -245,7 +240,9 @@ final class BookmarkViewController: BaseViewController {
 		lastSelectedIndex = sender.tag
 		checkDeviceLocationAuthorization()
 		if sender.tag == 0 {
-			viewModel.outputBookmarks.value = Array(viewModel.totalBookmarks)
+			guard let data = viewModel.repository.fetchBookmark() else { return }
+			viewModel.outputBookmarks.value = Array(data).map { $0.toStruct() }
+
 		} else {
 
 			viewModel.filterBookmarks(by: CityCode.allCases[sender.tag - 1])
@@ -256,7 +253,7 @@ final class BookmarkViewController: BaseViewController {
 	}
 
 
-	private func updateMapView(with bookmarks: [BookmarkRealmModel]) {
+	private func updateMapView(with bookmarks: [Bookmark]) {
 
 		if let myLocation = viewModel.inputMyLocation.value {
 			let annontation = MKPointAnnotation()
@@ -297,16 +294,17 @@ final class BookmarkViewController: BaseViewController {
 	}
 
 	private func configureDataSource() {
+		print(#function)
 
 		let cellRegistration = UICollectionView.CellRegistration<ResultCollectionViewCell, Bookmark> { (cell, indexPath, identifier) in
 			cell.updateUIInBookmarkVC(identifier)
 
-			cell.bookmarkButton.tag = indexPath.item
 			cell.bookmarkButton.addTarget(self, action: #selector(self.bookmarkButtonClicked), for: .touchUpInside)
 			cell.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-			
-			cell.mapButton.tag = indexPath.item
+			cell.bookmarkButton.accessibilityIdentifier = identifier.contentid
+
 			cell.mapButton.addTarget(self, action: #selector(self.mapButtonClicked), for: .touchUpInside)
+			cell.mapButton.accessibilityIdentifier = identifier.contentid
 
 		}
 
@@ -320,47 +318,33 @@ final class BookmarkViewController: BaseViewController {
 	private func updateSnapshot() {
 		var snapshot = NSDiffableDataSourceSnapshot<Section, Bookmark>()
 
-//		if dataSource != nil {
-//			snapshot.deleteAllItems()
-//			dataSource.apply(snapshot, animatingDifferences: true)
-//		}
-
 		snapshot.appendSections([.main])
-		let bookmarks = Array(viewModel.repository.fetchBookmark2()).map { $0.toStruct() }
 
-//		let bookmarks = viewModel.outputBookmarks.value.map { $0.tost} ?? []
+		let bookmarks = viewModel.outputBookmarks.value ?? []
 
 		snapshot.appendItems(bookmarks, toSection: .main)
 
 		dataSource.apply(snapshot, animatingDifferences: true) //reloadData
-//		self.updateMapView(with: bookmarks)
-
-		//realm과 결합할 때, 삭제 할때 스냅샷이 안먹힐때
-//				dataSource.applySnapshotUsingReloadData(snapshot)
+		self.updateMapView(with: bookmarks)
 
 		noBookmarksLabel.isHidden = !bookmarks.isEmpty
 		  bookmarkCollectionView.isHidden = bookmarks.isEmpty
+
 	}
 
 
 	@objc private func bookmarkButtonClicked(_ sender: UIButton) {
-		SVProgressHUD.show()
 
+		viewModel.repository.deleteBookmarkInBookmarkView(contentId: sender.accessibilityIdentifier ?? "")
 
-//		print(Array(viewModel.outputBookmarks.value ?? [])[sender.tag])
-
-		viewModel.repository.deleteBookmarkInBookmarkView(data: Array(viewModel.outputBookmarks.value ?? [])[sender.tag])
-
-
-
-
-
-		SVProgressHUD.dismiss(withDelay: 0.2)
 	}
 
 	@objc private func mapButtonClicked(_ sender: UIButton) {
-		guard let bookmark = viewModel.outputBookmarks.value?[sender.tag] else { return }
+		guard let identifier = sender.accessibilityIdentifier else { return }
+		 guard let bookmarks = viewModel.outputBookmarks.value else { return }
 
+		 guard let bookmark = bookmarks.first(where: { $0.contentid == identifier }) else { return }
+		
 		if let latitude = Double(bookmark.mapy),
 		   let longitude = Double(bookmark.mapx) {
 			let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)

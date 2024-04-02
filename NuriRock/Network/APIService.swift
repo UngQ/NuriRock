@@ -12,21 +12,25 @@ final class APIService {
 
 	static let shared = APIService()
 
-	private init() {}
+	let session: Alamofire.Session
+
+
+	private init() {
+		let configuration = URLSessionConfiguration.default
+			  configuration.timeoutIntervalForRequest = 2 // Adjust according to your needs
+			  configuration.timeoutIntervalForResource = 2
+
+			  session = Alamofire.Session(configuration: configuration)
+	}
 
 	
 
 	func request<T: Decodable>(type: T.Type, api: API, retryCount: Int = 2, completionHandler: @escaping (T?, AFError?) -> Void) {
 
-		let sessionManager = Session.default
-		sessionManager.sessionConfiguration.timeoutIntervalForRequest = 2 // 요청에 대한 타임아웃을 2초로 설정
-		sessionManager.sessionConfiguration.timeoutIntervalForResource = 2 // 리소스를 받는 데 대한 타임아웃을 2초로 설정
-
-
-		sessionManager.request(api.endPoint,
-				   method: api.method,
-				   parameters: api.parameter,
-				   encoding: api.encoding).responseDecodable(of: T.self) { response in
+		session.request(api.endPoint,
+					 method: api.method,
+					 parameters: api.parameter,
+					 encoding: api.encoding).responseDecodable(of: T.self) { response in
 			switch response.result {
 			case .success(let success):
 				print("네트워크 통신 성공!")
@@ -35,7 +39,7 @@ final class APIService {
 				print("에러")
 				if retryCount > 0 {
 
-					DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+					DispatchQueue.main.asyncAfter(deadline: .now()) {
 						self.request(type: type, api: api, retryCount: retryCount - 1, completionHandler: completionHandler)
 						print(retryCount)
 					}

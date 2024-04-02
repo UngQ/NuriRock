@@ -69,17 +69,13 @@ final class BookmarkRepository {
 		}
 	}
 
-	func fetchBookmark2() -> Results<BookmarkRealmModel> {
-		let result = realm!.objects(BookmarkRealmModel.self) //.sorted(byKeyPath: "date", ascending: false)
+	func fetchBookmark() -> Results<BookmarkRealmModel>? {
+
+		guard let realm = realm else { return nil }
+		let result = realm.objects(BookmarkRealmModel.self) //.sorted(byKeyPath: "date", ascending: false)
 		return result
 	}
 
-
-	func fetchBookmark() -> [BookmarkRealmModel] {
-		guard let realm = realm else { return [] }
-		let result = realm.objects(BookmarkRealmModel.self) //.sorted(byKeyPath: "date", ascending: false)
-		return Array(result)
-	}
 
 	func addBookmark(id: String, completionHandler: @escaping ((Bool) -> Void))  {
 		
@@ -168,13 +164,13 @@ final class BookmarkRepository {
 
 	}
 
-	func deleteBookmarkInBookmarkView(data: BookmarkRealmModel) {
+	func deleteBookmarkInBookmarkView(contentId: String) {
 
 		guard let realm = realm else { return }
 
 
 
-		guard let object = realm.object(ofType: BookmarkRealmModel.self, forPrimaryKey: data.contentid) else { return }
+		guard let object = realm.object(ofType: BookmarkRealmModel.self, forPrimaryKey: contentId) else { return }
 
 		do {
 			try realm.write {
