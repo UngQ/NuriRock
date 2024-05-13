@@ -56,6 +56,12 @@
 		A5D5DD632B9DDC8F007F9935 /* BottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */; };
 		A5D5DD662B9E7D76007F9935 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD652B9E7D76007F9935 /* DateFormatter.swift */; };
 		A5D5DD6B2B9F38EF007F9935 /* CityCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5DD6A2B9F38EF007F9935 /* CityCode.swift */; };
+		A5EACBEA2BF25FD90000BDA2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EACBE92BF25FD90000BDA2 /* WidgetKit.framework */; };
+		A5EACBEC2BF25FD90000BDA2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EACBEB2BF25FD90000BDA2 /* SwiftUI.framework */; };
+		A5EACBEF2BF25FD90000BDA2 /* NuriRockWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EACBEE2BF25FD90000BDA2 /* NuriRockWidgetBundle.swift */; };
+		A5EACBF12BF25FD90000BDA2 /* NuriRockWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EACBF02BF25FD90000BDA2 /* NuriRockWidget.swift */; };
+		A5EACBF32BF25FDA0000BDA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5EACBF22BF25FDA0000BDA2 /* Assets.xcassets */; };
+		A5EACBF72BF25FDA0000BDA2 /* NuriRockWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A5EACBE72BF25FD90000BDA2 /* NuriRockWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A5ED2E8D2B99837800BB0E9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */; };
 		A5ED2E8F2B99837800BB0E9C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */; };
 		A5ED2E912B99837800BB0E9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED2E902B99837800BB0E9C /* ViewController.swift */; };
@@ -79,6 +85,30 @@
 		A5EFCD862BAABE7F002894D2 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EFCD852BAABE7F002894D2 /* BookmarkRepository.swift */; };
 		A5EFCD882BAABEE2002894D2 /* BookmarkRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EFCD872BAABEE2002894D2 /* BookmarkRealmModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A5EACBF52BF25FDA0000BDA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A5ED2E812B99837800BB0E9C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5EACBE62BF25FD90000BDA2;
+			remoteInfo = NuriRockWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A5EACBF82BF25FDA0000BDA2 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A5EACBF72BF25FDA0000BDA2 /* NuriRockWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A5048B202BAB3262004D9516 /* IndexedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedButton.swift; sourceTree = "<group>"; };
@@ -120,6 +150,13 @@
 		A5D5DD622B9DDC8F007F9935 /* BottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCollectionViewCell.swift; sourceTree = "<group>"; };
 		A5D5DD652B9E7D76007F9935 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		A5D5DD6A2B9F38EF007F9935 /* CityCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCode.swift; sourceTree = "<group>"; };
+		A5EACBE72BF25FD90000BDA2 /* NuriRockWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NuriRockWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5EACBE92BF25FD90000BDA2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		A5EACBEB2BF25FD90000BDA2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A5EACBEE2BF25FD90000BDA2 /* NuriRockWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuriRockWidgetBundle.swift; sourceTree = "<group>"; };
+		A5EACBF02BF25FD90000BDA2 /* NuriRockWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuriRockWidget.swift; sourceTree = "<group>"; };
+		A5EACBF22BF25FDA0000BDA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A5EACBF42BF25FDA0000BDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5ED2E892B99837800BB0E9C /* NuriRock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuriRock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5ED2E8C2B99837800BB0E9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5ED2E8E2B99837800BB0E9C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +193,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A5EACBE42BF25FD90000BDA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5EACBEC2BF25FD90000BDA2 /* SwiftUI.framework in Frameworks */,
+				A5EACBEA2BF25FD90000BDA2 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5ED2E862B99837800BB0E9C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -345,11 +391,33 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		A5EACBE82BF25FD90000BDA2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5EACBE92BF25FD90000BDA2 /* WidgetKit.framework */,
+				A5EACBEB2BF25FD90000BDA2 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A5EACBED2BF25FD90000BDA2 /* NuriRockWidget */ = {
+			isa = PBXGroup;
+			children = (
+				A5EACBEE2BF25FD90000BDA2 /* NuriRockWidgetBundle.swift */,
+				A5EACBF02BF25FD90000BDA2 /* NuriRockWidget.swift */,
+				A5EACBF22BF25FDA0000BDA2 /* Assets.xcassets */,
+				A5EACBF42BF25FDA0000BDA2 /* Info.plist */,
+			);
+			path = NuriRockWidget;
+			sourceTree = "<group>";
+		};
 		A5ED2E802B99837800BB0E9C = {
 			isa = PBXGroup;
 			children = (
 				A5ED2EA02B9985FD00BB0E9C /* .gitignore */,
 				A5ED2E8B2B99837800BB0E9C /* NuriRock */,
+				A5EACBED2BF25FD90000BDA2 /* NuriRockWidget */,
+				A5EACBE82BF25FD90000BDA2 /* Frameworks */,
 				A5ED2E8A2B99837800BB0E9C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -358,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				A5ED2E892B99837800BB0E9C /* NuriRock.app */,
+				A5EACBE72BF25FD90000BDA2 /* NuriRockWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -465,6 +534,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A5EACBE62BF25FD90000BDA2 /* NuriRockWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5EACBFB2BF25FDA0000BDA2 /* Build configuration list for PBXNativeTarget "NuriRockWidgetExtension" */;
+			buildPhases = (
+				A5EACBE32BF25FD90000BDA2 /* Sources */,
+				A5EACBE42BF25FD90000BDA2 /* Frameworks */,
+				A5EACBE52BF25FD90000BDA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NuriRockWidgetExtension;
+			productName = NuriRockWidgetExtension;
+			productReference = A5EACBE72BF25FD90000BDA2 /* NuriRockWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		A5ED2E882B99837800BB0E9C /* NuriRock */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5ED2E9D2B99837900BB0E9C /* Build configuration list for PBXNativeTarget "NuriRock" */;
@@ -472,10 +558,12 @@
 				A5ED2E852B99837800BB0E9C /* Sources */,
 				A5ED2E862B99837800BB0E9C /* Frameworks */,
 				A5ED2E872B99837800BB0E9C /* Resources */,
+				A5EACBF82BF25FDA0000BDA2 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A5EACBF62BF25FDA0000BDA2 /* PBXTargetDependency */,
 			);
 			name = NuriRock;
 			packageProductDependencies = (
@@ -503,9 +591,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					A5EACBE62BF25FD90000BDA2 = {
+						CreatedOnToolsVersion = 15.3;
+					};
 					A5ED2E882B99837800BB0E9C = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -540,11 +631,20 @@
 			projectRoot = "";
 			targets = (
 				A5ED2E882B99837800BB0E9C /* NuriRock */,
+				A5EACBE62BF25FD90000BDA2 /* NuriRockWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A5EACBE52BF25FD90000BDA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5EACBF32BF25FDA0000BDA2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5ED2E872B99837800BB0E9C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -562,6 +662,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A5EACBE32BF25FD90000BDA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5EACBF12BF25FD90000BDA2 /* NuriRockWidget.swift in Sources */,
+				A5EACBEF2BF25FD90000BDA2 /* NuriRockWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5ED2E852B99837800BB0E9C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -623,6 +732,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A5EACBF62BF25FDA0000BDA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5EACBE62BF25FD90000BDA2 /* NuriRockWidgetExtension */;
+			targetProxy = A5EACBF52BF25FDA0000BDA2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		A5ED2E922B99837800BB0E9C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -653,6 +770,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A5EACBF92BF25FDA0000BDA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VRPU7TR7JK;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NuriRockWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NuriRockWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ungQ.NuriRock.NuriRockWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A5EACBFA2BF25FDA0000BDA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VRPU7TR7JK;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NuriRockWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NuriRockWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ungQ.NuriRock.NuriRockWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		A5ED2E9B2B99837900BB0E9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -777,6 +950,7 @@
 		A5ED2E9E2B99837900BB0E9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = NuriRock/NuriRock.entitlements;
@@ -814,6 +988,7 @@
 		A5ED2E9F2B99837900BB0E9C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = NuriRock/NuriRock.entitlements;
@@ -851,6 +1026,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A5EACBFB2BF25FDA0000BDA2 /* Build configuration list for PBXNativeTarget "NuriRockWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5EACBF92BF25FDA0000BDA2 /* Debug */,
+				A5EACBFA2BF25FDA0000BDA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A5ED2E842B99837800BB0E9C /* Build configuration list for PBXProject "NuriRock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

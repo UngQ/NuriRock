@@ -74,7 +74,8 @@ final class TabManViewController: TabmanViewController {
 
 		bar.indicator.weight = .custom(value: 2)
 		bar.indicator.tintColor = .text
-		bar.indicator.overscrollBehavior = .none
+		bar.indicator.overscrollBehavior = .compress
+		bar.layout.alignment = .leading
 
 		addBar(bar, dataSource: self, at: .custom(view: baseView, layout: nil))
 
